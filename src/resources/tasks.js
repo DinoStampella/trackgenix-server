@@ -17,20 +17,22 @@ router.post('/add', (req, res) => {
     taskName,
     description: taskDescription,
   };
+
   if (!taskName && !taskDescription) {
-    res.send('Not exist name and description');
+    res.status(400).send('You must add name and description');
   } else if (!taskName) {
-    res.send('Not exist name');
+    res.status(400).send('You must add a name');
   } else if (!taskDescription) {
-    res.send('Not exist description');
+    res.status(400).send('You must add a description');
   } else {
     tasks.push(newTask);
   }
+
   fs.writeFile('src/data/tasks.json', JSON.stringify(tasks), (err) => {
     if (err) {
-      res.send('Cannot save new task');
+      res.status(500).send('Cannot save new task');
     } else {
-      res.send('User Created');
+      res.status(201).send('User Created');
     }
   });
 });
