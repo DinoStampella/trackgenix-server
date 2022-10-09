@@ -1,0 +1,152 @@
+[
+    {
+        "id": 1,
+        "projectName": "Conn and Sons",
+        "description": "urna pretium nisl ut",
+        "startDate": "02/15/2022",
+        "endDate": "5/28/2022",
+        "status": "active",
+        "teamMembers": [
+            {
+                "id": 1,
+                "role": "PM",
+                "rate": "$10.51"
+            },
+            {
+                "id": 2,
+                "role": "QA",
+                "rate": "$22.87"
+            },
+            {
+                "id": 3,
+                "role": "DEV",
+                "rate": "$60.05"
+            },
+            {
+                "id": 4,
+                "role": "DEV",
+                "rate": "$91.59"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "projectName": "Auer and Sons",
+        "description": "pulvinar nulla pede ullamcorper augue",
+        "startDate": "07/19/2022",
+        "endDate": "11/16/2021",
+        "status": "paused",
+        "teamMembers": [
+            {
+                "id": 1,
+                "role": "PM",
+                "rate": "$75.55"
+            },
+            {
+                "id": 2,
+                "role": "DEV",
+                "rate": "$72.88"
+            },
+            {
+                "id": 3,
+                "role": "QA",
+                "rate": "$56.57"
+            },
+            {
+                "id": 4,
+                "role": "DEV",
+                "rate": "$92.10"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "projectName": "Beahan, Feeney and O'Reilly",
+        "description": "mus vivamus vestibulum",
+        "startDate": "07/19/2022",
+        "endDate": "2/3/2022",
+        "status": "active",
+        "teamMembers": [
+            {
+                "id": 1,
+                "role": "QA",
+                "rate": "$71.94"
+            },
+            {
+                "id": 2,
+                "role": "TL",
+                "rate": "$64.46"
+            },
+            {
+                "id": 3,
+                "role": "TL",
+                "rate": "$90.29"
+            },
+            {
+                "id": 4,
+                "role": "DEV",
+                "rate": "$16.52"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "projectName": "Auer Group",
+        "description": "ante nulla justo aliquam quis",
+        "startDate": "10/24/2021",
+        "endDate": "9/21/2022",
+        "status": "finished",
+        "teamMembers": [
+            {
+                "id": 1,
+                "role": "PM",
+                "rate": "$71.90"
+            },
+            {
+                "id": 2,
+                "role": "QA",
+                "rate": "$91.49"
+            },
+            {
+                "id": 3,
+                "role": "QA",
+                "rate": "$74.89"
+            },
+            {
+                "id": 4,
+                "role": "DEV",
+                "rate": "$98.52"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "projectName": "Wiza, Kassulke and Schuppe",
+        "description": "hac habitasse platea dictumst",
+        "startDate": "12/02/2021",
+        "endDate": "3/10/2022",
+        "status": "paused",
+        "teamMembers": [
+            {
+                "id": 1,
+                "role": "PM",
+                "rate": "$70.77"
+            },
+            {
+                "id": 2,
+                "role": "DEV",
+                "rate": "$44.94"
+            },
+            {
+                "id": 3,
+                "role": "DEV",
+                "rate": "$6.18"
+            },
+            {
+                "id": 4,
+                "role": "TL",
+                "rate": "$28.61"
+            }
+        ]
+    }
+]
