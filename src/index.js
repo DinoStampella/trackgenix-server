@@ -6,12 +6,10 @@ const admins = require('./data/admins.json');
 
 const app = express();
 const port = process.env.PORT || 3000;
+const timeSheetsRouter = require('./resources/time-sheets');
 
 app.use(express.json());
-
-app.get('/', async (req, res) => {
-  res.send('Hello World!');
-});
+app.use('/time-sheets', timeSheetsRouter);
 
 app.get('/admins', (req, res) => {
   res.status(200).json({
