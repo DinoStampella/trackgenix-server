@@ -5,6 +5,8 @@ import express from 'express';
 const admins = require('./data/admins.json');
 
 const app = express();
+const adminsRouter = require('./resources/admins');
+
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -18,6 +20,8 @@ app.get('/admins', (req, res) => {
     data: admins,
   });
 });
+
+app.use('/admins', adminsRouter);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
