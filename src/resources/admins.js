@@ -8,7 +8,10 @@ router.put('/update/:id', (req, res) => {
   const adminId = req.params.id;
   const adminToUpdate = admins.find((admin) => admin.id === adminId);
   if (!adminToUpdate) {
-    res.send('Admin not found');
+    res.status(404).json({
+      success: false,
+      msg: 'There is no Admin with this id',
+    });
   } else {
     if (req.body.first_name) {
       adminToUpdate.first_name = req.body.first_name;
@@ -30,9 +33,14 @@ router.put('/update/:id', (req, res) => {
       JSON.stringify(admins, null, 2),
       (err) => {
         if (err) {
-          res.send('Cannot update Admin');
+          res.status(400).json({
+            success: false,
+          });
         } else {
-          res.send('Admin updated');
+          res.status(200).json({
+            success: true,
+            msg: 'Admin modified successfully',
+          });
         }
       },
     );
@@ -41,18 +49,31 @@ router.put('/update/:id', (req, res) => {
 
 router.delete('/delete/:id', (req, res) => {
   const adminId = req.params.id;
+  const adminToDelete = admins.find((admin) => admin.id === adminId);
   const filteredAdmins = admins.filter((admin) => admin.id !== adminId);
-  fs.writeFile(
-    'src/data/admins.json',
-    JSON.stringify(filteredAdmins, null, 2),
-    (err) => {
-      if (err) {
-        res.send('Cannot delete Admin');
-      } else {
-        res.send('Admin deleted');
-      }
-    },
-  );
+  if (adminToDelete) {
+    fs.writeFile(
+      'src/data/admins.json',
+      JSON.stringify(filteredAdmins, null, 2),
+      (err) => {
+        if (err) {
+          res.status(400).json({
+            success: false,
+          });
+        } else {
+          res.status(200).json({
+            success: true,
+            msg: 'Admin deleted successfully',
+          });
+        }
+      },
+    );
+  } else {
+    res.status(404).json({
+      success: false,
+      msg: 'There is no Admin with this id',
+    });
+  }
 });
 
 module.exports = router;
