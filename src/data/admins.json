@@ -1,6 +1,82 @@
-{
-    "name": "esteban",
-    "lastName": "frare",
-    "email": "esteban.frare@radiumrocket.com"
-
-}
+[
+    {
+      "id": 1,
+      "first_name": "Sal",
+      "last_name": "Barthorpe",
+      "email": "sbarthorpe0@paginegialle.it",
+      "password": "4w7evpDek",
+      "user_name": "sbarthorpe0"
+    },
+    {
+      "id": 2,
+      "first_name": "Keen",
+      "last_name": "Standfield",
+      "email": "kstandfield1@mozilla.org",
+      "password": "oObV4qVNM",
+      "user_name": "kstandfield1"
+    },
+    {
+      "id": 3,
+      "first_name": "Consalve",
+      "last_name": "Cartin",
+      "email": "ccartin2@cbslocal.com",
+      "password": "MmEVRrft15QO",
+      "user_name": "ccartin2"
+    },
+    {
+      "id": 4,
+      "first_name": "Brook",
+      "last_name": "Ghidelli",
+      "email": "bghidelli3@europa.eu",
+      "password": "2Wu9oz",
+      "user_name": "bghidelli3"
+    },
+    {
+      "id": 5,
+      "first_name": "Megen",
+      "last_name": "Wheadon",
+      "email": "mwheadon4@redcross.org",
+      "password": "j8EEVw2mtpF",
+      "user_name": "mwheadon4"
+    },
+    {
+      "id": 6,
+      "first_name": "Janifer",
+      "last_name": "Rickerd",
+      "email": "jrickerd5@dedecms.com",
+      "password": "y8y5LmhJC0",
+      "user_name": "jrickerd5"
+    },
+    {
+      "id": 7,
+      "first_name": "Dwain",
+      "last_name": "Bader",
+      "email": "dbader6@irs.gov",
+      "password": "prcwiujb7e3S",
+      "user_name": "dbader6"
+    },
+    {
+      "id": 8,
+      "first_name": "Adolph",
+      "last_name": "Denzilow",
+      "email": "adenzilow7@china.com.cn",
+      "password": "F83PP7R",
+      "user_name": "adenzilow7"
+    },
+    {
+      "id": 9,
+      "first_name": "Ediva",
+      "last_name": "Camock",
+      "email": "ecamock8@fda.gov",
+      "password": "RlXSYGsAiY",
+      "user_name": "ecamock8"
+    },
+    {
+      "id": 10,
+      "first_name": "Charis",
+      "last_name": "Sobieski",
+      "email": "csobieski9@gnu.org",
+      "password": "rFjwIeNA",
+      "user_name": "csobieski9"
+    }
+]
