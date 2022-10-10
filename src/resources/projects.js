@@ -4,34 +4,40 @@ const fs = require('fs');
 const router = express.Router();
 router.use(express.urlencoded({extended: false}));
 
-
 router.post('/post/', (req, res) => {
-    const newProject = req.body;
-    projects.push(newProject);
     let errors = "";
-    projects.forEach(function(proj, index){
-        if(newProject.id && newProject.id == index){
-           return res.send("A project with this id already exists");
-        };
-    });
-    function checkData(data, err){errors = data ? errors : errors += err;}
-    newProject.id = newProject.id ? newProject.id.toString() : projects.length.toString();
-    checkData(newProject.projectName, "Project needs a name. ")
-    checkData(newProject.description, "Project needs a description. ")
-    checkData(newProject.startDate, "Project needs a start date. ")
+    let newProject = req.body;
+    newProject.id = (projects.length + 1).toString();
+    projects.push(newProject);
+    function checkData(data, err){
+        console.log(newProject[data]);
+        newProject[data] ? errors : (errors += err);
+    };
+    checkData("projectName", "Project needs a name. ")
+    checkData("description", "Project needs a description. ")
+    checkData("startDate", "Project needs a start date. ")
     newProject.status = newProject.endDate ? newProject.status : "active";
-    checkData(newProject.status, "Project needs a status. ")
+    checkData("status", "Project needs a status. ")
     if(errors == ""){
-        fs.writeFile("./src/data/projects.json", JSON.stringify(projects), (err) => {
+        fs.writeFile("./src/data/projects.json", JSON.stringify(projects, null, 2), (err) => {
             if (err) {
                 console.log(err);
-                return res.send("Could not save new project."); 
+                return res.status(400).json({
+                    success: false,
+                }); 
             };
-            res.send(`Project saved successfully:\n ${JSON.stringify(newProject)}`);
-        });
+            res.status(201).json({
+                success: true,
+                msg: "Project created successfully",
+                data: newProject
+            });
+        })
     }
     else{
-        res.send(`Errors: ${errors}`);
+        res.status(400).json({
+            success: false,
+            msg: errors
+        });
     };  
 });
 
@@ -40,16 +46,24 @@ router.delete("/delete/:id", (req, res) => {
     const filteredProject = projects.filter(projects => projects.id !== projectId);
     const projectExists = projects.filter(projects => projects.id == projectId);
     if(projectExists[0]){
-        fs.writeFile("./src/data/projects.json", JSON.stringify(filteredProject), (err) => {
+        fs.writeFile("./src/data/projects.json", JSON.stringify(filteredProject, null, 2), (err) => {
             if (err) {
                 console.log(err);
-                return res.send("Could not delete project.");
+                return res.status(400).json({
+                    success: false,
+                });
             };
-            res.send("Project deleted successfully:");
+            res.status(200).json({
+                succes: true,
+                msg: `Project deleted successfully`
+            });
         });
     }
     else{
-        return res.send("There isn't a project with the requested id");
+        res.status(404).json({
+            success: false,
+            msg: "There is no project with this id"
+        });
     };
 });
 
