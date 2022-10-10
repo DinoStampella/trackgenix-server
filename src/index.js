@@ -2,7 +2,6 @@
 import express from 'express';
 
 // use "require" to import JSON files
-const admins = require('./data/admins.json');
 const projects = require('./resources/projects');
 const tasks = require('./resources/tasks');
 
@@ -15,16 +14,8 @@ app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/admins', (req, res) => {
-  res.status(200).json({
-    data: admins,
-  });
-});
-
 app.use('/projects', projects);
 app.use('/tasks', tasks);
 
 app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Example app listening on port ${port}`);
 });

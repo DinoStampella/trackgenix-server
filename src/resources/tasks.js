@@ -9,21 +9,23 @@ router.delete('/delete/:id', (req, res) => {
   const foundTasks = tasksList.find((tasks) => tasks.id === taskId);
   if (!foundTasks) {
     res.status(404).json({
-      response: 'error',
-      msg: 'task not found',
+      succes: false,
+      msg: 'There is not task found',
+      data: '',
     });
     return;
   }
+
   const filteredTasks = tasksList.filter((tasks) => tasks.id !== taskId);
-  fs.writeFile('src/data/tasks.json', JSON.stringify(filteredTasks), (err) => {
+  fs.writeFile('src/data/tasks.json', JSON.stringify(filteredTasks, null, 2), (err) => {
     if (err) {
-      res.status(204).json({
-        response: 'error',
-        msg: 'can not write tasks file',
+      res.status(400).json({
+        succes: false,
+        msg: 'Can not write tasks file',
       });
     } else {
       res.status(200).json({
-        response: 'ok',
+        succes: true,
         msg: '',
       });
     }

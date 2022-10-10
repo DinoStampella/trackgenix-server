@@ -1,151 +1,351 @@
 [
     {
         "id": 1,
-        "projectName": "Conn and Sons",
-        "description": "urna pretium nisl ut",
-        "startDate": "02/15/2022",
-        "endDate": "5/28/2022",
-        "status": "active",
+        "projectName": "Andalax",
+        "description": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.\n\nIn sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.\n\nSuspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
+        "stardDate": "9/24/2022",
+        "endDate": "11/3/2021",
+        "status": "PAUSED",
         "teamMembers": [
             {
                 "id": 1,
-                "role": "PM",
-                "rate": "$10.51"
+                "rol": "TL",
+                "rate": "$2.04"
             },
             {
                 "id": 2,
-                "role": "QA",
-                "rate": "$22.87"
+                "rol": "PM",
+                "rate": "$4.56"
             },
             {
                 "id": 3,
-                "role": "DEV",
-                "rate": "$60.05"
+                "rol": "PM",
+                "rate": "$10.00"
             },
             {
                 "id": 4,
-                "role": "DEV",
-                "rate": "$91.59"
+                "rol": "QA",
+                "rate": "$1.22"
+            },
+            {
+                "id": 5,
+                "rol": "TL",
+                "rate": "$3.39"
             }
         ]
     },
     {
         "id": 2,
-        "projectName": "Auer and Sons",
-        "description": "pulvinar nulla pede ullamcorper augue",
-        "startDate": "07/19/2022",
-        "endDate": "11/16/2021",
-        "status": "paused",
+        "projectName": "Latlux",
+        "description": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
+        "stardDate": "8/8/2022",
+        "endDate": "7/19/2022",
+        "status": "FINISHED",
         "teamMembers": [
             {
                 "id": 1,
-                "role": "PM",
-                "rate": "$75.55"
+                "rol": "QA",
+                "rate": "$5.60"
             },
             {
                 "id": 2,
-                "role": "DEV",
-                "rate": "$72.88"
+                "rol": "TL",
+                "rate": "$8.30"
             },
             {
                 "id": 3,
-                "role": "QA",
-                "rate": "$56.57"
+                "rol": "TL",
+                "rate": "$8.93"
             },
             {
                 "id": 4,
-                "role": "DEV",
-                "rate": "$92.10"
+                "rol": "QA",
+                "rate": "$5.95"
+            },
+            {
+                "id": 5,
+                "rol": "DEV",
+                "rate": "$7.00"
             }
         ]
     },
     {
         "id": 3,
-        "projectName": "Beahan, Feeney and O'Reilly",
-        "description": "mus vivamus vestibulum",
-        "startDate": "07/19/2022",
-        "endDate": "2/3/2022",
-        "status": "active",
+        "projectName": "Matsoft",
+        "description": "Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
+        "stardDate": "9/11/2022",
+        "endDate": "9/13/2022",
+        "status": "FINISHED",
         "teamMembers": [
             {
                 "id": 1,
-                "role": "QA",
-                "rate": "$71.94"
+                "rol": "PM",
+                "rate": "$0.46"
             },
             {
                 "id": 2,
-                "role": "TL",
-                "rate": "$64.46"
+                "rol": "TL",
+                "rate": "$9.23"
             },
             {
                 "id": 3,
-                "role": "TL",
-                "rate": "$90.29"
+                "rol": "PM",
+                "rate": "$9.55"
             },
             {
                 "id": 4,
-                "role": "DEV",
-                "rate": "$16.52"
+                "rol": "QA",
+                "rate": "$1.70"
+            },
+            {
+                "id": 5,
+                "rol": "TL",
+                "rate": "$6.75"
             }
         ]
     },
     {
         "id": 4,
-        "projectName": "Auer Group",
-        "description": "ante nulla justo aliquam quis",
-        "startDate": "10/24/2021",
-        "endDate": "9/21/2022",
-        "status": "finished",
+        "projectName": "Duobam",
+        "description": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
+        "stardDate": "1/2/2022",
+        "endDate": "1/10/2022",
+        "status": "FINISHED",
         "teamMembers": [
             {
                 "id": 1,
-                "role": "PM",
-                "rate": "$71.90"
+                "rol": "DEV",
+                "rate": "$8.03"
             },
             {
                 "id": 2,
-                "role": "QA",
-                "rate": "$91.49"
+                "rol": "TL",
+                "rate": "$8.58"
             },
             {
                 "id": 3,
-                "role": "QA",
-                "rate": "$74.89"
+                "rol": "PM",
+                "rate": "$4.82"
             },
             {
                 "id": 4,
-                "role": "DEV",
-                "rate": "$98.52"
+                "rol": "QA",
+                "rate": "$1.49"
+            },
+            {
+                "id": 5,
+                "rol": "DEV",
+                "rate": "$2.28"
             }
         ]
     },
     {
         "id": 5,
-        "projectName": "Wiza, Kassulke and Schuppe",
-        "description": "hac habitasse platea dictumst",
-        "startDate": "12/02/2021",
-        "endDate": "3/10/2022",
-        "status": "paused",
+        "projectName": "Daltfresh",
+        "description": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+        "stardDate": "6/21/2022",
+        "endDate": "3/30/2022",
+        "status": "ACTIVE",
         "teamMembers": [
             {
                 "id": 1,
-                "role": "PM",
-                "rate": "$70.77"
+                "rol": "TL",
+                "rate": "$0.01"
             },
             {
                 "id": 2,
-                "role": "DEV",
-                "rate": "$44.94"
+                "rol": "TL",
+                "rate": "$9.37"
             },
             {
                 "id": 3,
-                "role": "DEV",
-                "rate": "$6.18"
+                "rol": "QA",
+                "rate": "$7.36"
             },
             {
                 "id": 4,
-                "role": "TL",
-                "rate": "$28.61"
+                "rol": "QA",
+                "rate": "$7.23"
+            },
+            {
+                "id": 5,
+                "rol": "DEV",
+                "rate": "$6.05"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "projectName": "Voyatouch",
+        "description": "Phasellus in felis. Donec semper sapien a libero. Nam dui.",
+        "stardDate": "3/5/2022",
+        "endDate": "5/17/2022",
+        "status": "PAUSED",
+        "teamMembers": [
+            {
+                "id": 1,
+                "rol": "TL",
+                "rate": "$6.72"
+            },
+            {
+                "id": 2,
+                "rol": "TL",
+                "rate": "$2.91"
+            },
+            {
+                "id": 3,
+                "rol": "TL",
+                "rate": "$1.71"
+            },
+            {
+                "id": 4,
+                "rol": "PM",
+                "rate": "$7.77"
+            },
+            {
+                "id": 5,
+                "rol": "DEV",
+                "rate": "$0.76"
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "projectName": "Cookley",
+        "description": "In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.\n\nNulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.\n\nCras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
+        "stardDate": "1/20/2022",
+        "endDate": "9/6/2022",
+        "status": "ACTIVE",
+        "teamMembers": [
+            {
+                "id": 1,
+                "rol": "TL",
+                "rate": "$1.51"
+            },
+            {
+                "id": 2,
+                "rol": "TL",
+                "rate": "$1.83"
+            },
+            {
+                "id": 3,
+                "rol": "PM",
+                "rate": "$0.96"
+            },
+            {
+                "id": 4,
+                "rol": "DEV",
+                "rate": "$4.34"
+            },
+            {
+                "id": 5,
+                "rol": "TL",
+                "rate": "$5.03"
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "projectName": "Y-find",
+        "description": "Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.\n\nNullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
+        "stardDate": "6/11/2022",
+        "endDate": "3/29/2022",
+        "status": "PAUSED",
+        "teamMembers": [
+            {
+                "id": 1,
+                "rol": "TL",
+                "rate": "$4.68"
+            },
+            {
+                "id": 2,
+                "rol": "PM",
+                "rate": "$2.39"
+            },
+            {
+                "id": 3,
+                "rol": "QA",
+                "rate": "$6.47"
+            },
+            {
+                "id": 4,
+                "rol": "TL",
+                "rate": "$7.51"
+            },
+            {
+                "id": 5,
+                "rol": "DEV",
+                "rate": "$0.40"
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "projectName": "Y-find",
+        "description": "In congue. Etiam justo. Etiam pretium iaculis justo.\n\nIn hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.",
+        "stardDate": "8/14/2022",
+        "endDate": "4/30/2022",
+        "status": "FINISHED",
+        "teamMembers": [
+            {
+                "id": 1,
+                "rol": "QA",
+                "rate": "$0.17"
+            },
+            {
+                "id": 2,
+                "rol": "TL",
+                "rate": "$8.53"
+            },
+            {
+                "id": 3,
+                "rol": "PM",
+                "rate": "$0.55"
+            },
+            {
+                "id": 4,
+                "rol": "TL",
+                "rate": "$8.21"
+            },
+            {
+                "id": 5,
+                "rol": "QA",
+                "rate": "$4.16"
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "projectName": "Sonsing",
+        "description": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.\n\nFusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.\n\nSed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
+        "stardDate": "9/26/2022",
+        "endDate": "9/18/2022",
+        "status": "ACTIVE",
+        "teamMembers": [
+            {
+                "id": 1,
+                "rol": "PM",
+                "rate": "$7.65"
+            },
+            {
+                "id": 2,
+                "rol": "QA",
+                "rate": "$7.97"
+            },
+            {
+                "id": 3,
+                "rol": "TL",
+                "rate": "$5.66"
+            },
+            {
+                "id": 4,
+                "rol": "PM",
+                "rate": "$0.92"
+            },
+            {
+                "id": 5,
+                "rol": "QA",
+                "rate": "$6.49"
             }
         ]
     }
