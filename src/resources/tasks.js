@@ -10,7 +10,7 @@ router.get('/getById/:id', (req, res) => {
   if (foundTask) {
     res.send(foundTask);
   } else {
-    res.status(404).send('Task not found');
+    res.status(404).send('{success: false,msg: "Task not found"}');
   }
 });
 
