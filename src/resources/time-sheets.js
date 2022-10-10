@@ -52,38 +52,35 @@ router.put('/put/:id', (req, res) => {
 });
 
 router.delete('/delete/:id', (req, res) => {
-    const timesheetsId = req.params.id;
-    const deleteTimesheet = timeSheets.find((element) => element.id === timesheetsId);
-    if (!deleteTimesheet) {
-        res.status(404).json({
-          success: false,
-          msg: 'There is no Timesheet with this id',
+  const timesheetsId = req.params.id;
+  const deleteTimesheet = timeSheets.find((element) => element.id === timesheetsId);
+  if (!deleteTimesheet) {
+    res.status(404).json({
+      success: false,
+      msg: 'There is no Timesheet with this id',
+    });
+    return;
+  }
+
+  timeSheets.splice(timeSheets.indexOf(deleteTimesheet), 1);
+
+  fs.writeFile(
+    './src/data/time-sheets.json',
+    JSON.stringify(timeSheets, null, 2),
+    (err) => {
+      if (err) {
+        res.status(400).json({
+          response: 'Error',
+          msg: 'Timesheet id not found',
         });
-        return;
+      } else {
+        res.status(200).json({
+          success: true,
+          msg: 'Timesheet delete successfully',
+          data: timeSheets
+        });
       }
-
-      timeSheets.splice(timeSheets.indexOf(deleteTimesheet), 1);
-
-      res.status(200).json({
-        timeSheets,
-      });
-      fs.writeFile(
-        './src/data/time-sheets.json',
-        JSON.stringify(timeSheets, null, 2),
-        (err) => {
-          if (err) {
-            res.status(400).json({
-              response: 'Error',
-              msg: 'Timesheet id not found',
-            });
-          } else {
-            res.status(202).json({
-              success: true,
-              msg: 'Timesheet modified successfully',
-              data: foundTimesheet,
-            });
-          }
-        },
-      );
+    },
+  );
 });
 module.exports = router;
