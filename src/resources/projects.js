@@ -44,7 +44,7 @@ router.post('/post/', (req, res) => {
 router.delete("/delete/:id", (req, res) => {
     const projectId = req.params.id;
     const filteredProject = projects.filter(projects => projects.id !== projectId);
-    const projectExists = projects.filter(projects => projects.id == projectId);
+    const projectExists = projects.filter(project => project.id == projectId);
     if(projectExists[0]){
         fs.writeFile("./src/data/projects.json", JSON.stringify(filteredProject, null, 2), (err) => {
             if (err) {
