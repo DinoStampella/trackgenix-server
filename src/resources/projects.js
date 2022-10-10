@@ -5,8 +5,6 @@ const projectsList = require('../data/projects.json');
 
 const router = express.Router();
 
-module.exports = router;
-
 function validateTeamMembers(teamMembers) {
   let amount = 0;
   let member;
@@ -42,7 +40,7 @@ router.get('/getById/:id', (req, res) => {
   if (foundProject) {
     res.send(foundProject);
   } else {
-    res.send('{ response: "error", msg: "project not found" }');
+    res.send(`{ response: "error", msg: "project ${projectId} not found" }`);
   }
 });
 
@@ -51,9 +49,10 @@ router.put('/put/:id', (req, res) => {
   const projectId = parseInt(req.params.id, 10);
   const foundProject = projectsList.find((project) => project.id === projectId);
   if (!foundProject) {
-    res.sendStatus(404);
+    res.status(404).send(`{ response: "error", msg: "project ${projectId} not found" }`);
     return;
   }
+
   if (requestProject.projectName) {
     foundProject.projectName = requestProject.projectName;
   }
@@ -71,7 +70,7 @@ router.put('/put/:id', (req, res) => {
   }
   if (requestProject.teamMembers) {
     if (!validateTeamMembers(requestProject.teamMembers)) {
-      res.sendStatus(400);
+      res.status(400).send('{ response: "error", msg: "memebers JSON incorrect" }');
       return;
     }
     foundProject.teamMembers = requestProject.teamMembers;
@@ -79,9 +78,11 @@ router.put('/put/:id', (req, res) => {
 
   fs.writeFile('src/data/projects.json', JSON.stringify(projectsList), (err) => {
     if (err) {
-      res.sendStatus(204);
+      res.status(204).send('{ response: "error", msg: "can not write project file" }');
     } else {
-      res.sendStatus(200);
+      res.status(200).send('{ response: "ok", msg: "" }');
     }
   });
 });
+
+module.exports = router;
