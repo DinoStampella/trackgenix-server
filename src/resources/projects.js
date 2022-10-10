@@ -40,7 +40,10 @@ router.get('/getById/:id', (req, res) => {
   if (foundProject) {
     res.send(foundProject);
   } else {
-    res.send(`{ response: "error", msg: "project ${projectId} not found" }`);
+    res.status(404).json({
+      response: 'error',
+      msg: 'project  not found',
+    });
   }
 });
 
@@ -49,7 +52,10 @@ router.put('/put/:id', (req, res) => {
   const projectId = parseInt(req.params.id, 10);
   const foundProject = projectsList.find((project) => project.id === projectId);
   if (!foundProject) {
-    res.status(404).send(`{ response: "error", msg: "project ${projectId} not found" }`);
+    res.status(404).json({
+      response: 'error',
+      msg: 'project not found',
+    });
     return;
   }
 
@@ -70,7 +76,10 @@ router.put('/put/:id', (req, res) => {
   }
   if (requestProject.teamMembers) {
     if (!validateTeamMembers(requestProject.teamMembers)) {
-      res.status(400).send('{ response: "error", msg: "memebers JSON incorrect" }');
+      res.status(400).json({
+        response: 'error',
+        msg: 'memebers JSON incorrect',
+      });
       return;
     }
     foundProject.teamMembers = requestProject.teamMembers;
@@ -78,9 +87,15 @@ router.put('/put/:id', (req, res) => {
 
   fs.writeFile('src/data/projects.json', JSON.stringify(projectsList), (err) => {
     if (err) {
-      res.status(204).send('{ response: "error", msg: "can not write project file" }');
+      res.status(204).json({
+        response: 'error',
+        msg: 'can not write project file',
+      });
     } else {
-      res.status(200).send('{ response: "ok", msg: "" }');
+      res.status(200).json({
+        response: 'ok',
+        msg: '',
+      });
     }
   });
 });
