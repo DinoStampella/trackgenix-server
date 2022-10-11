@@ -19,20 +19,20 @@ router.post('/add', (req, res) => {
   };
 
   if (!taskName && !taskDescription) {
-    res.status(400).send('{success: false,msg: "You must add name and description"}');
+    res.status(400).send({ success: false, msg: 'You must add name and description' });
   } else if (!taskName) {
-    res.status(400).send('{success: false,msg: "You must add a name"}');
+    res.status(400).send({ success: false, msg: 'You must add a name' });
   } else if (!taskDescription) {
-    res.status(400).send('{success: false,msg: "You must add a description"}');
+    res.status(400).send({ success: false, msg: 'You must add a description' });
   } else {
     tasks.push(newTask);
   }
 
   fs.writeFile('src/data/tasks.json', JSON.stringify(tasks), (err) => {
     if (err) {
-      res.status(500).send('Cannot save new task');
+      res.status(500).send({ success: false, msg: 'Cannot save new task' });
     } else {
-      res.status(201).send('{success: true,msg: "Task Created",data: tasks}');
+      res.status(201).send({ success: true, msg: 'Task Created', data: tasks });
     }
   });
 });
