@@ -48,7 +48,6 @@ router.delete("/delete/:id", (req, res) => {
     if(projectExists){
         fs.writeFile("./src/data/projects.json", JSON.stringify(filteredProject, null, 2), (err) => {
             if (err) {
-                console.log(err);
                 return res.status(400).json({
                     success: false,
                 });
