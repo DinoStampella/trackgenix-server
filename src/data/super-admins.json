@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "name": "Valencia Suddell",
+    "userName": "vsuddell0",
+    "email": "vsuddell0@uiuc.edu",
+    "password": "qIYeEaswUf86"
+  },
+  {
+    "id": 2,
+    "name": "Ashleigh Kahan",
+    "userName": "akahan1",
+    "email": "akahan1@fastcompany.com",
+    "password": "UrruXb"
+  },
+  {
+    "id": 3,
+    "name": "Ephrem Veysey",
+    "userName": "eveysey2",
+    "email": "eveysey2@imdb.com",
+    "password": "UNnt70"
+  },
+  {
+    "id": 4,
+    "name": "Maddie Westphalen",
+    "userName": "mwestphalen3",
+    "email": "mwestphalen3@chicagotribune.com",
+    "password": "VIBzN8o"
+  },
+  {
+    "id": 5,
+    "name": "Cathlene de'-Ancy Willis",
+    "userName": "cdeancy4",
+    "email": "cdeancy4@cbc.ca",
+    "password": "4efABMGdorfq"
+  },
+  {
+    "id": 6,
+    "name": "Teriann Togwell",
+    "userName": "ttogwell5",
+    "email": "ttogwell5@sciencedaily.com",
+    "password": "3CcQ9dw4"
+  },
+  {
+    "id": 7,
+    "name": "Oby Brunelleschi",
+    "userName": "obrunelleschi6",
+    "email": "obrunelleschi6@artisteer.com",
+    "password": "AeWR1Q"
+  },
+  {
+    "id": 8,
+    "name": "Liane Minnis",
+    "userName": "lminnis7",
+    "email": "lminnis7@ow.ly",
+    "password": "NTtUJ3l1z"
+  },
+  {
+    "id": 9,
+    "name": "Martguerita Macenzy",
+    "userName": "mmacenzy8",
+    "email": "mmacenzy8@biglobe.ne.jp",
+    "password": "vmOACaO4"
+  },
+  {
+    "id": 10,
+    "name": "Teirtza Laurenzi",
+    "userName": "tlaurenzi9",
+    "email": "tlaurenzi9@google.nl",
+    "password": "msQXIzGvI"
+  },
+  {
+    "id": "11",
+    "name": "Eric Silva",
+    "userName": "silveriac",
+    "email": "eric@eric.com",
+    "password": "estanoesmicontrasenadeverdad12345"
+  }
+]
