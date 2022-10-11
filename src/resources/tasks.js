@@ -32,7 +32,7 @@ router.post('/add', (req, res) => {
     if (err) {
       res.status(500).send({ success: false, msg: 'Cannot save new task' });
     } else {
-      res.status(201).send({ success: true, msg: 'Task Created', data: tasks });
+      res.status(200).send({ success: true, msg: 'Task Created', data: newTask });
     }
   });
 });
