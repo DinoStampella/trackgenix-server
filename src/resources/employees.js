@@ -19,7 +19,7 @@ router.get('/getAll', (req, res) => {
 router.get('/getById/:id', (req, res) => {
   const employeeId = req.params.id;
   const foundEmployee = employees.find(
-    (employee) => employee.id === employeeId
+    (employee) => employee.id === employeeId,
   );
   if (foundEmployee) {
     res.status(200).json({
@@ -54,7 +54,7 @@ router.post('/add', (req, res) => {
           data: newEmployee,
         });
       }
-    }
+    },
   );
 });
 
