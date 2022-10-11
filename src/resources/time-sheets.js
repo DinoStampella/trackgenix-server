@@ -7,7 +7,7 @@ router.get('/get', (req, res) => {
   res.status(200).json({
     success: true,
     msg: 'Timesheet found successfully',
-    data: timeSheets
+    data: timeSheets,
   });
 });
 
