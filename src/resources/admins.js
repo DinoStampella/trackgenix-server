@@ -4,38 +4,89 @@ const admins = require('../data/admins.json');
 
 const router = express.Router();
 
+function getMaxId(adminInput) {
+  let maxId = 0;
+  adminInput.forEach((admin) => {
+    if (admin.id > maxId) {
+      maxId = admin.id;
+    }
+  });
+  return maxId + 1;
+}
+
 router.get('/getAll', (req, res) => {
-  res.send(admins);
+  if (admins.length) {
+    res.status(200).json({
+      success: true,
+      msg: 'Admin found Successfully',
+      data: admins,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      msg: 'There is not Admins',
+    });
+  }
 });
 
 router.get('/get/:id', (req, res) => {
-  const adminId = req.params.id;
+  const adminId = parseInt(req.params.id, 10);
+  if (!adminId) {
+    res.status(400).json({
+      success: false,
+      msg: 'The id is not valid',
+    });
+  }
   const adminObtained = admins.find((admin) => admin.id === adminId);
-  if (adminObtained) {
-    res.send(adminObtained);
+  if (!adminObtained) {
+    res.status(404).json({
+      success: false,
+      msg: `There is not Admin with the id: ${adminId}`,
+    });
   } else {
-    res.send('Admin not found');
+    res.status(200).json({
+      success: true,
+      msg: 'Admin found Successfully',
+      data: adminObtained,
+    });
   }
 });
 router.get('/getByUsername/:username', (req, res) => {
   const adminUsername = req.params.username;
   const adminObtained = admins.find((admin) => admin.user_name === adminUsername);
-  if (adminObtained) {
-    res.send(adminObtained);
+  if (!adminObtained) {
+    res.status(404).json({
+      success: false,
+      msg: `There is not Admin with the username: ${adminUsername}`,
+    });
   } else {
-    res.send('Username of admin not found');
+    res.status(200).json({
+      success: true,
+      msg: 'Admin found Successfully',
+      data: adminObtained,
+    });
   }
 });
 router.post('/add', (req, res) => {
   const newAdmin = req.body;
-  // const maxId = admins.find(admin => Math.max(admin.id))
-  admins.push(newAdmin);
-  fs.writeFile('src/data/admins.json', JSON.stringify(admins), (err) => {
+  const maxId = getMaxId(admins);
+  const idJSON = { id: maxId };
+  const finalAdmin = Object.assign(idJSON, newAdmin);
+  admins.push(finalAdmin);
+  fs.writeFile('src/data/admins.json', JSON.stringify(admins, null, 4), (err) => {
     if (err) {
-      res.send("Couldn't add the admin");
+      res.status(400).json({
+        success: false,
+        msg: 'There was an error',
+      });
     } else {
-      res.send('Admin created');
+      res.status(201).json({
+        success: true,
+        msg: 'Admin created Successfully',
+        data: finalAdmin,
+      });
     }
   });
 });
+
 module.exports = router;
