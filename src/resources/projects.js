@@ -31,7 +31,7 @@ router.post('/post/', (req, res) => {
                 msg: "Project created successfully",
                 data: newProject
             });
-        })
+        });
     }
     else{
         res.status(400).json({
@@ -44,8 +44,8 @@ router.post('/post/', (req, res) => {
 router.delete("/delete/:id", (req, res) => {
     const projectId = req.params.id;
     const filteredProject = projects.filter(projects => projects.id !== projectId);
-    const projectExists = projects.filter(project => project.id == projectId);
-    if(projectExists[0]){
+    const projectExists = projects.find(project => project.id == projectId);
+    if(projectExists){
         fs.writeFile("./src/data/projects.json", JSON.stringify(filteredProject, null, 2), (err) => {
             if (err) {
                 console.log(err);
@@ -62,7 +62,7 @@ router.delete("/delete/:id", (req, res) => {
     else{
         res.status(404).json({
             success: false,
-            msg: "There is no project with this id"
+            msg: `There is no project with this id (${projectId})`
         });
     };
 });
