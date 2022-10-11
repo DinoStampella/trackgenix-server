@@ -98,55 +98,5 @@
     "DNI": "73-565-0337",
     "Phone": "766-249-0820",
     "Location": "441 Prairie Rose Park"
-  },
-  {
-    "id": "78",
-    "Username": "Jackie Chan",
-    "Password": "abcde",
-    "Email": "Jackie@gmail.com",
-    "Name": "Carlos",
-    "DNI": "78-959-0145",
-    "Phone": "788-455-0820",
-    "Location": "avenida san Carlos"
-  },
-  {
-    "id": "101",
-    "Username": "Jackie Chan",
-    "Password": "abcde",
-    "Email": "Jackie@gmail.com",
-    "Name": "Carlos",
-    "DNI": "78-959-0145",
-    "Phone": "788-455-0820",
-    "Location": "avenida san Carlos"
-  },
-  {
-    "id": "180",
-    "Username": "Jackie Chan",
-    "Password": "abcde",
-    "Email": "Jackie@gmail.com",
-    "Name": "Carlos",
-    "DNI": "78-959-0145",
-    "Phone": "788-455-0820",
-    "Location": "avenida san Carlos"
-  },
-  {
-    "id": "158",
-    "Username": "Jackie Chan",
-    "Password": "abcde",
-    "Email": "Jackie@gmail.com",
-    "Name": "Carlos",
-    "DNI": "78-959-0145",
-    "Phone": "788-455-0820",
-    "Location": "avenida san Carlos"
-  },
-  {
-    "id": "157",
-    "Username": "Jackie Chan",
-    "Password": "abcde",
-    "Email": "Jackie@gmail.com",
-    "Name": "Carlos",
-    "DNI": "78-959-0145",
-    "Phone": "788-455-0820",
-    "Location": "avenida san Carlos"
   }
 ]
