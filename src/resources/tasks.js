@@ -6,14 +6,14 @@ router.use(express.urlencoded({extended: false}));
 
 router.put('/put/', (req, res) =>{
     const newTask = req.body;
-    let taskExists = tasks.filter(task => task.id == newTask.id);
+    let taskExists = tasks.find(task => task.id == newTask.id);
     let allTasks = tasks;
     allTasks.forEach((task, index) =>{
         if(task.id == newTask.id){
             return allTasks[index] = newTask;
         };
     });
-    if(!taskExists[0]){
+    if(!taskExists){
         return res.status(404).json({
             success: false,
             msg: `There is no task with this id (${newTask.id})`
@@ -27,7 +27,6 @@ router.put('/put/', (req, res) =>{
     };
     fs.writeFile('./src/data/tasks.json', JSON.stringify(allTasks, null, 2), (err) => {
         if (err) {
-            console.log(err);
             return res.status(400).json({
                 success: false,
             }); 
