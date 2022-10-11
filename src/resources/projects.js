@@ -32,8 +32,7 @@ router.post('/post/', (req, res) => {
                 data: newProject
             });
         });
-    }
-    else{
+    }else{
         res.status(400).json({
             success: false,
             msg: errors
