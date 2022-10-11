@@ -9,14 +9,14 @@ router.get('/getById/:id', (req, res) => {
   if (timeSheetObtained) {
     res.status(200).json({
       success: true,
-      msg: "Timesheet found successfully",
-      data: timeSheetObtained
-    })
+      msg: 'Timesheet found successfully',
+      data: timeSheetObtained,
+    });
   } else {
     res.status(404).json({
       success: false,
-      msg: "Cannot found timesheet"
-    })
+      msg: 'Cannot found timesheet',
+    });
   }
 });
 
