@@ -10,11 +10,11 @@ router.post('/add', (req, res) => {
   timeSheets.push(newTimesheet);
   fs.writeFile('src/data/time-sheets.json', JSON.stringify(timeSheets), (err) => {
     if (err) {
-      return res.status(400)({
+      return res.status(400).json({
         success: false,
       });
     }
-    return res.status(201)({
+    return res.status(201).json({
       success: true,
       msg: 'Timesheet created successfully',
       data: newTimesheet,
