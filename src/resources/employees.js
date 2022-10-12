@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
 const fs = require("fs");
 const employees = require("../data/employees.json");
 const router = express.Router();
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const idEmployee = parseInt(req.params.id)
     const filteredEmployee = employees.filter((employee) => employee.id !== idEmployee)
     const deleteEmloyee = employees.find((employee) => employee.id === idEmployee)
@@ -29,7 +29,7 @@ router.delete("/delete/:id", (req, res) => {
     }
 });
 
-router.put("/put/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     const idEmployee = parseInt(req.params.id)
     const employee = employees.find((employee) => employee.id === idEmployee)
     if(employee) {
