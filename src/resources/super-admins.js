@@ -1,10 +1,11 @@
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
+
 const superAdmins = require('../data/super-admins.json');
 
 const router = express.Router();
 
-router.put('/update/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const superAdminId = parseInt(req.params.id, 10);
   const superAdminToUpdate = superAdmins.find((superAdmin) => superAdmin.id === superAdminId);
   if (!superAdminToUpdate) {
@@ -47,7 +48,7 @@ router.put('/update/:id', (req, res) => {
   }
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const superAdminId = parseInt(req.params.id, 10);
   const superAdminToDelete = superAdmins.find((superAdmin) => superAdmin.id === superAdminId);
   const filteredSuperAdmins = superAdmins.filter((superAdmin) => superAdmin.id !== superAdminId);
@@ -76,4 +77,4 @@ router.delete('/delete/:id', (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
