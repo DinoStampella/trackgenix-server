@@ -10,7 +10,7 @@ router.delete('/delete/:id', (req, res) => {
   if (!foundTasks) {
     res.status(404).json({
       succes: false,
-      msg: 'There is not task found',
+      msg: 'There is not task with this id',
       data: '',
     });
     return;

@@ -13,7 +13,7 @@ function validateTeamMembers(teamMembers) {
     member = teamMembers[i];
 
     if (!member.id || !member.role || !member.rate) {
-      return 'id, role and rate can not be empty';
+      return 'Elements id, role and rate can not be empty';
     }
 
     if (member.role !== 'PM' && member.role !== 'TL' && member.role !== 'DEV' && member.role !== 'QA') {
@@ -50,7 +50,7 @@ router.get('/getById/:id', (req, res) => {
   } else {
     res.status(404).json({
       succes: false,
-      msg: 'There is not project with this id',
+      msg: 'There is no project with this id',
       data: '',
     });
   }
@@ -63,7 +63,7 @@ router.put('/put/:id', (req, res) => {
   if (!foundProject) {
     res.status(404).json({
       succes: false,
-      msg: 'Project not found',
+      msg: 'There is no project with this id',
       data: '',
     });
     return;
