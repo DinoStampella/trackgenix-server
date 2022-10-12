@@ -1,7 +1,11 @@
 import express from 'express';
 
+import employeesRouter from './resources/employees';
+
 const app = express();
-const employeesRouter = require('./resources/employees');
+
+const router = express.Router();
+router.use(express.urlencoded({ extended: false }));
 
 app.use(express.json());
 app.use('/employees', employeesRouter);

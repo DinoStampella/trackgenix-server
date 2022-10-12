@@ -1,14 +1,12 @@
-const express = require('express');
+import express from 'express';
 
-const fs = require('fs');
+import fs from 'fs';
 
 const employees = require('../data/employees.json');
 
 const router = express.Router();
 
-router.use(express.urlencoded({ extended: false }));
-
-router.get('/getAll', (req, res) => {
+router.get('/', (req, res) => {
   res.status(200).json({
     success: true,
     msg: 'Employees found successfully',
@@ -16,7 +14,7 @@ router.get('/getAll', (req, res) => {
   });
 });
 
-router.get('/getById/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const employeeId = req.params.id;
   const foundEmployee = employees.find(
     (employee) => employee.id === employeeId,
@@ -35,7 +33,7 @@ router.get('/getById/:id', (req, res) => {
   }
 });
 
-router.post('/add', (req, res) => {
+router.post('/:', (req, res) => {
   const newEmployee = req.body;
   employees.push(newEmployee);
   fs.writeFile(
@@ -45,7 +43,6 @@ router.post('/add', (req, res) => {
       if (err) {
         res.status(400).json({
           success: false,
-          msg: 'Bad request',
         });
       } else {
         res.status(201).json({
@@ -58,4 +55,4 @@ router.post('/add', (req, res) => {
   );
 });
 
-module.exports = router;
+export default router;
