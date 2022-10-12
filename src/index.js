@@ -1,25 +1,14 @@
-// use "import" to import libraries
 import express from 'express';
 
-// use "require" to import JSON files
-const admins = require('./data/admins.json');
-const superAdmins = require('./resources/super-admins.js');
+import superAdmins from'./resources/super-admins.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
 app.use('/superAdmin', superAdmins);
-
-app.get('/', async (req, res) => {
-  res.send('Hello World!');
-});
-
-app.get('/admins', (req, res) => {
-  res.status(200).json({
-    data: admins,
-  });
-});
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
