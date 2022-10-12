@@ -1,9 +1,9 @@
-const express = require('express');
-const timeSheets = require('../data/time-sheets.json');
+import express from 'express';
+import timeSheets from '../data/time-sheets.json';
 
 const router = express.Router();
 
-router.get('/getById/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const timeSheetId = req.params.id;
   const timeSheetObtained = timeSheets.find((timeSheet) => timeSheet.id === timeSheetId);
   if (timeSheetObtained) {
@@ -20,4 +20,4 @@ router.get('/getById/:id', (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
