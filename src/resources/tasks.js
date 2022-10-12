@@ -1,10 +1,9 @@
-const express = require('express')
+import express from 'express';
+import fs from 'fs';
 const tasks = require('../data/tasks.json');
-const fs = require('fs');
 const router = express.Router();
-router.use(express.urlencoded({extended: false}));
 
-router.put('/put/', (req, res) =>{
+router.put('/', (req, res) =>{
     const newTask = req.body;
     let taskExists = tasks.find(task => task.id == newTask.id);
     let allTasks = tasks;
@@ -29,7 +28,7 @@ router.put('/put/', (req, res) =>{
         if (err) {
             return res.status(400).json({
                 success: false,
-            }); 
+            });
         };
         res.status(200).json({
             success: true,
@@ -39,4 +38,4 @@ router.put('/put/', (req, res) =>{
     });
 });
 
-module.exports = router;
+export default router;
