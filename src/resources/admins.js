@@ -1,11 +1,12 @@
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
+
 const admins = require('../data/admins.json');
 
 const router = express.Router();
 
-router.put('/update/:id', (req, res) => {
-  const adminId = req.params.id;
+router.put('/:id', (req, res) => {
+  const adminId = parseInt(req.params.id, 10);
   const adminToUpdate = admins.find((admin) => admin.id === adminId);
   if (!adminToUpdate) {
     res.status(404).json({
@@ -47,8 +48,8 @@ router.put('/update/:id', (req, res) => {
   }
 });
 
-router.delete('/delete/:id', (req, res) => {
-  const adminId = req.params.id;
+router.delete('/:id', (req, res) => {
+  const adminId = parseInt(req.params.id, 10);
   const adminToDelete = admins.find((admin) => admin.id === adminId);
   const filteredAdmins = admins.filter((admin) => admin.id !== adminId);
   if (adminToDelete) {
@@ -76,4 +77,4 @@ router.delete('/delete/:id', (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
