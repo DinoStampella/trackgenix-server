@@ -1,9 +1,9 @@
-const express = require('express');
-const timeSheets = require('../data/time-sheets.json');
+import express from 'express';
+import timeSheets from '../data/time-sheets.json';
 
 const router = express.Router();
 
-router.get('/get', (req, res) => {
+router.get('/', (req, res) => {
   res.status(200).json({
     success: true,
     msg: 'Timesheet found successfully',
@@ -11,4 +11,4 @@ router.get('/get', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
