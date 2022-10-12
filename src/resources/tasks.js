@@ -1,10 +1,11 @@
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
+
 const tasksList = require('../data/tasks.json');
 
 const router = express.Router();
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   const taskId = parseInt(req.params.id, 10);
   const foundTasks = tasksList.find((tasks) => tasks.id === taskId);
   if (!foundTasks) {
@@ -21,7 +22,6 @@ router.delete('/delete/:id', (req, res) => {
     if (err) {
       res.status(400).json({
         succes: false,
-        msg: 'Can not write tasks file',
       });
     } else {
       res.status(200).json({
@@ -32,4 +32,4 @@ router.delete('/delete/:id', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

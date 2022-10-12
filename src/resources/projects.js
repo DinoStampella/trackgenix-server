@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
+
 const projectsList = require('../data/projects.json');
 
 const router = express.Router();
@@ -30,20 +31,20 @@ function validateTeamMembers(teamMembers) {
   return '';
 }
 
-router.get('/getAll', (req, res) => {
+router.get('/', (req, res) => {
   res.status(200).json({
-    succes: true,
+    success: true,
     msg: 'Project found succesfully',
     data: projectsList,
   });
 });
 
-router.get('/getById/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const projectId = parseInt(req.params.id, 10);
   const foundProject = projectsList.find((project) => project.id === projectId);
   if (foundProject) {
     res.status(200).json({
-      succes: true,
+      success: true,
       msg: 'Project found succesfully',
       data: foundProject,
     });
@@ -56,13 +57,13 @@ router.get('/getById/:id', (req, res) => {
   }
 });
 
-router.put('/put/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const requestProject = req.body;
   const projectId = parseInt(req.params.id, 10);
   const foundProject = projectsList.find((project) => project.id === projectId);
   if (!foundProject) {
     res.status(404).json({
-      succes: false,
+      success: false,
       msg: 'There is no project with this id',
       data: '',
     });
@@ -88,7 +89,7 @@ router.put('/put/:id', (req, res) => {
     const errMsg = validateTeamMembers(requestProject.teamMembers);
     if (errMsg !== '') {
       res.status(400).json({
-        succes: false,
+        success: false,
         msg: errMsg,
         data: '',
       });
@@ -100,9 +101,7 @@ router.put('/put/:id', (req, res) => {
   fs.writeFile('src/data/projects.json', JSON.stringify(projectsList, null, 2), (err) => {
     if (err) {
       res.status(400).json({
-        succes: false,
-        msg: 'Can not write project file',
-        data: '',
+        success: false,
       });
     } else {
       res.status(200).json({
@@ -114,4 +113,4 @@ router.put('/put/:id', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;

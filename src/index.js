@@ -1,9 +1,7 @@
 // use "import" to import libraries
 import express from 'express';
-
-// use "require" to import JSON files
-const projects = require('./resources/projects');
-const tasks = require('./resources/tasks');
+import projects from './resources/projects';
+import tasks from './resources/tasks';
 
 const app = express();
 const port = process.env.PORT || 3000;
