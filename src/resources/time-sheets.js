@@ -1,10 +1,10 @@
-const express = require('express');
-const fs = require('fs');
-const timeSheets = require('../data/time-sheets.json');
+import express from 'express';
+import fs from 'fs';
+import timeSheets from '../data/time-sheets.json';
 
 const router = express.Router();
 
-router.post('/add', (req, res) => {
+router.post('/', (req, res) => {
   const newTimesheet = req.body;
   newTimesheet.id = (timeSheets.length + 1).toString();
   timeSheets.push(newTimesheet);
@@ -22,4 +22,4 @@ router.post('/add', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
