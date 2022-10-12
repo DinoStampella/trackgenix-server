@@ -3,6 +3,14 @@ import timeSheets from '../data/time-sheets.json';
 
 const router = express.Router();
 
+router.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    msg: 'Timesheet found successfully',
+    data: timeSheets,
+  });
+});
+
 router.get('/:id', (req, res) => {
   const timeSheetId = req.params.id;
   const timeSheetObtained = timeSheets.find((timeSheet) => timeSheet.id === timeSheetId);
