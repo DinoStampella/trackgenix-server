@@ -1,16 +1,16 @@
-const express = require("express")
-const projects = require('../data/projects.json');
-const fs = require('fs');
-const router = express.Router();
-router.use(express.urlencoded({extended: false}));
+import express from 'express';
+import fs from 'fs';
 
-router.post('/post/', (req, res) => {
+const projects = require('../data/projects.json');
+
+const router = express.Router();
+
+router.post('/', (req, res) => {
     let errors = "";
     let newProject = req.body;
     newProject.id = (projects.length + 1).toString();
     projects.push(newProject);
     function checkData(data, err){
-        console.log(newProject[data]);
         newProject[data] ? errors : (errors += err);
     };
     checkData("projectName", "Project needs a name. ")
@@ -24,7 +24,7 @@ router.post('/post/', (req, res) => {
                 console.log(err);
                 return res.status(400).json({
                     success: false,
-                }); 
+                });
             };
             res.status(201).json({
                 success: true,
@@ -37,10 +37,10 @@ router.post('/post/', (req, res) => {
             success: false,
             msg: errors
         });
-    };  
+    };
 });
 
-router.delete("/delete/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     const projectId = req.params.id;
     const filteredProject = projects.filter(projects => projects.id !== projectId);
     const projectExists = projects.find(project => project.id == projectId);
@@ -64,4 +64,4 @@ router.delete("/delete/:id", (req, res) => {
     };
 });
 
-module.exports = router;
+export default router;
