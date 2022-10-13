@@ -62,7 +62,7 @@ router.post('/', (req, res) => {
   const checkData = (data, err) => {
     if (!newProject[data]) {
       errors += err;
-    };
+    }
   };
   newProject.id = (projects.length + 1).toString();
   projects.push(newProject);
