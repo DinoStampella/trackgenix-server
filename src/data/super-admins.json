@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "firstName": "Dinah",
+        "lastName": "Savory",
+        "userName": "dsavory0",
+        "email": "dsavory0@ebay.co.uk",
+        "password": "4BZSmoCT8K"
+    },
+    {
+        "id": 2,
+        "firstName": "Addie",
+        "lastName": "Pentelo",
+        "userName": "apentelo1",
+        "email": "apentelo1@illinois.edu",
+        "password": "y3g4OXtE"
+    },
+    {
+        "id": 3,
+        "firstName": "Benjie",
+        "lastName": "MacBarron",
+        "userName": "bmacbarron2",
+        "email": "bmacbarron2@google.it",
+        "password": "s9iB1vkT5"
+    },
+    {
+        "id": 4,
+        "firstName": "Garey",
+        "lastName": "Goose",
+        "userName": "ggoose3",
+        "email": "ggoose3@nationalgeographic.com",
+        "password": "sTWmu2zG"
+    },
+    {
+        "id": 5,
+        "firstName": "Gertrud",
+        "lastName": "Teeney",
+        "userName": "gteeney4",
+        "email": "gteeney4@shop-pro.jp",
+        "password": "roMkC6qk3"
+    },
+    {
+        "id": 6,
+        "firstName": "Kerstin",
+        "lastName": "Whiteside",
+        "userName": "kwhiteside5",
+        "email": "kwhiteside5@dyndns.org",
+        "password": "lHckJV1"
+    },
+    {
+        "id": 7,
+        "firstName": "Evangelina",
+        "lastName": "Pink",
+        "userName": "epink6",
+        "email": "epink6@geocities.com",
+        "password": "SqXVaChHcybZ"
+    },
+    {
+        "id": 8,
+        "firstName": "Krissy",
+        "lastName": "Coopland",
+        "userName": "kcoopland7",
+        "email": "kcoopland7@sohu.com",
+        "password": "A3VYnd3Gyt"
+    },
+    {
+        "id": 9,
+        "firstName": "Sayres",
+        "lastName": "Pillinger",
+        "userName": "spillinger8",
+        "email": "spillinger8@go.com",
+        "password": "lSVRobMnT"
+    },
+    {
+        "id": 10,
+        "firstName": "Effie",
+        "lastName": "Bellenger",
+        "userName": "ebellenger9",
+        "email": "ebellenger9@symantec.com",
+        "password": "JpUZrTj"
+    }
+]
