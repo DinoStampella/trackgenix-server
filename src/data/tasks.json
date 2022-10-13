@@ -1,91 +1,37 @@
 [
-<<<<<<< HEAD
-  {
-    "id": 1,
-    "taskName": "vestibulum sed magna at nunc",
-    "description": "pellentesque quisque porta volutpat erat quisque erat eros"
-  },
-  {
-    "id": 2,
-    "taskName": "arcu adipiscing molestie hendrerit at",
-    "description": "aliquam convallis nunc proin at turpis a pede posuere nonummy integer non"
-  },
-  {
-    "id": 3,
-    "taskName": "pellentesque quisque",
-    "description": "ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque"
-  },
-  {
-    "id": 4,
-    "taskName": "ornare consequat lectus in",
-    "description": "nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim"
-  },
-  {
-    "id": 5,
-    "taskName": "bucket list",
-    "description": "do it, you've been holding it off for months"
-  },
-  {
-    "id": 6,
-    "taskName": "wash the cat",
-    "description": "he's nasty, gotta clean 'im up"
-  },
-  {
-    "id": 7,
-    "taskName": "catch'em all",
-    "description": "gotta catch'em all!"
-  }
-]
-=======
     {
         "id": 1,
-        "tasks": "Supplement R Shoulder with Autol Sub, Perc Endo Approach",
-        "description": "Mandatory systemic approach"
+        "taskName": "vestibulum sed magna at nunc",
+        "description": "pellentesque quisque porta volutpat erat quisque erat eros"
     },
     {
         "id": 2,
-        "tasks": "Transfuse Autol Serum Albumin in Periph Art, Open",
-        "description": "Up-sized bi-directional focus group"
+        "taskName": "arcu adipiscing molestie hendrerit at",
+        "description": "aliquam convallis nunc proin at turpis a pede posuere nonummy integer non"
     },
     {
         "id": 3,
-        "tasks": "Release Right Elbow Joint, External Approach",
-        "description": "Automated responsive budgetary management"
+        "taskName": "pellentesque quisque",
+        "description": "ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque"
     },
     {
         "id": 4,
-        "tasks": "Extirpate matter from R Temporal Art, Bifurc, Open",
-        "description": "Secured empowering software"
+        "taskName": "ornare consequat lectus in",
+        "description": "nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim"
     },
     {
         "id": 5,
-        "tasks": "Occlusion L Fallopian Tube w Extralum Dev, Perc",
-        "description": "Enhanced next generation projection"
+        "taskName": "bucket list",
+        "description": "do it, you've been holding it off for months"
     },
     {
         "id": 6,
-        "tasks": "Remove Radioact Elem from Pericard Cav, Perc Endo",
-        "description": "Automated multi-state core"
+        "taskName": "wash the cat",
+        "description": "he's nasty, gotta clean 'im up"
     },
     {
         "id": 7,
-        "tasks": "Removal of Ext Fix from L Radius, Extern Approach",
-        "description": "Open-architected contextually-based intranet"
-    },
-    {
-        "id": 8,
-        "tasks": "Revision of Nonaut Sub in Stomach, Open Approach",
-        "description": "Assimilated regional moderator"
-    },
-    {
-        "id": 9,
-        "tasks": "Revision of Other Device in L Low Extrem, Extern Approach",
-        "description": "Enterprise-wide demand-driven application"
-    },
-    {
-        "id": 10,
-        "tasks": "Revision of Ext Fix in R Radius, Perc Approach",
-        "description": "Visionary neutral structure"
+        "taskName": "catch'em all",
+        "description": "gotta catch'em all!"
     }
 ]
->>>>>>> 4ae93d1c548c9bd6648b0773bb14bacd60774415
