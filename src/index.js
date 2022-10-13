@@ -1,21 +1,27 @@
-// use "import" to import libraries
 import express from 'express';
 
-// use "require" to import JSON files
-const admins = require('./data/admins.json');
+import superAdminsRouter from './resources/super-admins';
+import projectsRouter from './resources/projects';
+import tasksRouter from './resources/tasks';
+import timeSheetsRouter from './resources/time-sheets';
+import employeesRouter from './resources/employees';
 
 const app = express();
+
 const port = process.env.PORT || 3000;
-const timeSheetsRouter = require('./resources/time-sheets');
 
 app.use(express.json());
-app.use('/time-sheets', timeSheetsRouter);
+app.use(express.urlencoded({ extended: false }));
 
-app.get('/admins', (req, res) => {
-  res.status(200).json({
-    data: admins,
-  });
+app.get('/', async (req, res) => {
+  res.send('Hello World!');
 });
+
+app.use('/super-admins', superAdminsRouter);
+app.use('/projects', projectsRouter);
+app.use('/tasks', tasksRouter);
+app.use('/time-sheets', timeSheetsRouter);
+app.use('/employees', employeesRouter);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
