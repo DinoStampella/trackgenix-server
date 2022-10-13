@@ -3,8 +3,6 @@ import express from 'express';
 
 import tasks from './resources/tasks';
 
-// const tasks = require('./resources/tasks');
-
 // use 'require' to import JSON files
 const admins = require('./data/admins.json');
 

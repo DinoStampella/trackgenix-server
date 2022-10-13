@@ -4,13 +4,13 @@ const router = express.Router();
 
 const tasks = require('../data/tasks.json');
 
-router.get('/filter', (req, res) => {
-  const { taskName } = req.query;
+router.get('/:taskName', (req, res) => {
+  const { taskName } = req.params;
   const foundTask = tasks.filter((task) => task.taskName === taskName);
   if (foundTask.length > 0) {
-    res.send({ success: true, msg: 'Task found successfully', data: foundTask });
+    res.json({ success: true, msg: 'Task found successfully', data: foundTask });
   } else {
-    res.status(400).send({ success: false });
+    res.status(400).json({ success: false });
   }
 });
 
