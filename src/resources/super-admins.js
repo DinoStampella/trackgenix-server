@@ -5,6 +5,12 @@ const superAdmins = require('../data/super-admins.json');
 
 const router = express.Router();
 
+// router.get('/', (req, res) => {
+//   res.status(200).json({
+//     data: superAdmins,
+//   });
+// });
+
 router.put('/:id', (req, res) => {
   const superAdminId = parseInt(req.params.id, 10);
   const superAdminToUpdate = superAdmins.find((superAdmin) => superAdmin.id === superAdminId);
