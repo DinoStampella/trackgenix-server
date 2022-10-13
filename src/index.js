@@ -1,5 +1,6 @@
 import express from 'express';
 
+import adminsRouter from './resources/admins';
 import superAdminsRouter from './resources/super-admins';
 import projectsRouter from './resources/projects';
 import tasksRouter from './resources/tasks';
@@ -17,6 +18,7 @@ app.get('/', async (req, res) => {
   res.send('Hello World!');
 });
 
+app.use('/admins', adminsRouter);
 app.use('/super-admins', superAdminsRouter);
 app.use('/projects', projectsRouter);
 app.use('/tasks', tasksRouter);
