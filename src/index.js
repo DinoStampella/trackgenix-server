@@ -1,15 +1,25 @@
 import express from 'express';
 
-import tasks from './resources/tasks';
+import projectsRouter from './resources/projects';
+import tasksRouter from './resources/tasks';
+import timeSheetsRouter from './resources/time-sheets';
+import employeesRouter from './resources/employees';
 
 const app = express();
 
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
-app.use("/tasks", tasks);
+app.get('/', async (req, res) => {
+  res.send('Hello World!');
+});
+
+app.use('/projects', projectsRouter);
+app.use('/tasks', tasksRouter);
+app.use('/time-sheets', timeSheetsRouter);
+app.use('/employees', employeesRouter);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
