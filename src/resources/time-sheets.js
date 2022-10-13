@@ -1,10 +1,10 @@
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
 const timeSheets = require('../data/time-sheets.json');
 
 const router = express.Router();
 
-router.put('/put/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   const updateTimesheets = req.body;
   const timesheetsId = req.params.id;
   const foundTimesheet = timeSheets.find((element) => element.id === timesheetsId);
@@ -51,7 +51,7 @@ router.put('/put/:id', (req, res) => {
   );
 });
 
-router.delete('/delete/:id', (req, res) => {
+router.delete('/', (req, res) => {
   const timesheetsId = req.params.id;
   const deleteTimesheet = timeSheets.find((element) => element.id === timesheetsId);
   if (!deleteTimesheet) {
@@ -70,17 +70,16 @@ router.delete('/delete/:id', (req, res) => {
     (err) => {
       if (err) {
         res.status(400).json({
-          response: 'Error',
-          msg: 'Timesheet id not found',
+            success: false,
         });
       } else {
         res.status(200).json({
           success: true,
           msg: 'Timesheet delete successfully',
-          data: timeSheets
+          data: timeSheets,
         });
       }
     },
   );
 });
-module.exports = router;
+export default router;
