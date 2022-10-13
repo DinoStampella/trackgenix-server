@@ -1,5 +1,6 @@
-const express = require('express');
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
+
 const admins = require('../data/admins.json');
 
 const router = express.Router();
@@ -14,7 +15,7 @@ function getMaxId(adminInput) {
   return maxId + 1;
 }
 
-router.get('/getAll', (req, res) => {
+router.get('/', (req, res) => {
   if (admins.length) {
     res.status(200).json({
       success: true,
@@ -29,7 +30,7 @@ router.get('/getAll', (req, res) => {
   }
 });
 
-router.get('/get/:id', (req, res) => {
+router.get('/:id', (req, res) => {
   const adminId = parseInt(req.params.id, 10);
   if (!adminId) {
     res.status(400).json({
@@ -51,7 +52,7 @@ router.get('/get/:id', (req, res) => {
     });
   }
 });
-router.get('/getByUsername/:username', (req, res) => {
+router.get('/:username', (req, res) => {
   const adminUsername = req.params.username;
   const adminObtained = admins.find((admin) => admin.user_name === adminUsername);
   if (!adminObtained) {
@@ -73,11 +74,10 @@ router.post('/add', (req, res) => {
   const idJSON = { id: maxId };
   const finalAdmin = Object.assign(idJSON, newAdmin);
   admins.push(finalAdmin);
-  fs.writeFile('src/data/admins.json', JSON.stringify(admins, null, 4), (err) => {
+  fs.writeFile('src/data/admins.json', JSON.stringify(admins, null, 2), (err) => {
     if (err) {
       res.status(400).json({
         success: false,
-        msg: 'There was an error',
       });
     } else {
       res.status(201).json({
@@ -89,4 +89,4 @@ router.post('/add', (req, res) => {
   });
 });
 
-module.exports = router;
+export default router;
