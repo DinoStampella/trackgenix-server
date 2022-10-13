@@ -1,38 +1,35 @@
 import express from 'express';
 
-const fs = require('fs');
+import fs from 'fs';
 
 const router = express.Router();
 
 const tasks = require('../data/tasks.json');
 
-router.post('/add', (req, res) => {
+router.post('/', (req, res) => {
   const task = req.body;
-  const { taskName } = task;
-  const taskDescription = task.description;
+  const { taskName, description } = task;
   const ids = tasks.map((t) => t.id);
   const maxId = Math.max(...ids);
   const newTask = {
     id: maxId + 1,
     taskName,
-    description: taskDescription,
+    description,
   };
 
-  if (!taskName && !taskDescription) {
-    res.status(400).send({ success: false, msg: 'You must add name and description' });
+  if (!taskName && !description) {
+    res.status(400).json({ success: false, msg: 'You must add name and description' });
   } else if (!taskName) {
-    res.status(400).send({ success: false, msg: 'You must add a name' });
-  } else if (!taskDescription) {
-    res.status(400).send({ success: false, msg: 'You must add a description' });
+    res.status(400).json({ success: false, msg: 'You must add a name' });
   } else {
     tasks.push(newTask);
   }
 
   fs.writeFile('src/data/tasks.json', JSON.stringify(tasks), (err) => {
     if (err) {
-      res.status(500).send({ success: false, msg: 'Cannot save new task' });
+      res.status(400).json({ success: false });
     } else {
-      res.status(200).send({ success: true, msg: 'Task Created', data: newTask });
+      res.status(200).json({ success: true, msg: 'Task Created', data: newTask });
     }
   });
 });
