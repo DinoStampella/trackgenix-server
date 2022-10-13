@@ -4,13 +4,13 @@ const router = express.Router();
 
 const superAdmins = require('../data/super-admins.json');
 
-router.get('/filter', (req, res) => {
-  const { firstName } = req.query;
+router.get('/:firstName', (req, res) => {
+  const { firstName } = req.params;
   const foundSuperAdmins = superAdmins.filter((superAdmin) => superAdmin.firstName === firstName);
-  if (foundSuperAdmins) {
-    res.status(200).send({ success: true, msg: 'Super Admin found successfully', data: foundSuperAdmins });
+  if (foundSuperAdmins[0]) {
+    res.status(200).json({ success: true, msg: 'Super Admin found successfully', data: foundSuperAdmins });
   } else {
-    res.status(404).send({ success: false });
+    res.status(404).json({ success: false, msg: 'There is no super admin' });
   }
 });
 
