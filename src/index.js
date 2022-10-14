@@ -1,11 +1,11 @@
 import express from 'express';
 
-import adminsRouter from './resources/admins';
-import superAdminsRouter from './resources/super-admins';
-import projectsRouter from './resources/projects';
-import tasksRouter from './resources/tasks';
-import timeSheetsRouter from './resources/time-sheets';
-import employeesRouter from './resources/employees';
+import adminsRouter from './controllers/admins';
+import superAdminsRouter from './controllers/super-admins';
+import projectsRouter from './controllers/projects';
+import tasksRouter from './controllers/tasks';
+import timeSheetsRouter from './controllers/time-sheets';
+import employeesRouter from './controllers/employees';
 
 const app = express();
 
