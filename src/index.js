@@ -5,7 +5,7 @@ import adminsRouter from './controllers/admins';
 import superAdminsRouter from './controllers/super-admins';
 import projectsRouter from './controllers/projects';
 import tasksRouter from './controllers/tasks';
-import timeSheetsRouter from './controllers/time-sheets';
+import timeSheetsRouter from './controllers/timesheets';
 import employeesRouter from './controllers/employees';
 
 const app = express();

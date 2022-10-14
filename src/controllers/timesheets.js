@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 
-const timeSheets = require('../data/time-sheets.json');
+const timeSheets = require('../data/timesheets.json');
 
 const router = express.Router();
 
