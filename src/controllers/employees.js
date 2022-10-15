@@ -35,7 +35,33 @@ const getEmployeeById = async (req, res) => {
   }
 };
 
+const createEmployee = async (req, res) => {
+  try {
+    const employee = new Employees({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+      dni: req.body.dni,
+      phone: req.body.phone,
+      location: req.body.location,
+    });
+    const result = await employee.save();
+    return res.status(201).json({
+      message: 'Employee created succesfully',
+      data: result,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: 'An error ocurred',
+      error,
+    });
+  }
+};
+
 export default {
   getAllEmployees,
   getEmployeeById,
+  createEmployee,
 };

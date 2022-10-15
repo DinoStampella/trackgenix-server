@@ -12,7 +12,79 @@
 		},
 		{
 			"name": "Employees",
-			"item": []
+			"item": [{
+                "name": "GetAllEmployees",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:3000/employees",
+                        "protocol": "http",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "3000",
+                        "path": [
+                            "employees"
+                        ]
+                    }
+                },
+                "response": []
+            },
+            {
+                "name": "GetEmployeeById",
+                "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                        "raw": "http://localhost:3000/employees/:id",
+                        "protocol": "http",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "3000",
+                        "path": [
+                            "employees",
+                            ":id"
+                        ],
+                        "variable": [
+                            {
+                                "key": "id",
+                                "value": "634b2e80d9f82c5b39e8c6e6"
+                            }
+                        ]
+                    }
+                },
+                "response": []
+            },
+            {
+                "name": "CreateEmployee",
+                "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n    \"firstName\": \"Caroline\",\r\n        \"lastName\": \"Fix\",\r\n        \"email\": \"carolinddd@gmail.com\",\r\n        \"password\": \"7jfffjud223\",\r\n        \"dni\": \"457894334\",\r\n        \"phone\": \"11444456777\",\r\n        \"location\": \"Bogotá\"\r\n     \r\n   \r\n}",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "http://localhost:3000/employees",
+                        "protocol": "http",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "3000",
+                        "path": [
+                            "employees"
+                        ]
+                    }
+                },
+                "response": []
+            }]
 		},
 		{
 			"name": "Projects",
