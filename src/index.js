@@ -6,7 +6,7 @@ import superAdminsRouter from './controllers/super-admins';
 import projectsRouter from './controllers/projects';
 import tasksRouter from './controllers/tasks';
 import timeSheetsRouter from './controllers/timesheets';
-import employeesRouter from './controllers/employees';
+import employeesRouter from './routes/employees';
 
 const app = express();
 

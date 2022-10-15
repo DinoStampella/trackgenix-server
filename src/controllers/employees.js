@@ -1,112 +1,41 @@
-import express from 'express';
+import Employees from '../models/Employees';
 
-import fs from 'fs';
+const getAllEmployees = async (req, res) => {
+  try {
+    const employees = await Employees.find();
 
-const employees = require('../data/employees.json');
-
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    msg: 'Employees found successfully',
-    data: employees,
-  });
-});
-
-router.get('/:id', (req, res) => {
-  const employeeId = parseInt(req.params.id, 10);
-  const foundEmployee = employees.find(
-    (employee) => employee.id === employeeId,
-  );
-  if (foundEmployee) {
-    res.status(200).json({
-      success: true,
-      msg: 'Employee found successfully',
-      data: foundEmployee,
+    return res.status(200).json({
+      message: 'Employee found',
+      data: employees,
+      error: false,
     });
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no employee with this id',
+  } catch (error) {
+    return res.json({
+      message: 'An error ocurred',
+      error,
     });
   }
-});
+};
 
-router.post('/:', (req, res) => {
-  const newEmployee = req.body;
-  employees.push(newEmployee);
-  fs.writeFile(
-    'src/data/employees.json',
-    JSON.stringify(employees, null, 2),
-    (err) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-        });
-      } else {
-        res.status(201).json({
-          success: true,
-          msg: 'Employee created successfully',
-          data: newEmployee,
-        });
-      }
-    },
-  );
-});
+const getEmployeeById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const employee = await Employees.findById(id);
 
-router.delete('/:id', (req, res) => {
-  const idEmployee = parseInt(req.params.id, 10);
-  const filteredEmployee = employees.filter((employee) => employee.id !== idEmployee);
-  const deleteEmloyee = employees.find((employee) => employee.id === idEmployee);
-  if (deleteEmloyee) {
-    fs.writeFile('src/data/employees.json', JSON.stringify(filteredEmployee), (err) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-        });
-      } else {
-        res.status(200).json({
-          success: true,
-          msg: 'Employee deleted successfully',
-          data: employees,
-        });
-      }
+    return res.status(200).json({
+      message: 'Employee found',
+      data: employee,
+      error: false,
     });
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no Employee with this id',
+  } catch (error) {
+    return res.json({
+      message: 'An error ocurred',
+      error,
     });
   }
-});
+};
 
-router.put('/:id', (req, res) => {
-  const idEmployee = parseInt(req.params.id, 10);
-  const employee = employees.find((emp) => emp.id === idEmployee);
-  if (employee) {
-    const index = employees.indexOf(employee);
-    const newEmployee = req.body;
-    employees[index] = newEmployee;
-    fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-        });
-      } else {
-        res.status(200).json({
-          success: true,
-          msg: 'Employee modified successfully',
-          data: employees,
-        });
-      }
-    });
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no Employee with this id',
-    });
-  }
-});
-
-export default router;
+export default {
+  getAllEmployees,
+  getEmployeeById,
+};
