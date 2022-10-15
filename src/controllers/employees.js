@@ -5,14 +5,14 @@ const getAllEmployees = async (req, res) => {
     const employees = await Employees.find();
 
     return res.status(200).json({
-      message: 'Employee found',
+      message: 'EmployeeS found',
       data: employees,
       error: false,
     });
   } catch (error) {
-    return res.json({
+    return res.status(404)({
       message: 'An error ocurred',
-      error,
+      error: true,
     });
   }
 };
@@ -28,9 +28,9 @@ const getEmployeeById = async (req, res) => {
       error: false,
     });
   } catch (error) {
-    return res.json({
-      message: 'An error ocurred',
-      error,
+    return res.status(400).json({
+      message: 'Employee not found',
+      error: true,
     });
   }
 };
