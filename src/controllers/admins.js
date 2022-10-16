@@ -40,7 +40,7 @@ const modifyAdmin = async (req, res) => {
       error: true,
     });
   }
-}
+};
 
 export default {
   deleteAdmin,
