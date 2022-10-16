@@ -1,10 +1,70 @@
-import express from 'express';
-import fs from 'fs';
+import Admins from '../models/Admins';
 
-const admins = require('../data/admins.json');
+const getAllAdmins = async (req, res) => {
+  try {
+    const admins = await Admins.find();
+    if (!admins[0]) {
+      return res.status(404).json({
+        message: 'No admins found',
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: 'Admins found',
+      data: admins,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: 'Unexpected error',
+      error,
+    });
+  }
+};
+const getAdminById = async (req, res) => {
+  try {
+    const admin = await Admins.findById(req.params.id);
+    if (!admin) {
+      return res.status(404).json({
+        message: 'There is no admin with this id',
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: 'Admin found',
+      data: admin,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: 'Unexpected error',
+      error,
+    });
+  }
+};
+const createAdmin = async (req, res) => {
+  try {
+    const admin = await Admins.create(req.body);
+    return res.status(201).json({
+      message: 'Admin created',
+      data: admin,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: 'Unexpected error',
+      error,
+    });
+  }
+};
 
-const router = express.Router();
+export default {
+  getAllAdmins,
+  getAdminById,
+  createAdmin,
+};
 
+/*
 function getMaxId(adminInput) {
   let maxId = 0;
   adminInput.forEach((admin) => {
@@ -14,7 +74,8 @@ function getMaxId(adminInput) {
   });
   return maxId + 1;
 }
-
+*/
+/* get, getById, getByName
 router.get('/', (req, res) => {
   if (admins.length) {
     res.status(200).json({
@@ -69,7 +130,8 @@ router.get('/:username', (req, res) => {
     });
   }
 });
-
+*/
+/*
 router.post('/add', (req, res) => {
   const newAdmin = req.body;
   const maxId = getMaxId(admins);
@@ -90,8 +152,9 @@ router.post('/add', (req, res) => {
     }
   });
 });
+*/
 
-router.put('/:id', (req, res) => {
+/* router.put('/:id', (req, res) => {
   const adminId = parseInt(req.params.id, 10);
   const adminToUpdate = admins.find((admin) => admin.id === adminId);
   if (!adminToUpdate) {
@@ -133,8 +196,9 @@ router.put('/:id', (req, res) => {
     );
   }
 });
+*/
 
-router.delete('/:id', (req, res) => {
+/* router.delete('/:id', (req, res) => {
   const adminId = parseInt(req.params.id, 10);
   const adminToDelete = admins.find((admin) => admin.id === adminId);
   const filteredAdmins = admins.filter((admin) => admin.id !== adminId);
@@ -162,5 +226,4 @@ router.delete('/:id', (req, res) => {
     });
   }
 });
-
-export default router;
+*/
