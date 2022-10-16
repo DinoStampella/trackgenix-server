@@ -1,16 +1,17 @@
 import Joi from 'joi';
 
-const validatePost = (req, res, next) => {
+const validateCreation = (req, res, next) => {
   const adminValidation = Joi.object({
-    firstName: Joi.string().regex('/^[a-zA-Z]+$/').min(2).max(30)
-      .required(),
-    lastName: Joi.string().regex('/^[a-zA-Z]+$/').min(2).max(30)
-      .required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().alphanum().min(8).max(50)
-      .required(),
-    dni: Joi.number.min(7).max(10).required(),
-    phone: Joi.number.min(8).max(15),
+    firstName: Joi.required().regex(/^[a-zA-Z]+$/).string().min(2)
+      .max(30),
+    lastName: Joi.required().regex(/^[a-zA-Z]+$/).string().min(2)
+      .max(30),
+    email: Joi.required().string().email(),
+    password: Joi.required().string().alphanum().min(8)
+      .max(50),
+    dni: Joi.required().string().regex(/^\d+$/).min(7)
+      .max(11),
+    phone: Joi.string().regex(/^\d+$/).min(8).max(15),
     location: Joi.string().min(3).max(50),
   });
 
@@ -27,5 +28,5 @@ const validatePost = (req, res, next) => {
 };
 
 export default {
-  validatePost,
+  validateCreation,
 };

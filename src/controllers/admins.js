@@ -4,9 +4,9 @@ const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await Admins.findByIdAndDelete(id);
-    if(result == null){
+    if (result == null) {
       throw new Error(`There is no admin with id ${id}`);
-    }else{
+    } else {
       return res.status(200).json({
         message: `Admin with id ${id} deleted.`,
         data: result,
