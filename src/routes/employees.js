@@ -5,7 +5,7 @@ import employeesConstrollers from '../controllers/employees';
 const router = express.Router();
 
 router
-  .delete('/:id', employeesConstrollers.deleteEmployee)
-  .put('/:id', employeesConstrollers.editEmployee);
+  .delete('/:id', employeesConstrollers.deleteEmployee);
+// .put('/:id', employeesConstrollers.editEmployee);
 
 export default router;
