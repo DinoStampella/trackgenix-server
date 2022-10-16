@@ -1,13 +1,5 @@
 import Employee from '../models/Employees';
 
-const getEmployees = async (req, res) => {
-  const result = await Employee.find();
-  return res.status(200).json({
-    message: 'The successfully',
-    data: result,
-    error: false,
-  });
-};
 const deleteEmployee = async (req, res) => {
   try {
     const idEmployee = req.params.id;
@@ -62,4 +54,4 @@ const editEmployee = async (req, res) => {
   }
 };
 
-export default { getEmployees, deleteEmployee, editEmployee };
+export default { deleteEmployee, editEmployee };

@@ -1,12 +1,11 @@
 import express from 'express';
 import employeesConstrollers from '../controllers/employees';
-// Faltan validaciones
+import validateCreation from '../validations/employees';
 
 const router = express.Router();
 
 router
-  .get('/', employeesConstrollers.getEmployees)
   .delete('/:id', employeesConstrollers.deleteEmployee)
-  .put('/:id', employeesConstrollers.editEmployee);
+  .put('/:id', validateCreation, employeesConstrollers.editEmployee);
 
 export default router;
