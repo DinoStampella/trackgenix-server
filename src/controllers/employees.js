@@ -31,13 +31,13 @@ const getEmployeeById = async (req, res) => {
 
     if (!employee) {
       return res.status(404).json({
-        message: 'Employee not found',
+        message: `The Employee with the id ${id} was not found`,
         data: undefined,
         error: true,
       });
     }
     return res.status(200).json({
-      message: 'Employee found',
+      message: `The Employee with the id ${id} was found successfully`,
       data: employee,
       error: false,
     });
