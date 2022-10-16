@@ -1,5 +1,3 @@
-// Controllers
-
 import Timesheets from '../models/Timesheets';
 
 const getAllTimesheets = async (req, res) => {

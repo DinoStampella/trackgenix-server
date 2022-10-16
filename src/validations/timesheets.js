@@ -1,5 +1,3 @@
-// Validations
-
 import Joi from 'joi';
 
 const validateCreation = (req, res, next) => {
