@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const validateCreation = (req, res, next) => {
   const taskValidation = Joi.object({
-    description: Joi.string().valid('Frontend', 'Backend').required(),
+    description: Joi.string().valid('Frontend', 'Backend', 'Testing').required(),
   });
 
   const validation = taskValidation.validate(req.body, { abortEarly: false });
