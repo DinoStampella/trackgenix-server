@@ -5,14 +5,17 @@ const deleteAdmin = async (req, res) => {
     const { id } = req.params;
     const result = await Admins.findByIdAndDelete(id);
     if (result == null) {
-      throw new Error(`There is no admin with id ${id}`);
-    } else {
-      return res.status(200).json({
-        message: `Admin with id ${id} deleted.`,
-        data: result,
-        error: false,
+      return res.status(400).json({
+        message: `There is no admin with id ${id}`,
+        data: undefined,
+        error: true,
       });
     }
+    return res.status(200).json({
+      message: `Admin with id ${id} deleted.`,
+      data: result,
+      error: false,
+    });
   } catch (error) {
     return res.status(400).json({
       message: error.message,
@@ -30,14 +33,20 @@ const modifyAdmin = async (req, res) => {
       { ...req.body },
       { new: true },
     );
-
+    if (result == null) {
+      return res.status(400).json({
+        message: `There is no admin with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
     return res.status(200).json({
       message: `Admin with id ${id} modified.`,
       data: result,
       error: false,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       message: error,
       data: undefined,
       error: true,
