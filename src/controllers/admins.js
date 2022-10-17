@@ -1,23 +1,33 @@
 import Admins from '../models/Admins';
 
+const { ObjectId } = require('mongoose').Types;
+
+function isValidObjectId(id) {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) return true;
+    return false;
+  }
+  return false;
+}
+
 const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
-    const adminFound = await Admins.findByIdAndDelete(id);
-    if (adminFound == null) {
-      return res.status(400).json({
-        message: `There is no admin with id ${id}`,
-        data: undefined,
-        error: true,
+    if (isValidObjectId(id)) {
+      const adminFound = await Admins.findByIdAndDelete(id);
+      return res.status(204).json({
+        message: `Admin with id ${id} deleted succesfully`,
+        data: adminFound,
+        error: false,
       });
     }
-    return res.status(200).json({
-      message: `Admin with id ${id} deleted.`,
-      data: adminFound,
-      error: false,
+    return res.status(404).json({
+      message: `Couldn't find admin with id ${id}`,
+      data: undefined,
+      error: true,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       message: error.message,
       data: undefined,
       error: true,
@@ -28,22 +38,22 @@ const deleteAdmin = async (req, res) => {
 const modifyAdmin = async (req, res) => {
   try {
     const { id } = req.params;
-    const adminFound = await Admins.findByIdAndUpdate(
-      { _id: id },
-      { ...req.body },
-      { new: true },
-    );
-    if (adminFound == null) {
-      return res.status(400).json({
-        message: `There is no admin with id ${id}`,
-        data: undefined,
-        error: true,
+    if (isValidObjectId(id)) {
+      const adminFound = await Admins.findByIdAndUpdate(
+        { _id: id },
+        { ...req.body },
+        { new: true },
+      );
+      return res.status(201).json({
+        message: `Admin with id ${id} modified succesfully`,
+        data: adminFound,
+        error: false,
       });
     }
-    return res.status(200).json({
-      message: `Admin with id ${id} modified.`,
-      data: adminFound,
-      error: false,
+    return res.status(404).json({
+      message: `Couldn't find admin with id ${id}`,
+      data: undefined,
+      error: true,
     });
   } catch (error) {
     return res.status(500).json({
