@@ -1,13 +1,15 @@
 import Projects from '../models/Projects';
 
+const { ObjectId } = require('mongoose').Types;
+
 const getAllProjects = async (req, res) => {
   try {
     const projects = await Projects.find();
-    if(!projects) {
+    if (!projects) {
       return res.status(404).json({
         success: false,
         msg: 'Projects not found.',
-    });
+      });
     }
     return res.status(201).json({
       success: true,
@@ -22,13 +24,12 @@ const getAllProjects = async (req, res) => {
 };
 
 const getProjectById = async (req, res) => {
-  const { ObjectId } = require('mongoose').Types;
   const isValidObjectId = (id) => {
-    if(ObjectId.isValid(id)) {
+    if (ObjectId.isValid(id)) {
       if ((String)(new ObjectId(id)) === id) {
         return true;
       }
-    };
+    }
     return false;
   };
   try {
@@ -40,7 +41,7 @@ const getProjectById = async (req, res) => {
       });
     }
     const project = await Projects.findById(id);
-    if(!project) {
+    if (!project) {
       return res.status(404).json({
         success: false,
         msg: `Couldnt find project with id ${id}`,
