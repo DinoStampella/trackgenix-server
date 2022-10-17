@@ -4,8 +4,8 @@ const deleteSuperAdmins = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await superAdmins.findByIdAndDelete(id);
-    return res.status(204).json({
-      message: 'Super admin delete',
+    return res.status(200).json({
+      message: 'Super admin deleted',
       data: result,
       error: false,
     });

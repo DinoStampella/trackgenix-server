@@ -9,7 +9,7 @@ const superAdminsSchema = new Schema({
   password: { type: String, required: true },
   phone: { type: Number },
   location: { type: String },
-  DNI: { type: Number, required: true },
+  dni: { type: Number, required: true },
 });
 
-export default mongoose.model('SuperAdmins', superAdminsSchema);
+export default mongoose.model('super-admins', superAdminsSchema);
