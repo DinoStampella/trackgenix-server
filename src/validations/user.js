@@ -9,7 +9,7 @@ const validateCreation = (req, res, next) => {
         'string.pattern.base': 'first name should be letters only',
         'string.min': 'first name should have a minimum length of 2 characters',
         'string.max': 'first name should have a maximum length of 30 characters',
-        'any.required': 'first name is a required field',
+        'any.required': 'first name required',
       }),
     lastName: Joi.string().regex(/^[a-zA-Z]+$/).min(2).max(30)
       .required()
@@ -18,13 +18,13 @@ const validateCreation = (req, res, next) => {
         'string.pattern.base': 'last name should be letters only',
         'string.min': 'last name should have a minimum length of 2 characters',
         'string.max': 'last name should have a maximum length of 30 characters',
-        'any.required': 'last name is a required field',
+        'any.required': 'last name required',
       }),
     email: Joi.string().email().required()
       .messages({
         'string.empty': 'email required',
         'string.base': 'invalid email format',
-        'any.required': 'email is a required field',
+        'any.required': 'email required',
       }),
     password: Joi.string().alphanum().min(8).max(50)
       .required()
@@ -33,7 +33,7 @@ const validateCreation = (req, res, next) => {
         'string.alphanum': 'password must be letters and numbers only',
         'string.min': 'password should have a minimum length of 8 characters',
         'string.max': 'password should have a maximum length of 50 characters',
-        'any.required': 'password is a required field',
+        'any.required': 'password required',
       }),
     dni: Joi.string().regex(/^\d+$/).min(7).max(11)
       .required()
@@ -42,7 +42,7 @@ const validateCreation = (req, res, next) => {
         'string.pattern.base': 'dni must be numbers only',
         'string.min': 'dni should have a minimum length of 7 characters',
         'string.max': 'dni should have a maximum length of 11 characters',
-        'any.required': 'dni is a required field',
+        'any.required': 'dni required',
       }),
     phone: Joi.string().regex(/^\d+$/).min(8).max(15)
       .messages({
@@ -56,10 +56,10 @@ const validateCreation = (req, res, next) => {
         'string.max': 'location should have a maximum length of 50 characters',
       }),
   });
-  const validation = userValidation.validate(req.body);
-  if (validation.error) {
+  const validate = userValidation.validate(req.body, { abortEarly: false });
+  if (validate.error) {
     return res.status(400).json({
-      message: validation.error.details,
+      message: validate.error.details,
       data: undefined,
     });
   }

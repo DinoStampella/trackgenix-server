@@ -1,9 +1,19 @@
 import Admins from '../models/Admins';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const getAllAdmins = async (req, res) => {
   try {
     const admins = await Admins.find();
-    if (!admins[0]) {
+    if (!admins.length) {
       return res.status(404).json({
         message: 'No admins found',
         error: true,
@@ -16,12 +26,17 @@ const getAllAdmins = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      message: 'Unexpected error',
-      error,
+      message: `Unexpected error ${error}`,
     });
   }
 };
 const getAdminById = async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
+    });
+  }
   try {
     const admin = await Admins.findById(req.params.id);
     if (!admin) {
@@ -37,8 +52,7 @@ const getAdminById = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      message: 'Unexpected error',
-      error,
+      message: `Unexpected error ${error}`,
     });
   }
 };
@@ -52,8 +66,7 @@ const createAdmin = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      message: 'Unexpected error',
-      error,
+      message: `Unexpected error ${error}`,
     });
   }
 };
