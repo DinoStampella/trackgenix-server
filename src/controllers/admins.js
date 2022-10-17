@@ -3,8 +3,8 @@ import Admins from '../models/Admins';
 const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await Admins.findByIdAndDelete(id);
-    if (result == null) {
+    const adminFound = await Admins.findByIdAndDelete(id);
+    if (adminFound == null) {
       return res.status(400).json({
         message: `There is no admin with id ${id}`,
         data: undefined,
@@ -13,7 +13,7 @@ const deleteAdmin = async (req, res) => {
     }
     return res.status(200).json({
       message: `Admin with id ${id} deleted.`,
-      data: result,
+      data: adminFound,
       error: false,
     });
   } catch (error) {
@@ -28,12 +28,12 @@ const deleteAdmin = async (req, res) => {
 const modifyAdmin = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await Admins.findByIdAndUpdate(
+    const adminFound = await Admins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
       { new: true },
     );
-    if (result == null) {
+    if (adminFound == null) {
       return res.status(400).json({
         message: `There is no admin with id ${id}`,
         data: undefined,
@@ -42,7 +42,7 @@ const modifyAdmin = async (req, res) => {
     }
     return res.status(200).json({
       message: `Admin with id ${id} modified.`,
-      data: result,
+      data: adminFound,
       error: false,
     });
   } catch (error) {
