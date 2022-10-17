@@ -1,11 +1,11 @@
 import express from 'express';
-import adminValidations from '../validations/admins';
+import userValidations from '../validations/user';
 import adminControllers from '../controllers/admins';
 
 const router = express.Router();
 
 router.get('/', adminControllers.getAllAdmins);
 router.get('/:id', adminControllers.getAdminById);
-router.post('/', adminValidations.validateCreation, adminControllers.createAdmin);
+router.post('/', userValidations.validateCreation, adminControllers.createAdmin);
 
 export default router;
