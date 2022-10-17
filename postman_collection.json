@@ -1,109 +1,130 @@
 {
-	"info": {
-		"_postman_id": "982cc45e-96e5-4e3c-841a-480cee2c856e",
-		"name": "TrackGenix",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Admins",
-			"item": []
-		},
-		{
-			"name": "Create Admin",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"firstName\": \"Bruce\",\r\n  \"lastName\": \"Wayne\",\r\n  \"email\": \"bat@man.com\",\r\n  \"password\": \"alfredisthebest123\",\r\n  \"dni\": \"9513955\",\r\n  \"phone\": \"07754777\",\r\n  \"location\": \"wayne manor gotham city\"\r\n}  ",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:3000/admins/",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admins",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Admins",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:3000/admins/",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admins",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Admin by Id",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:3000/admins/:id",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"admins",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "634d8d217a840a87a72d601b"
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	]
+    "info": {
+        "_postman_id": "982cc45e-96e5-4e3c-841a-480cee2c856e",
+        "name": "TrackGenix",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Admins",
+            "item": [
+                {
+                    "name": "Create Admin",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n  \"firstName\": \"Bruce\",\r\n  \"lastName\": \"Wayne\",\r\n  \"email\": \"bat@man.com\",\r\n  \"password\": \"alfredisthebest123\",\r\n  \"dni\": \"9513955\",\r\n  \"phone\": \"07754777\",\r\n  \"location\": \"wayne manor gotham city\"\r\n}  ",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "localhost:3000/admins/",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "admins",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Admins",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "localhost:3000/admins/",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "admins",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Admin by Id",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "localhost:3000/admins/:id",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "admins",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "634d8d217a840a87a72d601b"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Employees",
+            "item": []
+        },
+        {
+            "name": "Projects",
+            "item": []
+        },
+        {
+            "name": "Super admins",
+            "item": []
+        },
+        {
+            "name": "Tasks",
+            "item": []
+        },
+        {
+            "name": "Time sheets",
+            "item": []
+        }
+    ]
 }
