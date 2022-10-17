@@ -17,9 +17,8 @@ const validateCreation = (req, res, next) => {
   const validation = adminValidation.validate(req.body);
   if (validation.error) {
     res.status(400).json({
-      message: 'There was an error',
+      message: 'There was validation error',
       data: undefined,
-      // error: validation.error
     });
   }
   return next();
