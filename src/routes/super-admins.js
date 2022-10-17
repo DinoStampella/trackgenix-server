@@ -4,9 +4,8 @@ import superAdminsValidations from '../validations/super-admins';
 
 const router = express.Router();
 
-
 router
-    .delete('/:id', superAdminsControllers.deleteSuperAdmins)
-    .put('/:id', superAdminsControllers.editSuperAdmins);
+  .put('/:id', superAdminsValidations.validateCreation, superAdminsControllers.editSuperAdmins)
+  .delete('/:id', superAdminsControllers.deleteSuperAdmins);
 
 export default router;
