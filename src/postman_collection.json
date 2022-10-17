@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "c4609bd7-8acd-48b9-94ab-000ac3609a4f",
-		"name": "Tackgenix Server",
+		"_postman_id": "9eb8756d-9855-4cb9-a369-1a3c7572e549",
+		"name": "Trackgenix Server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23758496"
+		"_exporter_id": "23763313"
 	},
 	"item": [
 		{
@@ -16,7 +16,72 @@
 		},
 		{
 			"name": "Projects",
-			"item": []
+			"item": [
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    nombre: erick,\r\n    'description': 'ppkpkpkpkppkp',\r\n    'startDate': '1/05/2021',\r\n    'endDate': '4/10/2022',\r\n    'active': 'true',\r\n    'clientName': 'ernesto',\r\n    'teamMembers': [{\r\n      'id': 'String',\r\n      'rol': 'DEV',\r\n      'rate': 10\r\n       }],\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/projects/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "634b6673862eaafc6c75e604"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"carlos\",\r\n    \"description\": \"lo que venga \",\r\n    \"startDate\": \"10/12/2022\",\r\n    \"active\": \"true\",\r\n    \"clientName\": \"arturo\",\r\n    \"teamMembers\":[\r\n        {\r\n            \"rol\":\"PM\",\r\n            \"rate\": 50\r\n        }\r\n    ]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/projects/634b3df70ad0b5d376ecb360",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects",
+								"634b3df70ad0b5d376ecb360"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Super admins",
