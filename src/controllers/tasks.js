@@ -2,13 +2,13 @@ import Tasks from '../models/Tasks';
 
 const { ObjectId } = require('mongoose').Types;
 
-const isValidObjectId = (id) => {
+function isValidObjectId(id) {
   if (ObjectId.isValid(id)) {
     if ((String)(new ObjectId(id)) === id) return true;
     return false;
   }
   return false;
-};
+}
 
 const getAllTasks = async (req, res) => {
   try {
@@ -31,24 +31,25 @@ const getAllTasks = async (req, res) => {
   }
 };
 const getTaskById = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
+  const { id } = req.params;
   try {
-    const tasks = await Tasks.findById(req.params.id);
-    if (!tasks) {
+    if (isValidObjectId(id)) {
+      const tasks = await Tasks.findById(req.params.id);
+      if (tasks !== null) {
+        return res.status(200).json({
+          message: 'Task found',
+          data: tasks,
+          error: false,
+        });
+      }
       return res.status(404).json({
         message: 'There is no task with this id',
         error: true,
       });
     }
-    return res.status(200).json({
-      message: 'Task found',
-      data: tasks,
-      error: false,
+    return res.status(400).json({
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
     });
   } catch (error) {
     return res.status(500).json({
