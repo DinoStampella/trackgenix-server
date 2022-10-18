@@ -1,15 +1,12 @@
 import Tasks from '../models/Tasks';
 
-const { ObjectId } = require('mongoose').Types;
-
 const deleteTask = async (req, res) => {
-  const isValidObjectId = (id) => ObjectId.isValid(id) && ((String)(new ObjectId(id)) === id);
   try {
     const { id } = req.params;
     const taskFound = await Tasks.findByIdAndDelete(id);
-    if (!isValidObjectId) {
+    if (!taskFound) {
       return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
+        message: `The task with the id ${id} was not found`,
         error: true,
       });
     }
