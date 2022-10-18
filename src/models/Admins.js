@@ -8,8 +8,8 @@ const adminSchema = new Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   dni: { type: Number, required: true },
-  phone: { type: Number, required: false },
-  location: { type: String, required: false },
+  phone: { type: Number },
+  location: { type: String },
 });
 
 export default mongoose.model('Admin', adminSchema);
