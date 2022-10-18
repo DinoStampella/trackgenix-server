@@ -31,25 +31,25 @@ const getAllTasks = async (req, res) => {
   }
 };
 const getTaskById = async (req, res) => {
-  const { id } = req.params;
   try {
-    if (isValidObjectId(id)) {
-      const tasks = await Tasks.findById(req.params.id);
-      if (tasks !== null) {
-        return res.status(200).json({
-          message: 'Task found',
-          data: tasks,
-          error: false,
-        });
-      }
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
+    const task = await Tasks.findById(req.params.id);
+    if (!task) {
       return res.status(404).json({
         message: 'There is no task with this id',
         error: true,
       });
     }
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
+    return res.status(200).json({
+      message: 'Task found',
+      data: task,
+      error: false,
     });
   } catch (error) {
     return res.status(500).json({
