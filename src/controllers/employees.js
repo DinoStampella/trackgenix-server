@@ -1,112 +1,71 @@
-import express from 'express';
+import Employee from '../models/Employees';
 
-import fs from 'fs';
+const { ObjectId } = require('mongoose').Types;
 
-const employees = require('../data/employees.json');
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
 
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    msg: 'Employees found successfully',
-    data: employees,
-  });
-});
-
-router.get('/:id', (req, res) => {
-  const employeeId = parseInt(req.params.id, 10);
-  const foundEmployee = employees.find(
-    (employee) => employee.id === employeeId,
-  );
-  if (foundEmployee) {
-    res.status(200).json({
-      success: true,
-      msg: 'Employee found successfully',
-      data: foundEmployee,
-    });
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no employee with this id',
+const deleteEmployee = async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
     });
   }
-});
-
-router.post('/:', (req, res) => {
-  const newEmployee = req.body;
-  employees.push(newEmployee);
-  fs.writeFile(
-    'src/data/employees.json',
-    JSON.stringify(employees, null, 2),
-    (err) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-        });
-      } else {
-        res.status(201).json({
-          success: true,
-          msg: 'Employee created successfully',
-          data: newEmployee,
-        });
-      }
-    },
-  );
-});
-
-router.delete('/:id', (req, res) => {
-  const idEmployee = parseInt(req.params.id, 10);
-  const filteredEmployee = employees.filter((employee) => employee.id !== idEmployee);
-  const deleteEmloyee = employees.find((employee) => employee.id === idEmployee);
-  if (deleteEmloyee) {
-    fs.writeFile('src/data/employees.json', JSON.stringify(filteredEmployee), (err) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-        });
-      } else {
-        res.status(200).json({
-          success: true,
-          msg: 'Employee deleted successfully',
-          data: employees,
-        });
-      }
-    });
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no Employee with this id',
+  try {
+    const idEmployee = req.params.id;
+    const deletedEmployee = await Employee.findByIdAndDelete(idEmployee);
+    if (!deletedEmployee) {
+      return res.status(404).json({
+        message: `The Employee with the id ${idEmployee} was not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
     });
   }
-});
+};
 
-router.put('/:id', (req, res) => {
-  const idEmployee = parseInt(req.params.id, 10);
-  const employee = employees.find((emp) => emp.id === idEmployee);
-  if (employee) {
-    const index = employees.indexOf(employee);
-    const newEmployee = req.body;
-    employees[index] = newEmployee;
-    fs.writeFile('src/data/employees.json', JSON.stringify(employees), (err) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-        });
-      } else {
-        res.status(200).json({
-          success: true,
-          msg: 'Employee modified successfully',
-          data: employees,
-        });
-      }
-    });
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no Employee with this id',
+const updateEmployee = async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
     });
   }
-});
+  try {
+    const idEmployee = req.params.id;
+    const updatedEmployee = await Employee.findByIdAndUpdate(
+      { _id: idEmployee },
+      { ...req.body },
+      { new: true },
+    );
+    if (!updatedEmployee) {
+      return res.status(404).json({
+        message: `The Employee with the id ${idEmployee} was not found`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: `The Employee with the id ${idEmployee} was updated successfully`,
+      data: updatedEmployee,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+    });
+  }
+};
 
-export default router;
+export default { deleteEmployee, updateEmployee };
