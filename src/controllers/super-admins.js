@@ -9,7 +9,7 @@ const getAllSuperAdmins = async (req, res) => {
       error: false,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       message: `An error occurred: ${error.message}`,
       error: true,
     });
@@ -26,7 +26,7 @@ const getSuperAdminsById = async (req, res) => {
       error: false,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       message: `An error occurred: ${error.message}`,
       error: true,
     });
@@ -35,7 +35,7 @@ const getSuperAdminsById = async (req, res) => {
 
 const createSuperAdmins = async (req, res) => {
   try {
-    const superAdmin = new SuperAdmins({
+    const newSuperAdmin = new SuperAdmins({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
@@ -44,14 +44,14 @@ const createSuperAdmins = async (req, res) => {
       phone: req.body.phone,
       location: req.body.location,
     });
-    const result = await superAdmin.save();
+    const result = await newSuperAdmin.save();
     return res.status(201).json({
       message: 'Super Admins created successfully',
       data: result,
       error: false,
     });
   } catch (error) {
-    return res.status(400).json({
+    return res.status(500).json({
       message: `An error occurred: ${error.message}`,
       error: true,
     });
