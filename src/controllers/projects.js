@@ -2,6 +2,14 @@ import Projects from '../models/Projects';
 
 const { ObjectId } = require('mongoose').Types;
 
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+      if ((String)(new ObjectId(id)) === id) { return true; }
+      return false;
+  }
+  return false;
+  };
+
 const getAllProjects = async (req, res) => {
   try {
     const projects = await Projects.find();
@@ -25,40 +33,29 @@ const getAllProjects = async (req, res) => {
 };
 
 const getProjectById = async (req, res) => {
-  const isValidObjectId = (id) => {
-    if (ObjectId.isValid(id)) {
-      if ((String)(new ObjectId(id)) === id) {
-        return true;
-      }
-    }
-    return false;
-  };
   try {
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).json({
         message: `Invalid id: ${req.params.id}`,
-        data: undefined,
         error: true,
       });
     }
     const project = await Projects.findById(id);
     if (!project) {
       return res.status(404).json({
-        msg: `Couldnt find project with id ${id}`,
-        data: undefined,
+        message: `Couldn't find project with id ${id}`,
         error: true,
       });
     }
     return res.status(200).json({
-      msg: 'Project found succesfully',
+      message: 'Project found succesfully',
       data: project,
       error: false,
     });
   } catch (error) {
-    return res.status(400).json({
-      msg: 'An error ocurred',
-      data: undefined,
+    return res.status(500).json({
+      message: 'An error ocurred',
       error: false,
     });
   }
@@ -66,25 +63,15 @@ const getProjectById = async (req, res) => {
 
 const createProject = async (req, res) => {
   try {
-    const newProject = new Projects({
-      name: req.body.name,
-      description: req.body.description,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      active: req.body.active,
-      clientName: req.body.clientName,
-      teamMembers: req.body.teamMembers,
-    });
-
-    const result = await newProject.save();
+    const newProject = await Projects.create(req.body);
     return res.status(201).json({
-      msg: 'Project created successfully',
-      data: result,
+      message: 'Project created successfully',
+      data: newProject,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      data: undefined,
+      message: 'error in the server',
       error: true,
     });
   }
