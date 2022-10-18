@@ -1,8 +1,26 @@
 import SuperAdmins from '../models/Super-admins';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if (String(new ObjectId(id)) === id) {
+      return true;
+    }
+    return false;
+  }
+  return false;
+};
+
 const getAllSuperAdmins = async (req, res) => {
   try {
     const superAdmins = await SuperAdmins.find();
+    if (!superAdmins.length) {
+      return res.status(404).json({
+        message: 'No Super Admins found',
+        error: true,
+      });
+    }
     return res.status(200).json({
       message: 'Super Admins found',
       data: superAdmins,
@@ -17,9 +35,21 @@ const getAllSuperAdmins = async (req, res) => {
 };
 
 const getSuperAdminsById = async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
+    });
+  }
   try {
     const idSuperAdmin = req.params.id;
     const superAdminsId = await SuperAdmins.findById(idSuperAdmin);
+    if (!superAdminsId) {
+      return res.status(404).json({
+        message: 'There is no Super Admins with this id',
+        error: true,
+      });
+    }
     return res.status(200).json({
       message: 'Super Admins found',
       data: superAdminsId,
