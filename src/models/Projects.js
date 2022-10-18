@@ -10,7 +10,7 @@ const projectSchema = new mongoose.Schema({
   teamMembers: [{
     name: { type: String, required: true },
     rol: { type: String, enum: ['DEV', 'TL', 'QA', 'PM'] },
-    rate: { type: Number, required: true, },
+    rate: { type: Number, required: true },
   }],
 });
 
