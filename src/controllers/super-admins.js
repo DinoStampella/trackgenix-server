@@ -35,16 +35,16 @@ const getAllSuperAdmins = async (req, res) => {
 };
 
 const getSuperAdminsById = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
     const idSuperAdmin = req.params.id;
-    const superAdminsId = await SuperAdmins.findById(idSuperAdmin);
-    if (!superAdminsId) {
+    const superAdmins = await SuperAdmins.findById(idSuperAdmin);
+    if (!superAdmins) {
       return res.status(404).json({
         message: 'There is no Super Admins with this id',
         error: true,
@@ -52,7 +52,7 @@ const getSuperAdminsById = async (req, res) => {
     }
     return res.status(200).json({
       message: 'Super Admins found',
-      data: superAdminsId,
+      data: superAdmins,
       error: false,
     });
   } catch (error) {
@@ -65,19 +65,11 @@ const getSuperAdminsById = async (req, res) => {
 
 const createSuperAdmins = async (req, res) => {
   try {
-    const newSuperAdmin = new SuperAdmins({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-      dni: req.body.dni,
-      phone: req.body.phone,
-      location: req.body.location,
-    });
-    const result = await newSuperAdmin.save();
+    const newSuperAdmin = new SuperAdmins(req.body);
+    const newSuperAdminSaved = await newSuperAdmin.save();
     return res.status(201).json({
       message: 'Super Admins created successfully',
-      data: result,
+      data: newSuperAdminSaved,
       error: false,
     });
   } catch (error) {
