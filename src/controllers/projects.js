@@ -7,18 +7,19 @@ const getAllProjects = async (req, res) => {
     const projects = await Projects.find();
     if (!projects) {
       return res.status(404).json({
-        success: false,
-        msg: 'Projects not found.',
+        message: 'Projects not found.',
+        data: undefined,
+        error: true,
       });
     }
     return res.status(201).json({
-      success: true,
-      msg: 'Projects found succesfully',
+      message: 'Projects found succesfully',
       data: projects,
+      error: true,
     });
   } catch (error) {
     return res.status(500).json({
-      success: false,
+      error: true,
     });
   }
 };
@@ -37,25 +38,28 @@ const getProjectById = async (req, res) => {
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).json({
         message: `Invalid id: ${req.params.id}`,
+        data: undefined,
         error: true,
       });
     }
     const project = await Projects.findById(id);
     if (!project) {
       return res.status(404).json({
-        success: false,
         msg: `Couldnt find project with id ${id}`,
+        data: undefined,
+        error: true,
       });
     }
     return res.status(200).json({
-      success: true,
       msg: 'Project found succesfully',
       data: project,
+      error: false,
     });
   } catch (error) {
     return res.status(400).json({
-      success: false,
       msg: 'An error ocurred',
+      data: undefined,
+      error: false,
     });
   }
 };
@@ -74,13 +78,14 @@ const createProject = async (req, res) => {
 
     const result = await newProject.save();
     return res.status(201).json({
-      success: true,
       msg: 'Project created successfully',
       data: result,
+      error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      success: false,
+      data: undefined,
+      error: true,
     });
   }
 };

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const projectSchema = new mongoose.Schema({
   name: { type: String, require: true },
   description: { type: String, require: true },
-  startDate: { type: Date, default: () => Date.now().toISOString() },
+  startDate: { type: Date, default: () => Date.now().toString() },
   endDate: { type: Date, require: true },
   active: { type: String, require: true },
   clientName: { type: String, require: true },

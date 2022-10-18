@@ -62,9 +62,9 @@ const validateCreation = (req, res, next) => {
     endDate: Joi.date()
       .max(new Date())
       .required().messages({
-        'string.empty': 'description is required',
-        'string.base': 'description should be only letters',
-        'any.required': 'description a required',
+        'string.empty': 'endDate is required',
+        'string.base': 'endDate should date format',
+        'any.required': 'endDate a required',
       }),
     active: Joi.boolean()
       .required(),
@@ -73,17 +73,17 @@ const validateCreation = (req, res, next) => {
       .max(30)
       .required()
       .messages({
-        'string.empty': 'description is required',
-        'string.base': 'description sould be only letters',
-        'string.min': 'description sould have a minimum length of 2 character',
-        'string.max': 'description sould have a maximun length of 150 character',
-        'any.required': 'description is required',
+        'string.empty': 'clientName is required',
+        'string.base': 'clientName sould be only letters',
+        'string.min': 'clientName sould have a minimum length of 2 character',
+        'string.max': 'clientName sould have a maximun length of 150 character',
+        'any.required': 'clientName is required',
       }),
     teamMembers: Joi.array()
       .items(teamMembersValidation)
       .messages({
-        'string.empty': 'description is required',
-        'string.base': 'The rol is not valid',
+        'string.empty': 'teamMembers is required',
+        'string.base': 'the rol is not valid',
       }),
   });
 
