@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const projectsSchema = new Schema({
-  id: { type: String, required: true },
-  nombre: {
+  name: {
     type: String,
     required: true,
   },
@@ -30,6 +29,10 @@ const projectsSchema = new Schema({
   },
   teamMembers: [
     {
+      id: {
+        type: String,
+        required: true,
+      },
       rol: {
         type: String,
         required: true,
