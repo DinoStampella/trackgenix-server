@@ -29,7 +29,7 @@ const validateCreation = (req, res, next) => {
       }),
   });
 
-  const projectvalidation = Joi.object({
+  const projectValidation = Joi.object({
     name: Joi.string()
       .min(2)
       .max(30)
@@ -87,11 +87,11 @@ const validateCreation = (req, res, next) => {
       }),
   });
 
-  const validation = projectvalidation.validate(req.body, { abortEarly: false });
+  const validation = projectValidation.validate(req.body, { abortEarly: false });
   if (validation.error) {
+    console.log(validation.error);
     return res.status(400).json({
-      message: `There was a validation error: ${validation.error.details} `,
-      data: undefined,
+      message: validation.error,
       error: true,
     });
   }
