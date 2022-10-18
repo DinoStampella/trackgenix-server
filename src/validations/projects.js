@@ -11,13 +11,13 @@ const validateCreation = (req, res, next) => {
         '634b2fd6d9f82c5b39e8c6ec',
       ).messages({
         'string.empty': 'Id required',
-        'string.pattern.base': 'Id must an existing id',
+        'any.only': 'Id must be an existing id',
         'any.required': 'Id required',
       }),
     rol: Joi.string().required().valid('DEV', 'QA', 'TL', 'PM')
       .messages({
         'string.empty': 'rol required',
-        'string.pattern.base': 'rol can only be DEV, QA, TL or PM',
+        'any.only': 'rol can only be DEV, QA, TL or PM',
         'any.required': 'rol required',
       }),
     rate: Joi.number().min(1).max(1000).required()
@@ -49,7 +49,7 @@ const validateCreation = (req, res, next) => {
       }),
     startDate: Joi.date().greater('now').required()
       .messages({
-        'date.empty': 'StartDate required',
+        'string.empty': 'StartDate required',
         'date.pattern.base': 'StartDate must be after today',
         'any.required': 'StartDate required',
       }),
@@ -74,15 +74,10 @@ const validateCreation = (req, res, next) => {
   });
 
   const validation = projectsValidations.validate(req.body, { abortEarly: false });
-  // aca esta el problema muñaño
-  let errorMessages = '';
-  validation.error.details.forEach((obj) => {
-    errorMessages += `${obj.message},`;
-  });
 
   if (validation.error) {
     return res.status(400).json({
-      message: errorMessages, // `There was an error: ${validation.error.details[0].message}`,
+      message: validation.error.details,
       data: undefined,
       error: true,
     });
