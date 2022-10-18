@@ -15,7 +15,7 @@ const deleteAdmin = async (req, res) => {
     const { id } = req.params;
     if (isValidObjectId(id)) {
       const adminFound = await Admins.findByIdAndDelete(id);
-      if(adminFound !== null){
+      if (adminFound !== null) {
         return res.status(204).json({
           message: `Admin with id ${id} deleted succesfully`,
           data: adminFound,
@@ -50,7 +50,7 @@ const modifyAdmin = async (req, res) => {
         { ...req.body },
         { new: true },
       );
-      if(adminFound !== null){
+      if (adminFound !== null) {
         return res.status(201).json({
           message: `Admin with id ${id} modified succesfully`,
           data: adminFound,
