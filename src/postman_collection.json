@@ -1,34 +1,92 @@
 {
-	"info": {
-		"_postman_id": "c4609bd7-8acd-48b9-94ab-000ac3609a4f",
-		"name": "Tackgenix Server",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23758496"
-	},
-	"item": [
-		{
-			"name": "Admins",
-			"item": []
-		},
-		{
-			"name": "Employees",
-			"item": []
-		},
-		{
-			"name": "Projects",
-			"item": []
-		},
-		{
-			"name": "Super admins",
-			"item": []
-		},
-		{
-			"name": "Tasks",
-			"item": []
-		},
-		{
-			"name": "Time sheets",
-			"item": []
-		}
-	]
+    "info": {
+        "_postman_id": "c4609bd7-8acd-48b9-94ab-000ac3609a4f",
+        "name": "Tackgenix Server",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "23758496"
+    },
+    "item": [
+        {
+            "name": "Admins",
+            "item": []
+        },
+        {
+            "name": "Employees",
+            "item": []
+        },
+        {
+            "name": "Projects",
+            "item": []
+        },
+        {
+            "name": "Super admins",
+            "item": []
+        },
+        {
+            "name": "Tasks",
+            "item": [
+                {
+                    "info": {
+                        "_postman_id": "ac1d5d19-75ff-4422-949d-e3327d6f3f16",
+                        "name": "Tasks",
+                        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+                        "_exporter_id": "23628058"
+                    },
+                    "item": [
+                        {
+                            "name": "Delete task",
+                            "request": {
+                                "method": "DELETE",
+                                "header": [],
+                                "url": {
+                                    "raw": "localhost:3000/tasks/",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3000",
+                                    "path": [
+                                        "tasks",
+                                        ""
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Update task",
+                            "request": {
+                                "method": "PUT",
+                                "header": [],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\r\n    \"description\": \"Testing\"\r\n}",
+                                    "options": {
+                                        "raw": {
+                                            "language": "json"
+                                        }
+                                    }
+                                },
+                                "url": {
+                                    "raw": "localhost:3000/tasks/634ddecb0c4eec6805dad210",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "3000",
+                                    "path": [
+                                        "tasks",
+                                        "634ddecb0c4eec6805dad210"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Time sheets",
+            "item": []
+        }
+    ]
 }

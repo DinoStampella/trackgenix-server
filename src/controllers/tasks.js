@@ -11,8 +11,8 @@ const isValidObjectId = (id) => {
 };
 
 const deleteTask = async (req, res) => {
-  const { id } = req.params;
   try {
+    const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
         message: `Invalid id ${id}`,
@@ -21,18 +21,15 @@ const deleteTask = async (req, res) => {
     }
     const taskFound = await Tasks.findByIdAndDelete(id);
     if (!taskFound) {
-      return res.status(400).json({
+      return res.status(404).json({
         message: `The task with the id ${id} was not found`,
         error: true,
       });
     }
-    return res.status(204).json({
-      message: `Task with id ${id} deleted succesfully`,
-      data: taskFound,
-      error: false,
-    });
+    return res.status(204);
   } catch (error) {
     return res.status(500).json({
+      message: 'error server',
       error: true,
     });
   }
@@ -41,7 +38,6 @@ const deleteTask = async (req, res) => {
 const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const updates = req.body;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
         message: `Invalid id ${id}`,
@@ -50,7 +46,7 @@ const updateTask = async (req, res) => {
     }
     const taskFound = await Tasks.findByIdAndUpdate(
       id,
-      updates,
+      req.body,
       { new: true },
     );
     if (!taskFound) {
@@ -66,6 +62,7 @@ const updateTask = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
+      message: 'error server',
       error: true,
     });
   }
