@@ -21,7 +21,6 @@ mongoose.connect(
       /* eslint-disable no-console */
       console.log('Failed connection to database', error);
     } else {
-      /* eslint-disable no-console */
       console.log('Connected to database');
       app.listen(port, () => {
         console.log(`Server ready on port ${port}`);
