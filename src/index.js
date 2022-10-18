@@ -17,6 +17,7 @@ mongoose.connect(
   MONGO_URL,
   (error) => {
     if (error) {
+    /* eslint-disable no-console */
       console.log('Failed connection to database', error);
     } else {
       console.log('Connected to database');

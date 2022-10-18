@@ -1,39 +1,55 @@
 import Employee from '../models/Employees';
 
+const { ObjectId } = require('mongoose').Types;
+
+const isValidObjectId = (id) => {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
+  }
+  return false;
+};
+
 const deleteEmployee = async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
+    });
+  }
   try {
     const idEmployee = req.params.id;
-    const result = await Employee.findByIdAndDelete(idEmployee);
-    if (!result) {
+    const deletedEmployee = await Employee.findByIdAndDelete(idEmployee);
+    if (!deletedEmployee) {
       return res.status(404).json({
         message: `The Employee with the id ${idEmployee} was not found`,
         data: undefined,
         error: true,
       });
     }
-    return res.status(200).json({
-      message: `The Employee with the id ${idEmployee} was deleted successfully`,
-      data: result,
-      error: false,
-    });
+    return res.status(204);
   } catch (error) {
-    return res.status(400).json({
-      message: error,
-      data: undefined,
-      error: true,
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
     });
   }
 };
 
-const editEmployee = async (req, res) => {
+const updateEmployee = async (req, res) => {
+  if (!isValidObjectId(req.params.id)) {
+    return res.status(400).json({
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
+    });
+  }
   try {
     const idEmployee = req.params.id;
-    const result = await Employee.findByIdAndUpdate(
+    const updatedEmployee = await Employee.findByIdAndUpdate(
       { _id: idEmployee },
       { ...req.body },
       { new: true },
     );
-    if (!result) {
+    if (!updatedEmployee) {
       return res.status(404).json({
         message: `The Employee with the id ${idEmployee} was not found`,
         data: undefined,
@@ -41,17 +57,15 @@ const editEmployee = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: `The Employee with the id ${idEmployee} was edited successfully`,
-      data: result,
+      message: `The Employee with the id ${idEmployee} was updated successfully`,
+      data: updatedEmployee,
       error: false,
     });
   } catch (error) {
-    return res.status(400).json({
-      message: error,
-      data: undefined,
-      error: true,
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
     });
   }
 };
 
-export default { deleteEmployee, editEmployee };
+export default { deleteEmployee, updateEmployee };
