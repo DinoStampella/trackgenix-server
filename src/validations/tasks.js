@@ -2,16 +2,19 @@ import Joi from 'joi';
 
 const validateCreation = (req, res, next) => {
   const taskValidation = Joi.object({
-    description: Joi.string().valid('Frontend', 'Backend', 'Testing').required(),
+    description: Joi.string().valid('Frontend', 'Backend', 'Testing').required()
+      .messages({
+        'string.empty': 'A description is required',
+        'any.only': 'Description should be Frontend, Backend or Testing',
+        'any.required': 'A description is required',
+      }),
   });
 
-  const validation = taskValidation.validate(req.body, { abortEarly: false });
-
-  if (validation.error) {
+  const validate = taskValidation.validate(req.body, { abortEarly: false });
+  if (validate.error) {
     return res.status(400).json({
-      message: `There was an error: ${validation.error.details[0].message}`,
+      message: validate.error.details,
       data: undefined,
-      error: true,
     });
   }
   return next();
