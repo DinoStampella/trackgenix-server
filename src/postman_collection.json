@@ -22,15 +22,6 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    nombre: erick,\r\n    'description': 'ppkpkpkpkppkp',\r\n    'startDate': '1/05/2021',\r\n    'endDate': '4/10/2022',\r\n    'active': 'true',\r\n    'clientName': 'ernesto',\r\n    'teamMembers': [{\r\n      'id': 'String',\r\n      'rol': 'DEV',\r\n      'rate': 10\r\n       }],\r\n}\r\n",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "http://localhost:3000/projects/:id",
 							"protocol": "http",
@@ -45,7 +36,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "634b6673862eaafc6c75e604"
+									"value": "634e124d98f90992a8ef33a3"
 								}
 							]
 						}
@@ -59,7 +50,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"carlos\",\r\n    \"description\": \"lo que venga \",\r\n    \"startDate\": \"10/12/2022\",\r\n    \"active\": \"true\",\r\n    \"clientName\": \"arturo\",\r\n    \"teamMembers\":[\r\n        {\r\n            \"rol\":\"PM\",\r\n            \"rate\": 50\r\n        }\r\n    ]\r\n\r\n}",
+							"raw": "{\r\n    \"name\":\"Gerard\",\r\n    \"description\": \"esto es una descripcion ingeniosa\",\r\n    \"startDate\": \"09/19/2023\",\r\n    \"endDate\": \"09/19/2025\",\r\n    \"active\": \"true\",\r\n    \"clientName\": \"Jorge\",\r\n    \"teamMembers\":\r\n    [\r\n        {\r\n            \"id\": \"634b2e80d9f82c5b39e8c6e6\",\r\n            \"rol\":\"PM\",\r\n            \"rate\": 123\r\n        }\r\n    ]\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,7 +58,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/projects/634b3df70ad0b5d376ecb360",
+							"raw": "http://localhost:3000/projects/634c5efbce068008b97d8085",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -75,7 +66,7 @@
 							"port": "3000",
 							"path": [
 								"projects",
-								"634b3df70ad0b5d376ecb360"
+								"634c5efbce068008b97d8085"
 							]
 						}
 					},

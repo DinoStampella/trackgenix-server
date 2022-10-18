@@ -17,7 +17,7 @@ const deleteProject = async (req, res) => {
       const result = await Projects.findByIdAndDelete(id);
       if (result !== null) {
         return res.status(204).json({
-          message: `Project whit id ${id} deleted.`,
+          // message: `Project whit id ${id} deleted.`,
           data: result,
           error: false,
         });
@@ -43,15 +43,27 @@ const deleteProject = async (req, res) => {
 const editProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const result = await Projects.findByIdAndUpdate(
-      { _id: id },
-      { ...req.body },
-      { new: true },
-    );
-    return res.status(200).json({
-      message: `Modified project whit id ${id}`,
-      data: result,
-      error: false,
+    if (isValidObjectId(id)) {
+      const result = await Projects.findByIdAndUpdate(
+        { _id: id },
+        { ...req.body },
+        { new: true },
+      );
+      if (result !== null) {
+        return res.status(200).json({
+          message: `Modified project whit id ${id}`,
+          data: result,
+          error: false,
+        });
+      }
+      return res.status(404).json({
+        message: `there is not project with this id ${id}.`,
+        error: true,
+      });
+    }
+    return res.status(404).json({
+      message: `Invalid id ${id}.`,
+      error: true,
     });
   } catch (error) {
     return res.status(500)({
