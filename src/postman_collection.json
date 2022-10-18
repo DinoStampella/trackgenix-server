@@ -84,6 +84,65 @@
                     }
                 },
                 "response": []
+            }
+            {
+                "name": "deleteEmployee",
+                "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                        "raw": "localhost:3000/employees/:id",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "3000",
+                        "path": [
+                            "employees",
+                            ":id"
+                        ],
+                        "variable": [
+                            {
+                                "key": "id",
+                                "value": "634b2b30d9f82c5b39e"
+                            }
+                        ]
+                    }
+                },
+                "response": []
+            },
+            {
+                "name": "editEmployee",
+                "request": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                        "mode": "raw",
+                        "raw": "{\r\n            \"firstName\": \"JAvier\",\r\n            \"lastName\": \"Perez\",\r\n            \"email\": \"josemariaperez@gmail.com\",\r\n            \"password\": \"qwertyuiop\",\r\n            \"dni\": \"1111111\",\r\n            \"phone\": \"445343j43\",\r\n            \"location\": \"727 ,Summer\"\r\n        }",
+                        "options": {
+                            "raw": {
+                                "language": "json"
+                            }
+                        }
+                    },
+                    "url": {
+                        "raw": "localhost:3000/employees/:id",
+                        "host": [
+                            "localhost"
+                        ],
+                        "port": "3000",
+                        "path": [
+                            "employees",
+                            ":id"
+                        ],
+                        "variable": [
+                            {
+                                "key": "id",
+                                "value": "634b2b30d9f82c5b39e"
+                            }
+                        ]
+                    }
+                },
+                "response": []
             }]
 		},
 		{
