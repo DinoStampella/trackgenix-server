@@ -26,7 +26,7 @@ const deletedSuperAdmins = async (req, res) => {
         error: true,
       });
     }
-    return res.status(204);
+    return res.send(204);
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
