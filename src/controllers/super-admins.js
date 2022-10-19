@@ -10,15 +10,15 @@ const isValidObjectId = (id) => {
   return false;
 };
 
-const deleteSuperAdmins = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
+const deletedSuperAdmins = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
     const result = await superAdmins.findByIdAndDelete(id);
     if (!result) {
       return res.status(404).json({
@@ -26,9 +26,7 @@ const deleteSuperAdmins = async (req, res) => {
         error: true,
       });
     }
-    return res.status(204).json({
-      error: false,
-    });
+    return res.status(204);
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
@@ -37,15 +35,15 @@ const deleteSuperAdmins = async (req, res) => {
   }
 };
 
-const editSuperAdmins = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
+const updateSuperAdmins = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
     const result = await superAdmins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
@@ -65,6 +63,6 @@ const editSuperAdmins = async (req, res) => {
 };
 
 export default {
-  deleteSuperAdmins,
-  editSuperAdmins,
+  deletedSuperAdmins,
+  updateSuperAdmins,
 };

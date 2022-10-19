@@ -5,7 +5,7 @@ import userValidations from '../validations/user';
 const router = express.Router();
 
 router
-  .put('/:id', userValidations.validateCreation, superAdminsControllers.editSuperAdmins)
-  .delete('/:id', superAdminsControllers.deleteSuperAdmins);
+  .put('/:id', userValidations.validateCreation, superAdminsControllers.updateSuperAdmins)
+  .delete('/:id', superAdminsControllers.deletedSuperAdmins);
 
 export default router;
