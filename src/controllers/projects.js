@@ -29,7 +29,7 @@ const getAllProjects = async (req, res) => {
     return res.status(500).json({
     });
   }
-}
+};
 
 const deleteProject = async (req, res) => {
   try {
