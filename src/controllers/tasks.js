@@ -1,120 +1,132 @@
-import express from 'express';
-import fs from 'fs';
+import Tasks from '../models/Tasks';
 
-const router = express.Router();
+const { ObjectId } = require('mongoose').Types;
 
-const tasks = require('../data/tasks.json');
-
-router.get('/:taskName', (req, res) => {
-  const { taskName } = req.params;
-  const foundTask = tasks.filter((task) => task.taskName === taskName);
-  if (foundTask.length > 0) {
-    res.json({ success: true, msg: 'Task found successfully', data: foundTask });
-  } else {
-    res.status(400).json({ success: false });
+function isValidObjectId(id) {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) return true;
+    return false;
   }
-});
+  return false;
+}
 
-router.get('/:id', (req, res) => {
-  const taskId = parseInt(req.params.id, 10);
-  const foundTask = tasks.find((task) => task.id === taskId);
-  if (foundTask) {
-    res.status(200).json({ success: true, msg: 'Task found successfully', data: foundTask });
-  } else {
-    res.status(404).json({ success: false, msg: 'There is no task with this id' });
-  }
-});
-
-router.post('/', (req, res) => {
-  const task = req.body;
-  const { taskName, description } = task;
-  const ids = tasks.map((t) => t.id);
-  const maxId = Math.max(...ids);
-  const newTask = {
-    id: maxId + 1,
-    taskName,
-    description,
-  };
-
-  if (!taskName && !description) {
-    res.status(400).json({ success: false, msg: 'You must add name and description' });
-  } else if (!taskName) {
-    res.status(400).json({ success: false, msg: 'You must add a name' });
-  } else {
-    tasks.push(newTask);
-  }
-
-  fs.writeFile('src/data/tasks.json', JSON.stringify(tasks), (err) => {
-    if (err) {
-      res.status(400).json({ success: false });
-    } else {
-      res.status(200).json({ success: true, msg: 'Task Created', data: newTask });
-    }
-  });
-});
-
-router.put('/', (req, res) => {
-  const newTask = req.body;
-  const taskExists = tasks.find((task) => task.id === newTask.id);
-  const allTasks = tasks;
-  allTasks.forEach((task, index) => {
-    if (task.id === newTask.id) {
-      allTasks[index] = newTask;
-    }
-  });
-  if (!taskExists) {
-    res.status(404).json({
-      success: false,
-      msg: `There is no task with this id (${newTask.id})`,
-    });
-    return;
-  }
-  if (!newTask.taskName) {
-    res.status(400).json({
-      success: false,
-      msg: 'Task must have a name. ',
-    });
-    return;
-  }
-  fs.writeFile('./src/data/tasks.json', JSON.stringify(allTasks, null, 2), (err) => {
-    if (err) {
-      res.status(400).json({
-        success: false,
+const getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Tasks.find();
+    if (!tasks.length) {
+      return res.status(404).json({
+        message: 'No tasks found',
+        error: true,
       });
-      return;
     }
-    res.status(200).json({
-      success: true,
-      msg: `Task ${newTask.id} modified successfully`,
+    return res.status(200).json({
+      message: 'Tasks found',
+      data: tasks,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `There was an error: ${error}`,
+    });
+  }
+};
+
+const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id ${id}`,
+        error: true,
+      });
+    }
+    const taskFound = await Tasks.findByIdAndDelete(id);
+    if (!taskFound) {
+      return res.status(404).json({
+        message: `The task with the id ${id} was not found`,
+        error: true,
+      });
+    }
+    return res.status(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: 'error server',
+      error: true,
+    });
+  }
+};
+const getTaskById = async (req, res) => {
+  const task = await Tasks.findById(req.params.id);
+  try {
+    if (!task) {
+      return res.status(404).json({
+        message: 'There is no task with this id',
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: 'Task found',
+      data: task,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `There was an error: ${error}`,
+    });
+  }
+};
+const createTask = async (req, res) => {
+  try {
+    const newTask = await Tasks.create(req.body);
+    return res.status(201).json({
+      message: 'Task created',
       data: newTask,
+      error: false,
     });
-  });
-});
-
-router.delete('/:id', (req, res) => {
-  const taskId = parseInt(req.params.id, 10);
-  const foundTasks = tasks.find((task) => task.id === taskId);
-  if (!foundTasks) {
-    res.status(404).json({
-      succes: false,
-      msg: 'There is not task with this id',
-      data: '',
+  } catch (error) {
+    return res.status(500).json({
+      message: `There was an error: ${error}`,
     });
-    return;
   }
-  const filteredTasks = tasks.filter((task) => task.id !== taskId);
-  fs.writeFile('src/data/tasks.json', JSON.stringify(filteredTasks, null, 2), (err) => {
-    if (err) {
-      res.status(400).json({
-        succes: false,
-      });
-    } else {
-      res.status(200).json({
-        succes: true,
-        msg: '',
+};
+
+const updateTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id ${id}`,
+        error: true,
       });
     }
-  });
-});
+    const taskFound = await Tasks.findByIdAndUpdate(
+      id,
+      req.body,
+      { new: true },
+    );
+    if (!taskFound) {
+      return res.status(404).json({
+        message: `Couldn't find task with id ${id}`,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: `Modified task with id ${id}`,
+      data: taskFound,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'error server',
+      error: true,
+    });
+  }
+};
 
-export default router;
+export default {
+  getAllTasks,
+  getTaskById,
+  createTask,
+  deleteTask,
+  updateTask,
+};
