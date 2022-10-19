@@ -3,15 +3,8 @@ import Joi from 'joi';
 const validateCreation = (req, res, next) => {
   const teamMembersValidation = Joi.object({
     id: Joi.string().required()
-      .valid(
-        '634b2bc0d9f82c5b39e8c6e4',
-        '634b2e80d9f82c5b39e8c6e6',
-        '634b2f69d9f82c5b39e8c6e8',
-        '634b2f95d9f82c5b39e8c6ea',
-        '634b2fd6d9f82c5b39e8c6ec',
-      ).messages({
+      .messages({
         'string.empty': 'Id required',
-        'any.only': 'Id must be an existing id',
         'any.required': 'Id required',
       }),
     rol: Joi.string().required().valid('DEV', 'QA', 'TL', 'PM')
