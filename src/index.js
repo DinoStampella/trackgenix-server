@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import projectsRouter from './routes/projects';
+import router from './routes';
 
 const app = express();
 
@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use('/projects', projectsRouter);
+app.use(router);
 
 const MONGO_URL = 'mongodb+srv://grupo-a:QWrYuBY4E4MCAo1q@cluster0.ww0uoal.mongodb.net/?retryWrites=true&w=majority';
 
