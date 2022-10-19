@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a09bf1e4-5496-4ed4-a021-25f9bf22fa73",
+		"_postman_id": "5cd6ac3b-f202-44f6-bf66-bf00995f8b9a",
 		"name": "Trackgenix",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21643676"
+		"_exporter_id": "23767643"
 	},
 	"item": [
 		{
@@ -503,6 +503,71 @@
 									"key": "id",
 									"value": null
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Super Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/super-admins",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"super-admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET ById Super Admins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/super-admins/634c6680bfefd81e53ba819f",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"super-admins",
+								"634c6680bfefd81e53ba819f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Super Admins",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Obediaher\",\r\n    \"lastName\": \"Rodrigo\",\r\n    \"email\": \"orodrig9@hostgator.com\",\r\n    \"password\": \"q3obMq4sAa0\",\r\n    \"dni\": \"218901165\",\r\n    \"phone\": \"5226182889\",\r\n    \"location\": \"81 Meadow Vale Crossing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/super-admins/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"super-admins",
+								""
 							]
 						}
 					},

@@ -7,9 +7,9 @@ const superAdminsSchema = new Schema({
   lastName: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  phone: { type: Number },
-  location: { type: String },
   dni: { type: Number, required: true },
+  phone: { type: Number, required: false },
+  location: { type: String, required: false },
 });
 
 export default mongoose.model('super-admins', superAdminsSchema);
