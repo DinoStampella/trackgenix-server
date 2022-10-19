@@ -52,8 +52,6 @@ const deleteTask = async (req, res) => {
     return res.status(500).json({
       message: 'error server',
       error: true,
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
     });
   }
 };

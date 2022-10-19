@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8fc6a76c-05e2-4aea-8a86-27b18dab961b",
+		"_postman_id": "a09bf1e4-5496-4ed4-a021-25f9bf22fa73",
 		"name": "Trackgenix",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23628058"
+		"_exporter_id": "21643676"
 	},
 	"item": [
 		{
@@ -457,7 +457,58 @@
 		},
 		{
 			"name": "Super admins",
-			"item": []
+			"item": [
+				{
+					"name": "Delete super admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/super-admins/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"super-admins",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "634c6645bfefd81e53ba819d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit super admin",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/super-admins/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"super-admins",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Tasks",
