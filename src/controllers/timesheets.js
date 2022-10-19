@@ -1,130 +1,83 @@
-import express from 'express';
-import fs from 'fs';
+import Timesheets from '../models/Timesheets';
 
-const timeSheets = require('../data/timesheets.json');
+const { ObjectId } = require('mongoose').Types;
 
-const router = express.Router();
-
-router.get('/', (req, res) => {
-  res.status(200).json({
-    success: true,
-    msg: 'Timesheet found successfully',
-    data: timeSheets,
-  });
-});
-
-router.get('/:id', (req, res) => {
-  const timeSheetId = req.params.id;
-  const timeSheetObtained = timeSheets.find((timeSheet) => timeSheet.id === timeSheetId);
-  if (timeSheetObtained) {
-    res.status(200).json({
-      success: true,
-      msg: 'Timesheet found successfully',
-      data: timeSheetObtained,
-    });
-  } else {
-    res.status(404).json({
-      success: false,
-      msg: 'Cannot found timesheet',
-    });
+function isValidObjectId(id) {
+  if (ObjectId.isValid(id)) {
+    if ((String)(new ObjectId(id)) === id) { return true; }
+    return false;
   }
-});
+  return false;
+}
 
-router.post('/', (req, res) => {
-  const newTimesheet = req.body;
-  newTimesheet.id = (timeSheets.length + 1).toString();
-  timeSheets.push(newTimesheet);
-  fs.writeFile('src/data/time-sheets.json', JSON.stringify(timeSheets, null, 2), (err) => {
-    if (err) {
-      return res.status(400).json({
-        success: false,
+const getAllTimesheets = async (req, res) => {
+  try {
+    const timesheets = await Timesheets.find();
+    if (timesheets.length === 0) {
+      return res.status(404).json({
+        message: 'Timesheet Not Found',
+        error: true,
       });
     }
+    return res.status(200).json({
+      message: 'Timesheet Found',
+      data: timesheets,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      error: true,
+    });
+  }
+};
+
+const getTimesheetById = async (req, res) => {
+  try {
+    const timesheetId = req.params.id;
+    if (!isValidObjectId(timesheetId)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
+    const timesheets = await Timesheets.findById(timesheetId);
+    if (!timesheets) {
+      return res.status(404).json({
+        message: 'Timesheet Not Found',
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: 'Timesheet Found',
+      data: timesheets,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      error: true,
+    });
+  }
+};
+
+const createTimesheet = async (req, res) => {
+  try {
+    const timesheets = await Timesheets.create(req.body);
+
     return res.status(201).json({
-      success: true,
-      msg: 'Timesheet created successfully',
-      data: newTimesheet,
+      message: 'Timesheet Created',
+      data: timesheets,
+      error: false,
     });
-  });
-});
-
-router.put('/:id', (req, res) => {
-  const updateTimesheets = req.body;
-  const timesheetsId = req.params.id;
-  const foundTimesheet = timeSheets.find((element) => element.id === timesheetsId);
-  if (!foundTimesheet) {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no Timesheet with this id',
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      error: true,
     });
-    return;
   }
-  if (updateTimesheets.startDate) {
-    foundTimesheet.startDate = updateTimesheets.startDate;
-  }
-  if (updateTimesheets.endDate) {
-    foundTimesheet.endDate = updateTimesheets.endDate;
-  }
-  if (updateTimesheets.taskName) {
-    foundTimesheet.taskName = updateTimesheets.taskName;
-  }
-  if (updateTimesheets.description) {
-    foundTimesheet.description = updateTimesheets.description;
-  }
-  if (updateTimesheets.projectName) {
-    foundTimesheet.projectName = updateTimesheets.projectName;
-  }
+};
 
-  fs.writeFile(
-    './src/data/time-sheets.json',
-    JSON.stringify(timeSheets, null, 2),
-    (err) => {
-      if (err) {
-        res.status(400).json({
-          response: 'Error',
-          msg: 'Timesheet id not found',
-        });
-      } else {
-        res.status(202).json({
-          success: true,
-          msg: 'Timesheet modified successfully',
-          data: foundTimesheet,
-        });
-      }
-    },
-  );
-});
-
-router.delete('/', (req, res) => {
-  const timesheetsId = req.params.id;
-  const deleteTimesheet = timeSheets.find((element) => element.id === timesheetsId);
-  if (!deleteTimesheet) {
-    res.status(404).json({
-      success: false,
-      msg: 'There is no Timesheet with this id',
-    });
-    return;
-  }
-
-  timeSheets.splice(timeSheets.indexOf(deleteTimesheet), 1);
-
-  fs.writeFile(
-    './src/data/time-sheets.json',
-    JSON.stringify(timeSheets, null, 2),
-    (err) => {
-      if (err) {
-        res.status(400).json({
-          success: false,
-        });
-      } else {
-        res.status(200).json({
-          success: true,
-          msg: 'Timesheet delete successfully',
-          data: timeSheets,
-        });
-      }
-    },
-  );
-});
-
-export default router;
+export default {
+  getAllTimesheets, getTimesheetById, createTimesheet,
+};

@@ -2,12 +2,33 @@ import Tasks from '../models/Tasks';
 
 const { ObjectId } = require('mongoose').Types;
 
-const isValidObjectId = (id) => {
+function isValidObjectId(id) {
   if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
+    if ((String)(new ObjectId(id)) === id) return true;
     return false;
   }
   return false;
+}
+
+const getAllTasks = async (req, res) => {
+  try {
+    const tasks = await Tasks.find();
+    if (!tasks.length) {
+      return res.status(404).json({
+        message: 'No tasks found',
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: 'Tasks found',
+      data: tasks,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `There was an error: ${error}`,
+    });
+  }
 };
 
 const deleteTask = async (req, res) => {
@@ -31,6 +52,42 @@ const deleteTask = async (req, res) => {
     return res.status(500).json({
       message: 'error server',
       error: true,
+      message: `Invalid id: ${req.params.id}`,
+      error: true,
+    });
+  }
+};
+const getTaskById = async (req, res) => {
+  const task = await Tasks.findById(req.params.id);
+  try {
+    if (!task) {
+      return res.status(404).json({
+        message: 'There is no task with this id',
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: 'Task found',
+      data: task,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `There was an error: ${error}`,
+    });
+  }
+};
+const createTask = async (req, res) => {
+  try {
+    const newTask = await Tasks.create(req.body);
+    return res.status(201).json({
+      message: 'Task created',
+      data: newTask,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `There was an error: ${error}`,
     });
   }
 };
@@ -69,6 +126,9 @@ const updateTask = async (req, res) => {
 };
 
 export default {
+  getAllTasks,
+  getTaskById,
+  createTask,
   deleteTask,
   updateTask,
 };
