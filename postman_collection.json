@@ -330,63 +330,7 @@
 		},
 		{
 			"name": "Projects",
-			"item": [
-                {
-					"name": "Delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/projects/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"projects",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "634e124d98f90992a8ef33a3"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Put",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Gerard\",\r\n    \"description\": \"esto es una descripcion ingeniosa\",\r\n    \"startDate\": \"09/19/2023\",\r\n    \"endDate\": \"09/19/2025\",\r\n    \"active\": \"true\",\r\n    \"clientName\": \"Jorge\",\r\n    \"teamMembers\":\r\n    [\r\n        {\r\n            \"id\": \"634b2e80d9f82c5b39e8c6e6\",\r\n            \"rol\":\"PM\",\r\n            \"rate\": 123\r\n        }\r\n    ]\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/projects/634c5efbce068008b97d8085",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"projects",
-								"634c5efbce068008b97d8085"
-							]
-						}
-					},
-					"response": []
-				}
-            ]
+			"item": []
 		},
 		{
 			"name": "Super admins",
@@ -470,7 +414,138 @@
 		},
 		{
 			"name": "Time sheets",
-			"item": []
+			"item": [
+                {
+                    "name": "time-sheet getAll",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/time-sheets/",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "time-sheets",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "time-sheet getById",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/time-sheets/:id",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "time-sheets",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "634c66660b217cffcf2121d2"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "time-sheet getById (ERROR)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "http://localhost:3000/time-sheets/:id",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "time-sheets",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "nada"
+                                }
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "time-sheet Create",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"date\": \"2022-09-01\",\r\n    \"task\": \"Making bread\",\r\n    \"description\": \"Uh yeah\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/time-sheets/",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "time-sheets",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "time-sheet Create (ERROR)",
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n    \"date\": \"2022-09-01\",\r\n    \"task\": \"Making bread\",\r\n    \"description\": \"U\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "http://localhost:3000/time-sheets/",
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3000",
+                            "path": [
+                                "time-sheets",
+                                ""
+                            ]
+                        }
+                    },
+                    "response": []
+                }
+            ]
 		}
 	]
 }
