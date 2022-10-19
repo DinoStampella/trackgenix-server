@@ -1,17 +1,49 @@
 import mongoose from 'mongoose';
 
-const projectSchema = new mongoose.Schema({
-  name: { type: String, require: true },
-  description: { type: String, require: true },
-  startDate: { type: Date },
-  endDate: { type: Date, require: true },
-  active: { type: String, require: true },
-  clientName: { type: String, require: true },
-  teamMembers: [{
-    name: { type: String, required: true },
-    rol: { type: String, enum: ['DEV', 'TL', 'QA', 'PM'] },
-    rate: { type: Number, required: true },
-  }],
+const { Schema } = mongoose;
+
+const projectsSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  startDate: {
+    type: Date,
+    required: true,
+  },
+  endDate: {
+    type: Date,
+    required: false,
+  },
+  active: {
+    type: Boolean,
+    required: true,
+  },
+  clientName: {
+    type: String,
+    required: true,
+  },
+  teamMembers: [
+    {
+      id: {
+        type: String,
+        required: true,
+      },
+      rol: {
+        type: String,
+        required: true,
+        enum: ['DEV', 'QA', 'TL', 'PM'],
+      },
+      rate: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
 });
 
-export default mongoose.model('Project', projectSchema);
+export default mongoose.model('Projects', projectsSchema);

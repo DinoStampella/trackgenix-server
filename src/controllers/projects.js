@@ -27,6 +27,68 @@ const getAllProjects = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
+    });
+  }
+}
+
+const deleteProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (isValidObjectId(id)) {
+      const result = await Projects.findByIdAndDelete(id);
+      if (result !== null) {
+        return res.status(204).json({
+          data: result,
+          error: false,
+        });
+      }
+      return res.status(404).json({
+        message: `there is not project with this id ${id}.`,
+        error: true,
+      });
+    }
+    return res.status(400).json({
+      message: `Invalid id ${id}.`,
+      error: true,
+    });
+  } catch (error) {
+    return res.status(500)({
+      message: error,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
+const editProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (isValidObjectId(id)) {
+      const result = await Projects.findByIdAndUpdate(
+        { _id: id },
+        { ...req.body },
+        { new: true },
+      );
+      if (result !== null) {
+        return res.status(200).json({
+          message: `Modified project whit id ${id}`,
+          data: result,
+          error: false,
+        });
+      }
+      return res.status(404).json({
+        message: `there is not project with this id ${id}.`,
+        error: true,
+      });
+    }
+    return res.status(404).json({
+      message: `Invalid id ${id}.`,
+      error: true,
+    });
+  } catch (error) {
+    return res.status(500)({
+      message: error,
+      data: undefined,
       error: true,
     });
   }
@@ -81,4 +143,6 @@ export default {
   getAllProjects,
   getProjectById,
   createProject,
+  deleteProject,
+  editProject,
 };
