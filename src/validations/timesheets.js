@@ -1,40 +1,30 @@
-import Joi from 'joi';
+import joi from 'joi';
 
-const validateCreation = (req, res, next) => {
-  const timesheetValidations = Joi.object({
-    date: Joi.date().required().max(new Date()).messages({
-      'string.empty': 'Date required',
-      'date.pattern.base': 'Date must be after today',
-      'any.required': 'Date required',
+const validationsTimesheets = (req, res, next) => {
+  const validations = joi.object({
+    date: joi.date().iso().required().messages({
+      'date.base': 'date is format in invalid',
+      'date.format': 'invalid date format',
     }),
-    task: Joi.string().min(3).max(20).required()
-      .messages({
-        'string.empty': 'Task required',
-        'string.min': 'Task should have a minimum length of 3 characters',
-        'string.max': 'Task should have a maximum length of 20 characters',
-        'any.required': 'Task required',
-      }),
-    description: Joi.string().min(3).max(150).required()
-      .messages({
-        'string.empty': 'Description required',
-        'string.min': 'Description should have a minimum length of 3 characters',
-        'string.max': 'Description should have a maximum length of 150 characters',
-        'any.required': 'Description required',
-      }),
+    task: joi.string().required().messages({
+      'any.required': 'task is required',
+    }),
+    description: joi.string().required().valid('Frontend', 'Backend', 'Testing').messages({
+      'string.empty': 'description is required',
+      'string.pattern.base': 'description should be Frontend, Backend, Testing',
+      'any.required': 'description is required',
+    }),
   });
-
-  const validation = timesheetValidations.validate(req.body, { abortEarly: false });
-
-  if (validation.error) {
+  const validate = validations.validate(req.body, { abortEarly: false });
+  if (validate.error) {
     return res.status(400).json({
-      message: validation.error.details,
-      date: undefined,
-      error: true,
+      message: validate.error.details,
+      data: undefined,
     });
   }
   return next();
 };
 
 export default {
-  validateCreation,
+  validationsTimesheets,
 };

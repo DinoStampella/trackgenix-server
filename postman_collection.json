@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5cd6ac3b-f202-44f6-bf66-bf00995f8b9a",
+		"_postman_id": "7c9ef909-9bd4-4c34-aca6-a97e0f8e1c98",
 		"name": "Trackgenix",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23767643"
@@ -243,31 +243,6 @@
 					"response": []
 				},
 				{
-					"name": "deleteEmployee",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/employees/:id",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"employees",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "634b2b30d9f82c5b39e"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "updateEmployee",
 					"request": {
 						"method": "PUT",
@@ -447,6 +422,58 @@
 									"key": "",
 									"value": "",
 									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Projects",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/projects/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Projects",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/projects/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"projects",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
 								}
 							]
 						}
@@ -748,32 +775,6 @@
 					"response": []
 				},
 				{
-					"name": "time-sheet getById (ERROR)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/time-sheets/:id",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"time-sheets",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "nada"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "time-sheet Create",
 					"request": {
 						"method": "POST",
@@ -803,13 +804,32 @@
 					"response": []
 				},
 				{
-					"name": "time-sheet Create (ERROR)",
+					"name": "DELETE Timesheets",
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/time-sheets/634c6b9ae16f3bdad425d4ac",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"time-sheets",
+								"634c6b9ae16f3bdad425d4ac"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Timesheets",
+					"request": {
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"2022-09-01\",\r\n    \"task\": \"Making bread\",\r\n    \"description\": \"U\"\r\n}",
+							"raw": "{\r\n    \"date\": \"2022-05-09T00:00:00.000+00:00\",\r\n    \"task\": \"coo\",\r\n    \"description\": \"Backend\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -817,15 +837,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/time-sheets/",
-							"protocol": "http",
+							"raw": "localhost:3000/time-sheets/635031b6719edf28d27319c",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
 								"time-sheets",
-								""
+								"635031b6719edf28d27319c"
 							]
 						}
 					},

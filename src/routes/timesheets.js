@@ -1,11 +1,14 @@
 import express from 'express';
-import timesheetControllers from '../controllers/timesheets';
-import timesheetValidations from '../validations/timesheets';
+import timesheetsControllers from '../controllers/timesheets';
+import timesheetsValidations from '../validations/timesheets';
 
 const router = express.Router();
 
 router
-  .get('/', timesheetControllers.getAllTimesheets)
-  .get('/:id', timesheetControllers.getTimesheetById)
-  .post('/', timesheetValidations.validateCreation, timesheetControllers.createTimesheet);
+  .get('/', timesheetsControllers.getAllTimesheets)
+  .get('/:id', timesheetsControllers.getTimesheetById)
+  .post('/', timesheetsValidations.validationsTimesheets, timesheetsControllers.createTimesheet)
+  .delete('/:id', timesheetsControllers.deleteTimesheet)
+  .put('/:id', timesheetsValidations.validationsTimesheets, timesheetsControllers.updateTimesheets);
+
 export default router;
