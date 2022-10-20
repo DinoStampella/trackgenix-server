@@ -1,20 +1,26 @@
-import joi from 'joi';
+import Joi from 'joi';
 
-const validationsSuperAdmins = (req, res, next) => {
-  const validations = joi.object({
-    firstName: joi.string().min(2).max(30).required(),
-    lastName: joi.string().min(2).max(30).required(),
-    email: joi.string().email().required(),
-    password: joi.string().min(8).max(50).required(),
-    dni: joi.string().min(7).max(10).required(),
-    phone: joi.string().min(8).max(15),
-    location: joi.string().min(3).max(50),
+const validateCreation = (req, res, next) => {
+  const superAdminsValidations = Joi.object({
+    firstName: Joi.string().regex(/^[a-zA-Z]+$/).min(2).max(30)
+      .required(),
+    lastName: Joi.string().regex(/^[a-zA-Z]+$/).min(2).max(30)
+      .required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().alphanum().min(8).max(50)
+      .required(),
+    phone: Joi.string().regex(/^[0-9]*$/).min(8).max(15),
+    location: Joi.string().min(3).max(50),
+    dni: Joi.string().regex(/^[0-9]*$/).min(7).max(11)
+      .required(),
   });
-  const superAdminsValidations = validations.validate(req.body);
 
-  if (superAdminsValidations.error) {
+  const validation = superAdminsValidations.validate(req.body);
+
+  if (validation.error) {
     return res.status(400).json({
-      message: `There was an error: ${superAdminsValidations.error.details[0].message}`,
+      message: `There was an error: ${validation.error.details[0].message}`,
+      data: undefined,
       error: true,
     });
   }
@@ -22,5 +28,5 @@ const validationsSuperAdmins = (req, res, next) => {
 };
 
 export default {
-  validationsSuperAdmins,
+  validateCreation,
 };

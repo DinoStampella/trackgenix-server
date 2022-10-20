@@ -1,4 +1,4 @@
-import SuperAdmins from '../models/Super-admins';
+import superAdmins from '../models/Super-admins';
 
 const { ObjectId } = require('mongoose').Types;
 
@@ -14,8 +14,8 @@ const isValidObjectId = (id) => {
 
 const getAllSuperAdmins = async (req, res) => {
   try {
-    const superAdmins = await SuperAdmins.find();
-    if (!superAdmins.length) {
+    const superAdmin = await superAdmins.find();
+    if (!superAdmin.length) {
       return res.status(404).json({
         message: 'No Super Admins found',
         error: true,
@@ -23,7 +23,7 @@ const getAllSuperAdmins = async (req, res) => {
     }
     return res.status(200).json({
       message: 'Super Admins found',
-      data: superAdmins,
+      data: superAdmin,
       error: false,
     });
   } catch (error) {
@@ -35,16 +35,16 @@ const getAllSuperAdmins = async (req, res) => {
 };
 
 const getSuperAdminsById = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
   try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
     const idSuperAdmin = req.params.id;
-    const superAdminsId = await SuperAdmins.findById(idSuperAdmin);
-    if (!superAdminsId) {
+    const superAdmin = await superAdmins.findById(idSuperAdmin);
+    if (!superAdmin) {
       return res.status(404).json({
         message: 'There is no Super Admins with this id',
         error: true,
@@ -52,7 +52,7 @@ const getSuperAdminsById = async (req, res) => {
     }
     return res.status(200).json({
       message: 'Super Admins found',
-      data: superAdminsId,
+      data: superAdmin,
       error: false,
     });
   } catch (error) {
@@ -65,19 +65,12 @@ const getSuperAdminsById = async (req, res) => {
 
 const createSuperAdmins = async (req, res) => {
   try {
-    const newSuperAdmin = new SuperAdmins({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password,
-      dni: req.body.dni,
-      phone: req.body.phone,
-      location: req.body.location,
-    });
-    const result = await newSuperAdmin.save();
+    // eslint-disable-next-line new-cap
+    const newSuperAdmin = new superAdmins(req.body);
+    const newSuperAdminSaved = await newSuperAdmin.save();
     return res.status(201).json({
       message: 'Super Admins created successfully',
-      data: result,
+      data: newSuperAdminSaved,
       error: false,
     });
   } catch (error) {
@@ -88,8 +81,62 @@ const createSuperAdmins = async (req, res) => {
   }
 };
 
+const deletedSuperAdmins = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
+    const result = await superAdmins.findByIdAndDelete(id);
+    if (!result) {
+      return res.status(404).json({
+        message: `Super admin not found with id: ${id}`,
+        error: true,
+      });
+    }
+    return res.send(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      error: true,
+    });
+  }
+};
+
+const updateSuperAdmins = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
+    const result = await superAdmins.findByIdAndUpdate(
+      { _id: id },
+      { ...req.body },
+      { new: true },
+    );
+    return res.status(200).json({
+      message: `Modified Super admin with id ${id}`,
+      data: result,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      error: true,
+    });
+  }
+};
+
 export default {
   getAllSuperAdmins,
   getSuperAdminsById,
   createSuperAdmins,
+  deletedSuperAdmins,
+  updateSuperAdmins,
 };

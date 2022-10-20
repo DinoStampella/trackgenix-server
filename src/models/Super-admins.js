@@ -12,4 +12,4 @@ const superAdminsSchema = new Schema({
   location: { type: String, required: false },
 });
 
-export default mongoose.model('Super-admins', superAdminsSchema);
+export default mongoose.model('super-admins', superAdminsSchema);
