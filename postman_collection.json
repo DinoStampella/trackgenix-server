@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7c9ef909-9bd4-4c34-aca6-a97e0f8e1c98",
+		"_postman_id": "3f6155b6-f478-41c2-a6e7-934b3beda0cd",
 		"name": "Trackgenix",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23767643"
@@ -9,34 +9,6 @@
 		{
 			"name": "Admins",
 			"item": [
-				{
-					"name": "Create Admin",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"firstName\": \"Bruce\",\r\n  \"lastName\": \"Wayne\",\r\n  \"email\": \"bat@man.com\",\r\n  \"password\": \"alfredisthebest123\",\r\n  \"dni\": \"9513955\",\r\n  \"phone\": \"07754777\",\r\n  \"location\": \"wayne manor gotham city\"\r\n}  ",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:3000/admins/",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"admins",
-								""
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "Get Admins",
 					"protocolProfileBehavior": {
@@ -69,7 +41,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Admin by Id",
+					"name": "Get ById Admins",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -106,7 +78,35 @@
 					"response": []
 				},
 				{
-					"name": "Modify",
+					"name": "Post Admins Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Bruce\",\r\n  \"lastName\": \"Wayne\",\r\n  \"email\": \"bat@man.com\",\r\n  \"password\": \"alfredisthebest123\",\r\n  \"dni\": \"9513955\",\r\n  \"phone\": \"07754777\",\r\n  \"location\": \"wayne manor gotham city\"\r\n}  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/admins/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"admins",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Admins Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -140,7 +140,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Delete Admins",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -170,7 +170,7 @@
 			"name": "Employees",
 			"item": [
 				{
-					"name": "GetAllEmployees",
+					"name": "Get Employees",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -189,7 +189,7 @@
 					"response": []
 				},
 				{
-					"name": "GetEmployeeById",
+					"name": "Get ById Employees",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -215,7 +215,7 @@
 					"response": []
 				},
 				{
-					"name": "CreateEmployee",
+					"name": "Post Employees Create",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -243,7 +243,7 @@
 					"response": []
 				},
 				{
-					"name": "updateEmployee",
+					"name": "Put Employees Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -277,7 +277,7 @@
 					"response": []
 				},
 				{
-					"name": "deleteEmployee",
+					"name": "Delete Employees",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -307,7 +307,7 @@
 			"name": "Projects",
 			"item": [
 				{
-					"name": "Get projects",
+					"name": "Get Projects",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -338,7 +338,7 @@
 					"response": []
 				},
 				{
-					"name": "Get project by Id",
+					"name": "Get ById Projects",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -364,7 +364,7 @@
 					"response": []
 				},
 				{
-					"name": "Create new project",
+					"name": "Post Projects Create",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -429,9 +429,9 @@
 					"response": []
 				},
 				{
-					"name": "DELETE Projects",
+					"name": "Put Projects Update",
 					"request": {
-						"method": "DELETE",
+						"method": "PUT",
 						"header": [],
 						"url": {
 							"raw": "http://localhost:3000/projects/:id",
@@ -455,9 +455,9 @@
 					"response": []
 				},
 				{
-					"name": "PUT Projects",
+					"name": "Delete Projects",
 					"request": {
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [],
 						"url": {
 							"raw": "http://localhost:3000/projects/:id",
@@ -486,57 +486,7 @@
 			"name": "Super admins",
 			"item": [
 				{
-					"name": "Delete super admin",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/super-admins/:id",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"super-admins",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "634c6645bfefd81e53ba819d"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Edit super admin",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/super-admins/:id",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"super-admins",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": null
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GET Super Admins",
+					"name": "Get Super Admins",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -554,7 +504,7 @@
 					"response": []
 				},
 				{
-					"name": "GET ById Super Admins",
+					"name": "Get ById Super Admins",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -573,7 +523,7 @@
 					"response": []
 				},
 				{
-					"name": "POST Super Admins",
+					"name": "Post Super Admins Create",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -599,6 +549,56 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Put Super Admins Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/super-admins/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"super-admins",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Super Admins",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/super-admins/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"super-admins",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "634c6645bfefd81e53ba819d"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -606,7 +606,7 @@
 			"name": "Tasks",
 			"item": [
 				{
-					"name": "Get all",
+					"name": "Get Tasks",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -624,7 +624,7 @@
 					"response": []
 				},
 				{
-					"name": "Get by id",
+					"name": "Get ById Tasks",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -649,7 +649,7 @@
 					"response": []
 				},
 				{
-					"name": "Post",
+					"name": "Post Tasks Create",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -677,26 +677,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete task",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/tasks/",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"tasks",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update task",
+					"name": "Put Tasks Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -722,6 +703,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete Tasks",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/tasks/",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"tasks",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -729,7 +729,7 @@
 			"name": "Time sheets",
 			"item": [
 				{
-					"name": "time-sheet getAll",
+					"name": "Get Timesheets",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -749,7 +749,7 @@
 					"response": []
 				},
 				{
-					"name": "time-sheet getById",
+					"name": "Get ById Timesheets",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -775,7 +775,7 @@
 					"response": []
 				},
 				{
-					"name": "time-sheet Create",
+					"name": "Post Timesheets Create",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -804,26 +804,7 @@
 					"response": []
 				},
 				{
-					"name": "DELETE Timesheets",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:3000/time-sheets/634c6b9ae16f3bdad425d4ac",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"time-sheets",
-								"634c6b9ae16f3bdad425d4ac"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PUT Timesheets",
+					"name": "Put Timesheets Update",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -845,6 +826,25 @@
 							"path": [
 								"time-sheets",
 								"635031b6719edf28d27319c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Timesheets",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/time-sheets/634c6b9ae16f3bdad425d4ac",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"time-sheets",
+								"634c6b9ae16f3bdad425d4ac"
 							]
 						}
 					},
