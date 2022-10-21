@@ -9,6 +9,6 @@ router
   .get('/:id', adminControllers.getAdminById)
   .post('/', userValidations.validateCreation, adminControllers.createAdmin)
   .put('/:id', userValidations.validateCreation, adminControllers.modifyAdmin)
-  .delete('/:id', adminControllers.deleteAdmin)
+  .delete('/:id', adminControllers.deleteAdmin);
 
 export default router;

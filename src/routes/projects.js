@@ -9,6 +9,6 @@ router
   .get('/:id', projectsControllers.getProjectById)
   .post('/', projectsValidations.validateCreation, projectsControllers.createProject)
   .put('/:id', projectsValidations.validateCreation, projectsControllers.editProject)
-  .delete('/:id', projectsControllers.deleteProject)
+  .delete('/:id', projectsControllers.deleteProject);
 
 export default router;

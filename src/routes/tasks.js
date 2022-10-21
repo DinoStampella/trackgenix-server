@@ -9,6 +9,6 @@ router
   .get('/:id', tasksControllers.getTaskById)
   .post('/', tasksValidations.validateCreation, tasksControllers.createTask)
   .put('/:id', tasksControllers.updateTask)
-  .delete('/:id', tasksControllers.deleteTask)
+  .delete('/:id', tasksControllers.deleteTask);
 
 export default router;
