@@ -14,7 +14,6 @@ const isValidObjectId = (id) => {
 
 const getAllSuperAdmins = async (req, res) => {
   try {
-    const { id } = req.params;
     const superAdmin = await superAdmins.find();
     if (!superAdmin.length) {
       return res.status(404).json({
@@ -23,7 +22,7 @@ const getAllSuperAdmins = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: `Found super admin with id ${id}`,
+      message: 'Super Admins found',
       data: superAdmin,
       error: false,
     });
@@ -53,7 +52,7 @@ const getSuperAdminsById = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: 'Super Admins found',
+      message: `Found super admin with id ${id}`,
       data: superAdminFound,
       error: false,
     });
