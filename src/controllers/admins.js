@@ -73,33 +73,6 @@ const createAdmin = async (req, res) => {
   }
 };
 
-const deleteAdmin = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${id}`,
-        error: true,
-      });
-    }
-    const deletedAdmin = await Admins.findByIdAndDelete(id);
-    if (deletedAdmin == null) {
-      return res.status(404).json({
-        message: `Couldn't find admin with id ${id}`,
-        data: undefined,
-        error: true,
-      });
-    }
-    return res.status(204);
-  } catch (error) {
-    return res.status(500).json({
-      message: error.message,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
 const modifyAdmin = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,10 +108,37 @@ const modifyAdmin = async (req, res) => {
   }
 };
 
+const deleteAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const deletedAdmin = await Admins.findByIdAndDelete(id);
+    if (deletedAdmin == null) {
+      return res.status(404).json({
+        message: `Couldn't find admin with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: error.message,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
 export default {
   getAllAdmins,
   getAdminById,
   createAdmin,
-  deleteAdmin,
   modifyAdmin,
+  deleteAdmin,
 };

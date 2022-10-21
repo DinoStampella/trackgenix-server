@@ -8,7 +8,7 @@ router
   .get('/', timesheetsControllers.getAllTimesheets)
   .get('/:id', timesheetsControllers.getTimesheetById)
   .post('/', timesheetsValidations.validationsTimesheets, timesheetsControllers.createTimesheet)
+  .put('/:id', timesheetsValidations.validationsTimesheets, timesheetsControllers.updateTimesheets)
   .delete('/:id', timesheetsControllers.deleteTimesheet)
-  .put('/:id', timesheetsValidations.validationsTimesheets, timesheetsControllers.updateTimesheets);
 
 export default router;

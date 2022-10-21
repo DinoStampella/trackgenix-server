@@ -12,34 +12,6 @@ const isValidObjectId = (id) => {
   return false;
 };
 
-const deleteTimesheet = async (req, res) => {
-  try {
-    if (!isValidObjectId(req.params.id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
-        error: true,
-      });
-    }
-    const idTimesheets = req.params.id;
-    const deletedTimesheet = await Timesheets.findByIdAndDelete(idTimesheets);
-    if (!deletedTimesheet) {
-      return res.status(404).json({
-        message: 'There is no Timesheets with this id',
-        error: true,
-      });
-    }
-    return res.status(204).json({
-      message: 'Timesheets deleted successfully',
-      data: deletedTimesheet,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      error: true,
-    });
-  }
-};
-
 const getAllTimesheets = async (req, res) => {
   try {
     const timesheets = await Timesheets.find();
@@ -141,10 +113,38 @@ const updateTimesheets = async (req, res) => {
   }
 };
 
+const deleteTimesheet = async (req, res) => {
+  try {
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
+    const idTimesheets = req.params.id;
+    const deletedTimesheet = await Timesheets.findByIdAndDelete(idTimesheets);
+    if (!deletedTimesheet) {
+      return res.status(404).json({
+        message: 'There is no Timesheets with this id',
+        error: true,
+      });
+    }
+    return res.status(204).json({
+      message: 'Timesheets deleted successfully',
+      data: deletedTimesheet,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      error: true,
+    });
+  }
+};
+
 export default {
-  deleteTimesheet,
-  updateTimesheets,
   getAllTimesheets,
   getTimesheetById,
   createTimesheet,
+  updateTimesheets,
+  deleteTimesheet,
 };
