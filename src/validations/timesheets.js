@@ -6,19 +6,29 @@ const validationsTimesheets = (req, res, next) => {
       'date.base': 'date is format in invalid',
       'date.format': 'invalid date format',
     }),
-    description: joi.string().required().valid('Frontend', 'Backend', 'Testing').messages({
-      'string.empty': 'description is required',
-      'string.pattern.base': 'description should be Frontend, Backend, Testing',
-      'any.required': 'description is required',
+    description: joi.string().required().min(3).max(150)
+      .messages({
+        'string.empty': 'description is required',
+        'string.min': 'description should have a minimum length of 3 characters',
+        'string.max': 'description should have a maximum length of 150 characters',
+        'any.required': 'description is required',
+      }),
+    task: joi.required().messages({
+      'task.empty': 'task is required',
     }),
-    task: joi.required(),
-    employee: joi.required(),
-    project: joi.required(),
-    hours: joi.number().min(1).required().messages({
-      'hours.empty': 'description is required',
-      'number.min': 'minimum 1 hour',
-      'any.required': 'description is required',
+    employee: joi.required().messages({
+      'employee.empty': 'employee is required',
     }),
+    project: joi.required().messages({
+      'project.empty': 'project is required',
+    }),
+    hours: joi.number().min(1).max(12).required()
+      .messages({
+        'hours.empty': 'description is required',
+        'number.min': 'minimum 1 hour',
+        'number.max': 'maximum 12 hours',
+        'any.required': 'description is required',
+      }),
   });
   const validate = validations.validate(req.body, { abortEarly: false });
   if (validate.error) {
