@@ -12,7 +12,7 @@ const isValidObjectId = (id) => {
 
 const getAllProjects = async (req, res) => {
   try {
-    const projects = await Projects.find();
+    const projects = await Projects.find(req.query).populate('teamMembers.employee');
     if (!projects) {
       return res.status(404).json({
         message: 'Projects not found.',
@@ -103,7 +103,7 @@ const getProjectById = async (req, res) => {
         error: true,
       });
     }
-    const project = await Projects.findById(id);
+    const project = await Projects.findById(id).populate('teamMembers.employee');
     if (!project) {
       return res.status(404).json({
         message: `Couldn't find project with id ${id}`,

@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const validateCreation = (req, res, next) => {
   const teamMembersValidation = Joi.object({
-    id: Joi.string().required()
+    employee: Joi.string().required()
       .messages({
         'string.empty': 'Id required',
         'any.required': 'Id required',
