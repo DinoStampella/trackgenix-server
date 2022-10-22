@@ -14,27 +14,25 @@ const isValidObjectId = (id) => {
 
 const deleteTimesheet = async (req, res) => {
   try {
-    if (!isValidObjectId(req.params.id)) {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
+        message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    const idTimesheets = req.params.id;
-    const deletedTimesheet = await Timesheets.findByIdAndDelete(idTimesheets);
+    const deletedTimesheet = await Timesheets.findByIdAndDelete(id);
     if (!deletedTimesheet) {
       return res.status(404).json({
-        message: 'There is no Timesheets with this id',
+        message: `Couldn't find timesheet with id ${id}`,
         error: true,
       });
     }
-    return res.status(204).json({
-      message: 'Timesheets deleted successfully',
-      data: deletedTimesheet,
-    });
+    return res.sendStatus(204);
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -45,18 +43,19 @@ const getAllTimesheets = async (req, res) => {
     const timesheets = await Timesheets.find();
     if (timesheets.length === 0) {
       return res.status(404).json({
-        message: 'Timesheet Not Found',
+        message: 'Timesheets not found',
         error: true,
       });
     }
     return res.status(200).json({
-      message: 'Timesheet Found',
+      message: 'Timesheets found',
       data: timesheets,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -64,28 +63,30 @@ const getAllTimesheets = async (req, res) => {
 
 const getTimesheetById = async (req, res) => {
   try {
-    const timesheetId = req.params.id;
+    const { id } = req.params.id;
+    const timesheetId = id;
     if (!isValidObjectId(timesheetId)) {
       return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
+        message: `Invalid id: ${id}`,
         error: true,
       });
     }
     const timesheets = await Timesheets.findById(timesheetId);
     if (!timesheets) {
       return res.status(404).json({
-        message: 'Timesheet Not Found',
+        message: `Couldn't find timesheet with id ${id}`,
         error: true,
       });
     }
     return res.status(200).json({
-      message: 'Timesheet Found',
+      message: `Found timesheet with id ${id}`,
       data: timesheets,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -96,13 +97,14 @@ const createTimesheet = async (req, res) => {
     const timesheets = await Timesheets.create(req.body);
 
     return res.status(201).json({
-      message: 'Timesheet Created',
+      message: 'Timesheet created successfully',
       data: timesheets,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      message: `An error occurred: ${error.message}`,
+      message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -110,32 +112,34 @@ const createTimesheet = async (req, res) => {
 
 const updateTimesheets = async (req, res) => {
   try {
+    const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).json({
         message: `Invalid id: ${req.params.id}`,
         error: true,
       });
     }
-    const idTimesheets = req.params.id;
     const updatedTimesheet = await Timesheets.findByIdAndUpdate(
-      idTimesheets,
-      req.body,
+      { _id: id },
+      { ...req.body },
       { new: true },
     );
     if (!updatedTimesheet) {
-      return res.status(400).json({
-        message: `Couldn't find timesheets with id ${req.params.id}`,
+      return res.status(404).json({
+        message: `Couldn't find timesheet with id ${id}`,
+        data: undefined,
         error: true,
       });
     }
     return res.status(200).json({
-      message: `Modified timesheets with id ${req.params.id}`,
+      message: `Modified timesheet with id ${id}`,
       data: updatedTimesheet,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      message: `An error occurred: ${error.message}`,
+      message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }

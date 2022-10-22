@@ -17,7 +17,7 @@ const getAllSuperAdmins = async (req, res) => {
     const superAdmin = await superAdmins.find();
     if (!superAdmin.length) {
       return res.status(404).json({
-        message: 'No Super Admins found',
+        message: 'Super admins not found',
         error: true,
       });
     }
@@ -28,7 +28,8 @@ const getAllSuperAdmins = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      message: `An error occurred: ${error.message}`,
+      message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -36,28 +37,29 @@ const getAllSuperAdmins = async (req, res) => {
 
 const getSuperAdminsById = async (req, res) => {
   try {
-    if (!isValidObjectId(req.params.id)) {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
+        message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    const idSuperAdmin = req.params.id;
-    const superAdmin = await superAdmins.findById(idSuperAdmin);
-    if (!superAdmin) {
+    const superAdminFound = await superAdmins.findById(id);
+    if (!superAdminFound) {
       return res.status(404).json({
-        message: 'There is no Super Admins with this id',
+        message: `Couldn't find super admin with id ${id}`,
         error: true,
       });
     }
     return res.status(200).json({
-      message: 'Super Admins found',
-      data: superAdmin,
+      message: `Found super admin with id ${id}`,
+      data: superAdminFound,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      message: `An error occurred: ${error.message}`,
+      message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -69,13 +71,14 @@ const createSuperAdmins = async (req, res) => {
     const newSuperAdmin = new superAdmins(req.body);
     const newSuperAdminSaved = await newSuperAdmin.save();
     return res.status(201).json({
-      message: 'Super Admins created successfully',
+      message: 'Super admins created successfully',
       data: newSuperAdminSaved,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      message: `An error occurred: ${error.message}`,
+      message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -90,17 +93,18 @@ const deletedSuperAdmins = async (req, res) => {
         error: true,
       });
     }
-    const result = await superAdmins.findByIdAndDelete(id);
-    if (!result) {
+    const deletedSuperAdmin = await superAdmins.findByIdAndDelete(id);
+    if (!deletedSuperAdmin) {
       return res.status(404).json({
-        message: `Super admin not found with id: ${id}`,
+        message: `Couldn't find super admin with id ${id}`,
         error: true,
       });
     }
-    return res.send(204);
+    return res.sendStatus(204);
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
@@ -115,19 +119,27 @@ const updateSuperAdmins = async (req, res) => {
         error: true,
       });
     }
-    const result = await superAdmins.findByIdAndUpdate(
+    const updatedSuperAdmin = await superAdmins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
       { new: true },
     );
+    if (updatedSuperAdmin == null) {
+      return res.status(404).json({
+        message: `Couldn't find super admin with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
     return res.status(200).json({
-      message: `Modified Super admin with id ${id}`,
-      data: result,
+      message: `Modified super admin with id ${id}`,
+      data: updatedSuperAdmin,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
