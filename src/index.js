@@ -1,22 +1,12 @@
-import express from 'express';
 import mongoose from 'mongoose';
+import app from './app';
 
-// eslint-disable-next-line import/no-named-as-default, import/no-named-as-default-member
-import router from './routes';
-
-const app = express();
+require('dotenv').config();
 
 const port = process.env.PORT || 3000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
-app.use(router);
-
-const MONGO_URL = 'mongodb+srv://grupo-a:QWrYuBY4E4MCAo1q@cluster0.ww0uoal.mongodb.net/?retryWrites=true&w=majority';
-
 mongoose.connect(
-  MONGO_URL,
+  process.env.MONGO_URL,
   (error) => {
     if (error) {
       // eslint-disable-next-line no-console

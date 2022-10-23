@@ -8,7 +8,7 @@ router
   .get('/', projectsControllers.getAllProjects)
   .get('/:id', projectsControllers.getProjectById)
   .post('/', projectsValidations.validateCreation, projectsControllers.createProject)
-  .put('/:id', projectsValidations.validateCreation, projectsControllers.editProject)
+  .put('/:id', projectsValidations.validateCreation, projectsControllers.updateProject)
   .delete('/:id', projectsControllers.deleteProject);
 
 export default router;

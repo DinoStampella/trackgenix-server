@@ -12,21 +12,24 @@ const isValidObjectId = (id) => {
 
 const getAllProjects = async (req, res) => {
   try {
-    const projects = await Projects.find();
+    const projects = await Projects.find(req.query).populate('teamMembers.employee');
     if (!projects) {
       return res.status(404).json({
-        message: 'Projects not found.',
+        message: 'Projects not found',
         data: undefined,
         error: true,
       });
     }
-    return res.status(201).json({
-      message: 'Projects found succesfully',
+    return res.status(200).json({
+      message: 'Projects found',
       data: projects,
-      error: true,
+      error: false,
     });
   } catch (error) {
     return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
     });
   }
 };
@@ -40,7 +43,7 @@ const getProjectById = async (req, res) => {
         error: true,
       });
     }
-    const project = await Projects.findById(id);
+    const project = await Projects.findById(id).populate('teamMembers.employee');
     if (!project) {
       return res.status(404).json({
         message: `Couldn't find project with id ${id}`,
@@ -48,14 +51,15 @@ const getProjectById = async (req, res) => {
       });
     }
     return res.status(200).json({
-      message: 'Project found succesfully',
+      message: `Found project with id ${id}`,
       data: project,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      message: 'An error ocurred',
-      error: false,
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
     });
   }
 };
@@ -70,40 +74,42 @@ const createProject = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({
-      message: 'error in the server',
+      message: `Unexpected error ${error}`,
+      data: undefined,
       error: true,
     });
   }
 };
 
-const editProject = async (req, res) => {
+const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    if (isValidObjectId(id)) {
-      const result = await Projects.findByIdAndUpdate(
-        { _id: id },
-        { ...req.body },
-        { new: true },
-      );
-      if (result !== null) {
-        return res.status(200).json({
-          message: `Modified project whit id ${id}`,
-          data: result,
-          error: false,
-        });
-      }
+    if (!isValidObjectId(id)) {
       return res.status(404).json({
-        message: `there is not project with this id ${id}.`,
+        message: `Invalid id ${id}.`,
         error: true,
       });
     }
-    return res.status(404).json({
-      message: `Invalid id ${id}.`,
-      error: true,
+    const updatedProject = await Projects.findByIdAndUpdate(
+      { _id: id },
+      { ...req.body },
+      { new: true },
+    );
+    if (updatedProject == null) {
+      return res.status(404).json({
+        message: `Couldn't find project with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: `Modified project with id ${id}`,
+      data: updatedProject,
+      error: false,
     });
   } catch (error) {
-    return res.status(500)({
-      message: error,
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
       data: undefined,
       error: true,
     });
@@ -143,6 +149,6 @@ export default {
   getAllProjects,
   getProjectById,
   createProject,
-  editProject,
+  updateProject,
   deleteProject,
 };

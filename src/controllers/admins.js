@@ -15,7 +15,7 @@ const getAllAdmins = async (req, res) => {
     const admins = await Admins.find();
     if (!admins.length) {
       return res.status(404).json({
-        message: 'No admins found',
+        message: 'Admins not found',
         error: true,
       });
     }
@@ -27,33 +27,38 @@ const getAllAdmins = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
     });
   }
 };
 
 const getAdminById = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
   try {
+    const { id } = req.params;
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
     const admin = await Admins.findById(req.params.id);
     if (!admin) {
       return res.status(404).json({
-        message: 'There is no admin with this id',
+        message: `Couldn't find admin with id ${id}`,
         error: true,
       });
     }
     return res.status(200).json({
-      message: 'Admin found',
+      message: `Found admin with id ${id}`,
       data: admin,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
     });
   }
 };
@@ -62,18 +67,20 @@ const createAdmin = async (req, res) => {
   try {
     const admin = await Admins.create(req.body);
     return res.status(201).json({
-      message: 'Admin created',
+      message: 'Admin created successfully',
       data: admin,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
     });
   }
 };
 
-const modifyAdmin = async (req, res) => {
+const updateAdmin = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -82,26 +89,26 @@ const modifyAdmin = async (req, res) => {
         error: true,
       });
     }
-    const adminFound = await Admins.findByIdAndUpdate(
+    const updatedAdmin = await Admins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
       { new: true },
     );
-    if (adminFound == null) {
+    if (updatedAdmin == null) {
       return res.status(404).json({
         message: `Couldn't find admin with id ${id}`,
         data: undefined,
         error: true,
       });
     }
-    return res.status(201).json({
-      message: `Admin with id ${id} modified succesfully`,
-      data: adminFound,
+    return res.status(200).json({
+      message: `Modified admin with id ${id}`,
+      data: updatedAdmin,
       error: false,
     });
   } catch (error) {
     return res.status(500).json({
-      message: error,
+      message: `Unexpected error ${error}`,
       data: undefined,
       error: true,
     });
@@ -125,10 +132,10 @@ const deleteAdmin = async (req, res) => {
         error: true,
       });
     }
-    return res.status(204);
+    return res.sendStatus(204);
   } catch (error) {
     return res.status(500).json({
-      message: error.message,
+      message: `Unexpected error ${error}`,
       data: undefined,
       error: true,
     });
@@ -139,6 +146,6 @@ export default {
   getAllAdmins,
   getAdminById,
   createAdmin,
-  modifyAdmin,
+  updateAdmin,
   deleteAdmin,
 };
