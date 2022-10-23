@@ -40,7 +40,7 @@ const deleteTimesheet = async (req, res) => {
 
 const getAllTimesheets = async (req, res) => {
   try {
-    const timesheets = await Timesheets.find();
+    const timesheets = await Timesheets.find().populate('employee').populate('project').populate('task');
     if (timesheets.length === 0) {
       return res.status(404).json({
         message: 'Timesheets not found',
@@ -71,7 +71,7 @@ const getTimesheetById = async (req, res) => {
         error: true,
       });
     }
-    const timesheets = await Timesheets.findById(timesheetId);
+    const timesheets = await Timesheets.findById(timesheetId).populate('employee').populate('project').populate('task');
     if (!timesheets) {
       return res.status(404).json({
         message: `Couldn't find timesheet with id ${id}`,
