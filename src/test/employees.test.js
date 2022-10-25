@@ -23,6 +23,17 @@ const mockedEmployeeModified = {
   location: 'Miame',
 };
 
+const mockedEmployeeWithNumbers = {
+  _id: '63531244ec6456efd12685ef',
+  firstName: 'Carlos',
+  lastName: 'Guevara',
+  email: 'CarlosGuevara@gmail.com',
+  password: 'passwordreseguro',
+  dni: 12345678,
+  phone: 1168542425,
+  location: 'Miame',
+};
+
 const mockedEmployeeInvalid = {
   firstName: 'Carlos',
   lastName: 'Hills',
@@ -33,8 +44,9 @@ const mockedEmployeeInvalid = {
   location: 'Montana',
 };
 
-let employeeIdPeter = '63531244ec6456efd12685ef';
+const employeeIdPeter = '63531244ec6456efd12685ef';
 const employeeIdErnesto = '63573014db9ebdd9d24e7b93';
+const invalidId = 123;
 
 beforeAll(async () => {
   await Employee.collection.insertMany(employeesSeed);
@@ -44,10 +56,8 @@ describe('Delete/employees', () => {
   test('should return status code 204', async () => {
     const response = await request(app).delete(`/employees/${employeeIdErnesto}`).send();
     expect(response.status).toBe(204);
-    expect(response.body.error).toBeFalsy();
   });
   test('should return 400', async () => {
-    const invalidId = 123;
     const response = await request(app).delete(`/employees/${invalidId}`).send();
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
@@ -62,28 +72,14 @@ describe('Delete/employees', () => {
 });
 
 describe('Put/employees', () => {
-  test('should create an employee', async () => {
-    const response = await request(app).post('/employees').send(mockedEmployee);
-    // eslint-disable-next-line no-underscore-dangle
-    employeeIdPeter = response.body.data._id;
-
-    expect(response.status).toBe(201);
-  });
   test('should return status code 200', async () => {
     const response = await request(app).put(`/employees/${employeeIdPeter}`).send(mockedEmployeeModified);
     expect(response.status).toBe(200);
+    expect(response.body.data).toEqual(mockedEmployeeWithNumbers);
     expect(response.body.error).toBeFalsy();
-    expect(response.body.data.firstName).toBe('Carlos');
-    expect(response.body.data.lastName).toBe('Guevara');
-    expect(response.body.data.email).toBe('CarlosGuevara@gmail.com');
-    expect(response.body.data.password).toBe('passwordreseguro');
-    expect(response.body.data.dni).toBe(12345678);
-    expect(response.body.data.phone).toBe(1168542425);
-    expect(response.body.data.location).toBe('Miame');
     expect(response.body.message).toBe(`Modified employee with id ${employeeIdPeter}`);
   });
   test('should return status code 400', async () => {
-    const invalidId = 254;
     const response = await request(app).put(`/employees/${invalidId}`).send(mockedEmployee);
     expect(response.status).toBe(400);
     expect(response.body.error).toBeTruthy();
