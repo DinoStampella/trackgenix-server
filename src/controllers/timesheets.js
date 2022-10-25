@@ -63,15 +63,14 @@ const getAllTimesheets = async (req, res) => {
 
 const getTimesheetById = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    const timesheetId = id;
-    if (!isValidObjectId(timesheetId)) {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
         message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    const timesheets = await Timesheets.findById(timesheetId).populate('employee').populate('project').populate('task');
+    const timesheets = await Timesheets.findById(id).populate('employee').populate('project').populate('task');
     if (!timesheets) {
       return res.status(404).json({
         message: `Couldn't find timesheet with id ${id}`,
