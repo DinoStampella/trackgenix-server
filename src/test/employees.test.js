@@ -54,9 +54,9 @@ describe('Delete/employees', () => {
     expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
   });
   test('should return 404', async () => {
-    // Employee id ya no existe fue borrado mas arriba
     const response = await request(app).delete(`/employees/${employeeIdErnesto}`).send();
     expect(response.status).toBe(404);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(`Couldn't find employee with id ${employeeIdErnesto}`);
   });
 });
@@ -86,21 +86,19 @@ describe('Put/employees', () => {
     const invalidId = 254;
     const response = await request(app).put(`/employees/${invalidId}`).send(mockedEmployee);
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
   });
   test('should return status code 404', async () => {
     const idThatNotexist = '62731244ec6456efd12685ef';
     const response = await request(app).put(`/employees/${idThatNotexist}`).send(mockedEmployee);
     expect(response.status).toBe(404);
-    expect(response.body.error).toBe(true);
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message).toBe(`Couldn't find employee with id ${idThatNotexist}`);
   });
   test('should return status code 400 validate error', async () => {
     const response = await request(app).put(`/employees/${employeeIdPeter}`).send(mockedEmployeeInvalid);
     expect(response.status).toBe(400);
-    expect(response.body.message).toEqual([{
-      context: { key: 'email', label: 'email', value: '' }, message: 'email required', path: ['email'], type: 'string.empty',
-    }]);
+    expect(response.body.message[0].message).toBe('email required');
   });
 });
