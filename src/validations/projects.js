@@ -7,7 +7,7 @@ const validateCreation = (req, res, next) => {
         'string.empty': 'Id required',
         'any.required': 'Id required',
       }),
-    rol: Joi.string().required().valid('DEV', 'QA', 'TL', 'PM')
+    role: Joi.string().required().valid('DEV', 'QA', 'TL', 'PM')
       .messages({
         'string.empty': 'rol required',
         'any.only': 'rol can only be DEV, QA, TL or PM',
