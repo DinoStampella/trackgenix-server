@@ -4,7 +4,7 @@ import tasksControllers from '../controllers/tasks';
 
 const router = express.Router();
 
-router.put('/:id', tasksControllers.updateTask);
+router.put('/:id', tasksValidations.validateCreation, tasksControllers.updateTask);
 router.delete('/:id', tasksControllers.deleteTask);
 router.get('/', tasksControllers.getAllTasks);
 router.get('/:id', tasksControllers.getTaskById);
