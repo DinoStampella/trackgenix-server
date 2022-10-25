@@ -76,6 +76,22 @@ describe('POST /time-sheets', () => {
     expect(response.status).toBe(400);
     mockedTimesheets.task = '63531a7c73636855c2aa7f9a';
   });
+
+  test('Should not create a time-sheet if project is empty', async () => {
+    mockedTimesheets.project = '';
+    const response = await request(app).post('/time-sheets').send(mockedTimesheets);
+
+    expect(response.status).toBe(400);
+    mockedTimesheets.project = '63531a7c73636855c2aa7f9a';
+  });
+
+  test('Should not create a time-sheet if employee is empty', async () => {
+    mockedTimesheets.employee = '';
+    const response = await request(app).post('/time-sheets').send(mockedTimesheets);
+
+    expect(response.status).toBe(400);
+    mockedTimesheets.employee = '63531a7c73636855c2aa7f9a';
+  });
 });
 
 describe('GET /time-sheets', () => {
@@ -96,5 +112,6 @@ describe('GET /time-sheets', () => {
 
     expect(response.status).toBe(404);
     expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe('Timesheets not found');
   });
 });
