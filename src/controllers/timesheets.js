@@ -41,7 +41,7 @@ const deleteTimesheet = async (req, res) => {
 const getAllTimesheets = async (req, res) => {
   try {
     const timesheets = await Timesheets.find();
-    if (!timesheets.length) {
+    if (timesheets.length === 0) {
       return res.status(404).json({
         message: 'Timesheets not found',
         error: true,
@@ -63,14 +63,15 @@ const getAllTimesheets = async (req, res) => {
 
 const getTimesheetById = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
+    const { id } = req.params.id;
+    const timesheetId = id;
+    if (!isValidObjectId(timesheetId)) {
       return res.status(400).json({
         message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    const timesheets = await Timesheets.findById(id);
+    const timesheets = await Timesheets.findById(timesheetId);
     if (!timesheets) {
       return res.status(404).json({
         message: `Couldn't find timesheet with id ${id}`,
