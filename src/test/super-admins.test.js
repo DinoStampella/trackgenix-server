@@ -37,21 +37,18 @@ const mockedWrongSuperAdmin = {
   dni: '25556665',
 };
 describe('PUT Endpoints', () => {
-  test('Should modify a super admin', async () => {
-    const response = await request(app).put(`/super-admins/${id}`).send(mockedSuperAdmin);
-    expect(response.status).toBe(200);
-    expect(response.body.error).toBeFalsy();
-  });
-
   test('Should fail to modify a super admin because incomplete body', async () => {
     const response = await request(app).put(`/super-admins/${id}`).send(mockedIncompleteSuperAdmin);
     expect(response.status).toBe(400);
+    expect(response.body.message[0].message).toBe('first name required');
+    expect(response.body.data).toBe(undefined);
   });
 
   test('Should fail to modify a super admin because invalid body', async () => {
     const response = await request(app).put(`/super-admins/${id}`).send(mockedWrongSuperAdmin);
 
     expect(response.status).toBe(400);
+    expect(response.body.message[0].message).toBe('first name should be letters only');
     expect(response.body.data).toBe(undefined);
   });
 
@@ -60,12 +57,21 @@ describe('PUT Endpoints', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
+    expect(response.body.error).toBeTruthy();
   });
   test('Should fail to modify a super admin because inexistent id', async () => {
     const response = await request(app).put(`/super-admins/${inexistentId}`).send(mockedSuperAdmin);
 
     expect(response.status).toBe(404);
-    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(`Couldn't find super admin with id ${inexistentId}`);
+    expect(response.body.error).toBeTruthy();
+  });
+  test('Should modify a super admin', async () => {
+    const response = await request(app).put(`/super-admins/${id}`).send(mockedSuperAdmin);
+
+    expect(response.status).toBe(200);
+    expect(response.body.error).toBeFalsy();
+    expect(response.body.message).toBe(`Modified super admin with id ${id}`);
   });
 });
 describe('DELETE Endpoints', () => {
@@ -74,15 +80,18 @@ describe('DELETE Endpoints', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
+    expect(response.body.error).toBeTruthy();
   });
   test('Should fail to delete a super admin because inexistent id', async () => {
     const response = await request(app).delete(`/super-admins/${inexistentId}`).send();
 
     expect(response.status).toBe(404);
-    expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(`Couldn't find super admin with id ${inexistentId}`);
+    expect(response.body.error).toBeTruthy();
   });
   test('Should delete a super admin', async () => {
     const response = await request(app).delete(`/super-admins/${id}`).send();
+
     expect(response.status).toBe(204);
   });
 });
