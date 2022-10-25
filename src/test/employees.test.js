@@ -19,6 +19,15 @@ const fixEmployee = employeesSeed.map((employee) => ({
   dni: parseInt(employee.dni, 10),
   phone: parseInt(employee.phone, 10),
 }));
+const mockedEmployee = {
+  firstName: 'George',
+  lastName: 'DelaSelva',
+  email: 'GeorgeDelaSelva@gmail.com',
+  password: 'notTarzan1234',
+  dni: '30454595',
+  phone: '1165642485',
+  location: 'Laselva',
+};
 
 describe('GETById /employees/:id', () => {
   test('should GET an employee by Id', async () => {
@@ -42,5 +51,23 @@ describe('GETById /employees/:id', () => {
     expect(response.body.message).toBe(`Couldn't find employee with id ${notExistId}`);
     expect(response.body.data).toBe(undefined);
     expect(response.body.error).toBeTruthy();
+  });
+});
+
+describe('POST /employees', () => {
+  test('should create new employee', async () => {
+    const response = await request(app).post('/employees/').send(mockedEmployee);
+
+    expect(response.status).toBe(201);
+    expect(response.body.message).toBe('Employee created successfully');
+    expect(response.body.data.firstName).toEqual(mockedEmployee.firstName);
+    expect(response.body.error).toBeFalsy();
+  });
+  test('shouldn\'t create employee', async () => {
+    mockedEmployee.password = '';
+    const response = await request(app).post('/employees/').send(mockedEmployee);
+
+    expect(response.status).toBe(400);
+    expect(response.body.message[0].message).toBe('password required');
   });
 });
