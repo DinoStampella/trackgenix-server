@@ -34,15 +34,18 @@ describe('PUT /project/:id', () => {
     const res = await request(app).put(`/projects/${projectId}`).send(mockedProject);
     expect(res.status).toBe(400);
     expect(res.body.message[0].message).toBe('Name required');
+    expect(res.body.error).toBeTruthy();
   });
   test('invalid id: return status code 400', async () => {
     mockedProject.name = 'Eric';
     const res = await request(app).put('/projects/69').send(mockedProject);
     expect(res.status).toBe(400);
+    expect(res.body.error).toBeTruthy();
   });
   test('id does not exist: return status code 404', async () => {
     const res = await request(app).put(`/projects/${mockedProject.teamMembers[0].employee}`).send(mockedProject);
     expect(res.status).toBe(404);
+    expect(res.body.error).toBeTruthy();
   });
 });
 
@@ -55,9 +58,12 @@ describe('DELETE /project/:id', () => {
     const res = await request(app).delete('/projects/42');
     expect(res.status).toBe(400);
     expect(res.body.message).toBe('Invalid id 42.');
+    expect(res.body.error).toBeTruthy();
   });
   test('id does not exist: return status code 404', async () => {
     const res = await request(app).delete(`/projects/${mockedProject.teamMembers[0].employee}`);
     expect(res.status).toBe(404);
+    expect(res.body.message).toBe(`Couldn't find project with id ${mockedProject.teamMembers[0].employee}`);
+    expect(res.body.error).toBeTruthy();
   });
 });
