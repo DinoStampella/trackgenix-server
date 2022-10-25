@@ -40,7 +40,7 @@ describe('GET /admin/:id', () => {
   });
 });
 
-describe('GET /admin/', () => {
+describe('GET /admin/', () => { // leave GET or POST at the end when merging (second test deletes only item on DB)
   test('everything correct: return status code 200', async () => {
     const res = await request(app).get('/admins/');
     expect(res.status).toBe(200);
