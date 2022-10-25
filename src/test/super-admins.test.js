@@ -36,12 +36,14 @@ const mockedWrongSuperAdmin = {
   location: 'Calle falsa 123',
   dni: '25556665',
 };
+
 describe('PUT Endpoints', () => {
   test('Should fail to modify a super admin because incomplete body', async () => {
     const response = await request(app).put(`/super-admins/${id}`).send(mockedIncompleteSuperAdmin);
     expect(response.status).toBe(400);
     expect(response.body.message[0].message).toBe('first name required');
     expect(response.body.data).toBe(undefined);
+    expect(response.body.error).toBeTruthy();
   });
 
   test('Should fail to modify a super admin because invalid body', async () => {
@@ -50,6 +52,7 @@ describe('PUT Endpoints', () => {
     expect(response.status).toBe(400);
     expect(response.body.message[0].message).toBe('first name should be letters only');
     expect(response.body.data).toBe(undefined);
+    expect(response.body.error).toBeTruthy();
   });
 
   test('Should fail to modify a super admin because invalid ID', async () => {
@@ -74,6 +77,7 @@ describe('PUT Endpoints', () => {
     expect(response.body.message).toBe(`Modified super admin with id ${id}`);
   });
 });
+
 describe('DELETE Endpoints', () => {
   test('Should fail to delete a super admin because invalid ID', async () => {
     const response = await request(app).delete(`/super-admins/${invalidId}`).send();
