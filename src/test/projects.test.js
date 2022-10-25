@@ -8,7 +8,6 @@ beforeAll(async () => {
 });
 
 const projectId = '63531aaa2b654a3fb77054dd';
-const wrongId = '63531aaa2b654a3fb66666dd';
 const mockedProject = {
   name: 'Eric',
   description: 'asdsadsaddssa',
