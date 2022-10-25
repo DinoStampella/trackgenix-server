@@ -41,7 +41,7 @@ const deleteTimesheet = async (req, res) => {
 const getAllTimesheets = async (req, res) => {
   try {
     const timesheets = await Timesheets.find();
-    if (timesheets.length === 0) {
+    if (!timesheets.length) {
       return res.status(404).json({
         message: 'Timesheets not found',
         error: true,
