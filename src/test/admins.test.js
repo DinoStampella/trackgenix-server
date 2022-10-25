@@ -3,8 +3,6 @@ import app from '../app';
 import Admin from '../models/Admins';
 import adminSeed from '../seed/admins';
 
-test.skip('skip', () => {});
-
 beforeAll(async () => {
   await Admin.collection.insertMany(adminSeed);
 });
@@ -26,6 +24,7 @@ describe('GET /admin/:id', () => {
   test('everything correct: return status code 200', async () => {
     const res = await request(app).get(`/admins/${adminId}`);
     expect(res.status).toBe(200);
+    expect(res.body.error).toBeFalsy();
   });
   test('invalid id: return status code 400', async () => {
     const res = await request(app).get('/admins/42');
@@ -47,6 +46,7 @@ describe('POST /admin/:id', () => {
     // eslint-disable-next-line no-underscore-dangle
     newId = res.body.data._id;
     expect(res.status).toBe(201);
+    expect(res.body.error).toBeFalsy();
   });
   test('validations: return status code 400', async () => {
     mockedAdmin.firstName = '';
@@ -61,6 +61,7 @@ describe('GET /admin/', () => { // leave GET at the end when merging (second tes
   test('everything correct: return status code 200', async () => {
     const res = await request(app).get('/admins/');
     expect(res.status).toBe(200);
+    expect(res.body.error).toBeFalsy();
   });
   test('no admins: return status code 404', async () => {
     await request(app).delete(`/admins/${adminId}`); // delete this line when merging
