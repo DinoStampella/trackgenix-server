@@ -63,7 +63,7 @@ describe('GET /admin/', () => { // leave GET at the end when merging (second tes
     expect(res.status).toBe(200);
   });
   test('no admins: return status code 404', async () => {
-    await request(app).delete(`/admins/${adminId}`); // this line should be deleted when merging, item is already be deleted
+    await request(app).delete(`/admins/${adminId}`); // delete this line when merging
     await request(app).delete(`/admins/${newId}`);
     const res = await request(app).get('/admins/');
     expect(res.status).toBe(404);

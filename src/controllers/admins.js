@@ -36,13 +36,13 @@ const getAllAdmins = async (req, res) => {
 const getAdminById = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!isValidObjectId(req.params.id)) {
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
+        message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    const admin = await Admins.findById(req.params.id);
+    const admin = await Admins.findById(id);
     if (!admin) {
       return res.status(404).json({
         message: `Couldn't find admin with id ${id}`,
