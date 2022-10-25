@@ -2,13 +2,13 @@ import Tasks from '../models/Tasks';
 
 const { ObjectId } = require('mongoose').Types;
 
-function isValidObjectId(id) {
+const isValidObjectId = (id) => {
   if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) return true;
+    if ((String)(new ObjectId(id)) === id) { return true; }
     return false;
   }
   return false;
-}
+};
 
 const getAllTasks = async (req, res) => {
   try {
@@ -60,10 +60,15 @@ const deleteTask = async (req, res) => {
 };
 const getTaskById = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    const taskFound = await Tasks.findById(id);
-
-    if (!taskFound) {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const foundTask = await Tasks.findById(id);
+    if (!foundTask) {
       return res.status(404).json({
         message: `Couldn't find task with id ${id}`,
         error: true,
@@ -71,7 +76,7 @@ const getTaskById = async (req, res) => {
     }
     return res.status(200).json({
       message: `Found task with id ${id}`,
-      data: taskFound,
+      data: foundTask,
       error: false,
     });
   } catch (error) {
