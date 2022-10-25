@@ -12,6 +12,7 @@ jest.setTimeout(60000);
 const employeeId = '63531244ec6456efd12685ef';
 const notExistId = '03034564ec6456efd12675ef';
 const invalidId = 'aps45';
+let newId;
 const fixEmployee = employeesSeed.map((employee) => ({
   ...employee,
   // eslint-disable-next-line no-underscore-dangle
@@ -58,6 +59,9 @@ describe('POST /employees', () => {
   test('should create new employee', async () => {
     const response = await request(app).post('/employees/').send(mockedEmployee);
 
+    // eslint-disable-next-line no-underscore-dangle
+    newId = response.body.data._id;
+
     expect(response.status).toBe(201);
     expect(response.body.message).toBe('Employee created successfully');
     expect(response.body.data.firstName).toEqual(mockedEmployee.firstName);
@@ -69,5 +73,25 @@ describe('POST /employees', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message[0].message).toBe('password required');
+  });
+});
+
+describe('GET /employees', () => {
+  test('should GET employees', async () => {
+    const response = await request(app).get('/employees').send();
+
+    expect(response.status).toBe(200);
+    expect(response.body.message).toBe('Employees found');
+    expect(response.body.data.length).toBeGreaterThan(0);
+    expect(response.body.error).toBeFalsy();
+  });
+  test('should not GET employees', async () => {
+    await request(app).delete(`/employees/${employeeId}`);
+    await request(app).delete(`/employees/${newId}`);
+    const response = await request(app).get('/employees/');
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toBe('Employees not found');
+    expect(response.body.error).toBeTruthy();
   });
 });
