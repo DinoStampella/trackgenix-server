@@ -34,67 +34,6 @@ const getAllProjects = async (req, res) => {
   }
 };
 
-const deleteProject = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id ${id}.`,
-        error: true,
-      });
-    }
-    const deletedProject = await Projects.findByIdAndDelete(id);
-    if (deletedProject == null) {
-      return res.status(404).json({
-        message: `Couldn't find project with id ${id}`,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
-const updateProject = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(404).json({
-        message: `Invalid id ${id}.`,
-        error: true,
-      });
-    }
-    const updatedProject = await Projects.findByIdAndUpdate(
-      { _id: id },
-      { ...req.body },
-      { new: true },
-    );
-    if (updatedProject == null) {
-      return res.status(404).json({
-        message: `Couldn't find project with id ${id}`,
-        data: undefined,
-        error: true,
-      });
-    }
-    return res.status(200).json({
-      message: `Modified project with id ${id}`,
-      data: updatedProject,
-      error: false,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
 const getProjectById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -131,6 +70,67 @@ const createProject = async (req, res) => {
     return res.status(201).json({
       message: 'Project created successfully',
       data: newProject,
+      error: false,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
+const deleteProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id ${id}.`,
+        error: true,
+      });
+    }
+    const deletedProject = await Projects.findByIdAndDelete(id);
+    if (deletedProject == null) {
+      return res.status(404).json({
+        message: `Couldn't find project with id ${id}`,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
+const updateProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id ${id}.`,
+        error: true,
+      });
+    }
+    const updatedProject = await Projects.findByIdAndUpdate(
+      { _id: id },
+      { ...req.body },
+      { new: true },
+    );
+    if (updatedProject == null) {
+      return res.status(404).json({
+        message: `Couldn't find project with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.status(200).json({
+      message: `Modified project with id ${id}`,
+      data: updatedProject,
       error: false,
     });
   } catch (error) {

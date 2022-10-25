@@ -8,7 +8,8 @@ beforeAll(async () => {
 });
 
 const projectId = '63531aaa2b654a3fb77054dd';
-const seed = {
+const wrongId = '63531aaa2b654a3fb66666dd';
+const mockedProject = {
   name: 'Eric',
   description: 'asdsadsaddssa',
   startDate: '11-10-2024',
@@ -25,29 +26,39 @@ const seed = {
 };
 
 describe('PUT /project/:id', () => {
-  test('everything correct: returns status code 200', async () => {
-    const res = await request(app).put(`/projects/${projectId}`).send(seed);
+  test('everything correct: return status code 200', async () => {
+    const res = await request(app).put(`/projects/${projectId}`).send(mockedProject);
     expect(res.status).toBe(200);
   });
-  test('wrong id: returns status code 404', async () => {
-    const res = await request(app).put('/projects/69').send(seed);
-    expect(res.status).toBe(404);
-  });
-  test('validations: returns status code 400', async () => {
-    seed.name = '';
-    const res = await request(app).put(`/projects/${projectId}`).send(seed);
+  test('validations: return status code 400', async () => {
+    mockedProject.name = '';
+    const res = await request(app).put(`/projects/${projectId}`).send(mockedProject);
     expect(res.status).toBe(400);
     expect(res.body.message[0].message).toBe('Name required');
+  });
+  test('invalid id: return status code 400', async () => {
+    mockedProject.name = 'Eric';
+    const res = await request(app).put('/projects/69').send(mockedProject);
+    expect(res.status).toBe(400);
+  });
+  test('id does not exist: return status code 404', async () => {
+    const res = await request(app).put(`/projects/${mockedProject.teamMembers[0].employee}`).send(mockedProject);
+    expect(res.status).toBe(404);
   });
 });
 
 describe('DELETE /project/:id', () => {
-  test('everything correct: returns status code 204', async () => {
+  test('everything correct: return status code 204', async () => {
     const res = await request(app).delete(`/projects/${projectId}`);
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(204);
   });
-  test('wrong id: returns status code 404', async () => {
-    const res = await request(app).delete('/projects/69');
+  test('invalid id: return status code 400', async () => {
+    const res = await request(app).delete('/projects/42');
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe('Invalid id 42.');
+  });
+  test('id does not exist: return status code 404', async () => {
+    const res = await request(app).delete(`/projects/${mockedProject.teamMembers[0].employee}`);
     expect(res.status).toBe(404);
   });
 });
