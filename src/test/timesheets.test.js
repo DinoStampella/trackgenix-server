@@ -29,46 +29,19 @@ const wrongMockedTimeSheet = {
   hours: 15,
 };
 
-describe('DELETE /timesheet', () => {
-  test('Test status code success delete', async () => {
-    const response = await request(app).delete(`/time-sheets/${timeSheetId}`).send();
-    expect(response.status).toBe(204);
-  });
-
-  test('Test status code failure delete (wrong id)', async () => {
-    const response = await request(app).delete(`/time-sheets/${wrongTimeSheetId}`).send();
-    expect(response.status).toBe(400);
-  });
-  test('Test error in failure delete (wrong id)', async () => {
-    const response = await request(app).delete(`/time-sheets/${wrongTimeSheetId}`).send();
-    expect(response.body.error).toBeTruthy();
-  });
-  test('Test error messagge contain id in failure delete (wrong id)', async () => {
-    const response = await request(app).delete(`/time-sheets/${wrongTimeSheetId}`).send();
-    expect(response.body.message).toContain(`${wrongTimeSheetId}`);
-  });
-
-  test('Test status code failure delete (no employee found)', async () => {
-    const response = await request(app).delete(`/time-sheets/${fakeTimeSheetId}`).send();
-    expect(response.status).toBe(404);
-  });
-  test('Test error in failure delete (wrong id)', async () => {
-    const response = await request(app).delete(`/time-sheets/${fakeTimeSheetId}`).send();
-    expect(response.body.error).toBeTruthy();
-  });
-  test('Test error messagge contain id in failure delete (wrong id)', async () => {
-    const response = await request(app).delete(`/time-sheets/${fakeTimeSheetId}`).send();
-    expect(response.body.message).toContain(`${fakeTimeSheetId}`);
-  });
-});
-
 describe('UPDATE /timesheet', () => {
-//   test('Test status code success update', async () => {
-//     const response = await request(app).put(`/time-sheets/${timeSheetId}`)
-// .send(correctMockedTimeSheet);
-//     console.log(response.body);
-//     expect(response.status).toBe(200);
-//   });
+  test('Test status code success update', async () => {
+    const response = await request(app).put(`/time-sheets/${timeSheetId}`).send(correctMockedTimeSheet);
+    expect(response.status).toBe(200);
+  });
+  test('Test status check updated data in success update', async () => {
+    const response = await request(app).put(`/time-sheets/${timeSheetId}`).send(correctMockedTimeSheet);
+    expect(response.body.data).toBeDefined();
+  });
+  test('Test status check updated data in success update', async () => {
+    const response = await request(app).put(`/time-sheets/${timeSheetId}`).send(correctMockedTimeSheet);
+    expect(response.body.data.hours).toBe(10);
+  });
 
   test('Test status code failure update (wrong id)', async () => {
     const response = await request(app).put(`/time-sheets/${wrongTimeSheetId}`).send(correctMockedTimeSheet);
@@ -100,5 +73,38 @@ describe('UPDATE /timesheet', () => {
   test('Test error in failure update (wrong id)', async () => {
     const response = await request(app).put(`/time-sheets/${fakeTimeSheetId}`).send(correctMockedTimeSheet);
     expect(response.body.error).toBeTruthy();
+  });
+});
+
+describe('DELETE /timesheet', () => {
+  test('Test status code success delete', async () => {
+    const response = await request(app).delete(`/time-sheets/${timeSheetId}`).send();
+    expect(response.status).toBe(204);
+  });
+
+  test('Test status code failure delete (wrong id)', async () => {
+    const response = await request(app).delete(`/time-sheets/${wrongTimeSheetId}`).send();
+    expect(response.status).toBe(400);
+  });
+  test('Test error in failure delete (wrong id)', async () => {
+    const response = await request(app).delete(`/time-sheets/${wrongTimeSheetId}`).send();
+    expect(response.body.error).toBeTruthy();
+  });
+  test('Test error messagge contain id in failure delete (wrong id)', async () => {
+    const response = await request(app).delete(`/time-sheets/${wrongTimeSheetId}`).send();
+    expect(response.body.message).toContain(`${wrongTimeSheetId}`);
+  });
+
+  test('Test status code failure delete (no employee found)', async () => {
+    const response = await request(app).delete(`/time-sheets/${fakeTimeSheetId}`).send();
+    expect(response.status).toBe(404);
+  });
+  test('Test error in failure delete (wrong id)', async () => {
+    const response = await request(app).delete(`/time-sheets/${fakeTimeSheetId}`).send();
+    expect(response.body.error).toBeTruthy();
+  });
+  test('Test error messagge contain id in failure delete (wrong id)', async () => {
+    const response = await request(app).delete(`/time-sheets/${fakeTimeSheetId}`).send();
+    expect(response.body.message).toContain(`${fakeTimeSheetId}`);
   });
 });
