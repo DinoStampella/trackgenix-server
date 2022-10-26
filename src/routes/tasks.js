@@ -4,10 +4,11 @@ import tasksControllers from '../controllers/tasks';
 
 const router = express.Router();
 
-router.put('/:id', tasksValidations.validateCreation, tasksControllers.updateTask);
-router.delete('/:id', tasksControllers.deleteTask);
-router.get('/', tasksControllers.getAllTasks);
-router.get('/:id', tasksControllers.getTaskById);
-router.post('/', tasksValidations.validateCreation, tasksControllers.createTask);
+router
+  .get('/', tasksControllers.getAllTasks)
+  .get('/:id', tasksControllers.getTaskById)
+  .post('/', tasksValidations.validateCreation, tasksControllers.createTask)
+  .put('/:id', tasksValidations.validateCreation, tasksControllers.updateTask)
+  .delete('/:id', tasksControllers.deleteTask);
 
 export default router;
