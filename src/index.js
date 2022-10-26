@@ -3,7 +3,7 @@ import app from './app';
 
 require('dotenv').config();
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 
 mongoose.connect(
   process.env.MONGO_URL,

@@ -28,6 +28,8 @@ describe('PUT /project/:id', () => {
   test('everything correct: return status code 200', async () => {
     const res = await request(app).put(`/projects/${projectId}`).send(mockedProject);
     expect(res.status).toBe(200);
+    expect(res.body.message).toBe(`Modified project with id ${projectId}`);
+    expect(res.body.error).toBeFalsy();
   });
   test('validations: return status code 400', async () => {
     mockedProject.name = '';
@@ -53,6 +55,7 @@ describe('DELETE /project/:id', () => {
   test('everything correct: return status code 204', async () => {
     const res = await request(app).delete(`/projects/${projectId}`);
     expect(res.status).toBe(204);
+    expect(res.body.error).toBeFalsy();
   });
   test('invalid id: return status code 400', async () => {
     const res = await request(app).delete('/projects/42');
@@ -63,7 +66,6 @@ describe('DELETE /project/:id', () => {
   test('id does not exist: return status code 404', async () => {
     const res = await request(app).delete(`/projects/${mockedProject.teamMembers[0].employee}`);
     expect(res.status).toBe(404);
-    expect(res.body.message).toBe(`Couldn't find project with id ${mockedProject.teamMembers[0].employee}`);
     expect(res.body.error).toBeTruthy();
   });
 });
