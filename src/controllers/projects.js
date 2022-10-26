@@ -13,7 +13,7 @@ const isValidObjectId = (id) => {
 const getAllProjects = async (req, res) => {
   try {
     const projects = await Projects.find(req.query).populate('teamMembers.employee');
-    if (!projects) {
+    if (!projects.length) {
       return res.status(404).json({
         message: 'Projects not found',
         data: undefined,
