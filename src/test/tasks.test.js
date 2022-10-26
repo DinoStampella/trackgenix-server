@@ -71,6 +71,7 @@ describe('POST Endpoints', () => {
     expect(response.status).toBe(400);
     expect(response.body.data).toBe(undefined);
     expect(response.body.message[0].message).toBe('Description should be Frontend, Backend or Testing');
+    expect(response.body.error).toBeTruthy();
   });
   test('Should fail to create a task because empty body', async () => {
     const response = await request(app).post('/tasks/').send();
@@ -78,6 +79,7 @@ describe('POST Endpoints', () => {
     expect(response.status).toBe(400);
     expect(response.body.data).toBe(undefined);
     expect(response.body.message[0].message).toBe('A description is required');
+    expect(response.body.error).toBeTruthy();
   });
   test('Should create a task successfully', async () => {
     const response = await request(app).post('/tasks/').send(mockedTask);
