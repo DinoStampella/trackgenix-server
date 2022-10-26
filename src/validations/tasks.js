@@ -15,6 +15,7 @@ const validateCreation = (req, res, next) => {
     return res.status(400).json({
       message: validate.error.details,
       data: undefined,
+      error: true,
     });
   }
   return next();

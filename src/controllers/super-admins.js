@@ -84,32 +84,6 @@ const createSuperAdmins = async (req, res) => {
   }
 };
 
-const deletedSuperAdmins = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(req.params.id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
-        error: true,
-      });
-    }
-    const deletedSuperAdmin = await superAdmins.findByIdAndDelete(id);
-    if (!deletedSuperAdmin) {
-      return res.status(404).json({
-        message: `Couldn't find super admin with id ${id}`,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
 const updateSuperAdmins = async (req, res) => {
   try {
     const { id } = req.params;
@@ -145,10 +119,36 @@ const updateSuperAdmins = async (req, res) => {
   }
 };
 
+const deletedSuperAdmins = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${req.params.id}`,
+        error: true,
+      });
+    }
+    const deletedSuperAdmin = await superAdmins.findByIdAndDelete(id);
+    if (!deletedSuperAdmin) {
+      return res.status(404).json({
+        message: `Couldn't find super admin with id ${id}`,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
 export default {
   getAllSuperAdmins,
   getSuperAdminsById,
   createSuperAdmins,
-  deletedSuperAdmins,
   updateSuperAdmins,
+  deletedSuperAdmins,
 };

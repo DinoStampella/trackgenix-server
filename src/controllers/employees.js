@@ -81,33 +81,6 @@ const createEmployee = async (req, res) => {
   }
 };
 
-const deleteEmployee = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${id}`,
-        error: true,
-      });
-    }
-    const deletedEmployee = await Employee.findByIdAndDelete(id);
-    if (!deletedEmployee) {
-      return res.status(404).json({
-        message: `Couldn't find employee with id ${id}`,
-        data: undefined,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
 const updateEmployee = async (req, res) => {
   try {
     const { id } = req.params;
@@ -143,6 +116,37 @@ const updateEmployee = async (req, res) => {
   }
 };
 
+const deleteEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const deletedEmployee = await Employee.findByIdAndDelete(id);
+    if (!deletedEmployee) {
+      return res.status(404).json({
+        message: `Couldn't find employee with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
 export default {
-  getAllEmployees, getEmployeeById, createEmployee, deleteEmployee, updateEmployee,
+  getAllEmployees,
+  getEmployeeById,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee,
 };

@@ -80,33 +80,6 @@ const createAdmin = async (req, res) => {
   }
 };
 
-const deleteAdmin = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${id}`,
-        error: true,
-      });
-    }
-    const deletedAdmin = await Admins.findByIdAndDelete(id);
-    if (deletedAdmin == null) {
-      return res.status(404).json({
-        message: `Couldn't find admin with id ${id}`,
-        data: undefined,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
 const updateAdmin = async (req, res) => {
   try {
     const { id } = req.params;
@@ -142,10 +115,37 @@ const updateAdmin = async (req, res) => {
   }
 };
 
+const deleteAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const deletedAdmin = await Admins.findByIdAndDelete(id);
+    if (deletedAdmin == null) {
+      return res.status(404).json({
+        message: `Couldn't find admin with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
 export default {
   getAllAdmins,
   getAdminById,
   createAdmin,
-  deleteAdmin,
   updateAdmin,
+  deleteAdmin,
 };
