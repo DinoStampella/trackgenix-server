@@ -13,7 +13,7 @@ const isValidObjectId = (id) => {
 const getAllProjects = async (req, res) => {
   try {
     const projects = await Projects.find(req.query).populate('teamMembers.employee');
-    if (!projects) {
+    if (!projects.length) {
       return res.status(404).json({
         message: 'Projects not found',
         data: undefined,
@@ -81,32 +81,6 @@ const createProject = async (req, res) => {
   }
 };
 
-const deleteProject = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id ${id}.`,
-        error: true,
-      });
-    }
-    const deletedProject = await Projects.findByIdAndDelete(id);
-    if (deletedProject == null) {
-      return res.status(404).json({
-        message: `Couldn't find project with id ${id}`,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
 const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
@@ -142,10 +116,39 @@ const updateProject = async (req, res) => {
   }
 };
 
+const deleteProject = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (isValidObjectId(id)) {
+      const result = await Projects.findByIdAndDelete(id);
+      if (result !== null) {
+        return res.status(204).json({
+          data: result,
+          error: false,
+        });
+      }
+      return res.status(404).json({
+        message: `there is not project with this id ${id}.`,
+        error: true,
+      });
+    }
+    return res.status(400).json({
+      message: `Invalid id ${id}.`,
+      error: true,
+    });
+  } catch (error) {
+    return res.status(500)({
+      message: error,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
 export default {
   getAllProjects,
   getProjectById,
   createProject,
-  deleteProject,
   updateProject,
+  deleteProject,
 };
