@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import request from 'supertest';
 import app from '../app';
 import Admin from '../models/Admins';
@@ -44,9 +45,10 @@ const mockedAdminInvalid = {
   location: 'Montana',
 };
 
-const adminIdCaroline = '63531641063290188f2ab014';
-const adminIdPantera = '635854d8ed4dd16f62e97b92';
+const firstAdminId = adminsSeed[0]._id;
+const secondAdminId = adminsSeed[1]._id;
 const invalidId = 456;
+const invalidAdminId = '62731244ec6456efd12685ef';
 
 beforeAll(async () => {
   await Admin.collection.insertMany(adminsSeed);
@@ -54,7 +56,7 @@ beforeAll(async () => {
 
 describe('Delete/admins', () => {
   test('should return status code 204', async () => {
-    const response = await request(app).delete(`/admins/${adminIdPantera}`).send();
+    const response = await request(app).delete(`/admins/${secondAdminId}`).send();
     expect(response.status).toBe(204);
   });
   test('should return 400', async () => {
@@ -64,20 +66,20 @@ describe('Delete/admins', () => {
     expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
   });
   test('should return 404', async () => {
-    const response = await request(app).delete(`/admins/${adminIdPantera}`).send();
+    const response = await request(app).delete(`/admins/${secondAdminId}`).send();
     expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
-    expect(response.body.message).toBe(`Couldn't find admin with id ${adminIdPantera}`);
+    expect(response.body.message).toBe(`Couldn't find admin with id ${secondAdminId}`);
   });
 });
 
 describe('Put/admins', () => {
   test('should return status code 200', async () => {
-    const response = await request(app).put(`/admins/${adminIdCaroline}`).send(mockedAdminModified);
+    const response = await request(app).put(`/admins/${firstAdminId}`).send(mockedAdminModified);
     expect(response.status).toBe(200);
     expect(response.body.data).toEqual(mockedAdminWithNumbers);
     expect(response.body.error).toBeFalsy();
-    expect(response.body.message).toBe(`Modified admin with id ${adminIdCaroline}`);
+    expect(response.body.message).toBe(`Modified admin with id ${firstAdminId}`);
   });
   test('should return status code 400', async () => {
     const response = await request(app).put(`/admins/${invalidId}`).send(mockedAdmin);
@@ -86,15 +88,15 @@ describe('Put/admins', () => {
     expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
   });
   test('should return status code 404', async () => {
-    const idThatNotexist = '62731244ec6456efd12685ef';
-    const response = await request(app).put(`/admins/${idThatNotexist}`).send(mockedAdmin);
+    const response = await request(app).put(`/admins/${invalidAdminId}`).send(mockedAdmin);
     expect(response.status).toBe(404);
     expect(response.body.error).toBeTruthy();
-    expect(response.body.message).toBe(`Couldn't find admin with id ${idThatNotexist}`);
+    expect(response.body.message).toBe(`Couldn't find admin with id ${invalidAdminId}`);
   });
   test('should return status code 400 validate error', async () => {
-    const response = await request(app).put(`/admins/${adminIdCaroline}`).send(mockedAdminInvalid);
+    const response = await request(app).put(`/admins/${firstAdminId}`).send(mockedAdminInvalid);
     expect(response.status).toBe(400);
     expect(response.body.message[0].message).toBe('first name should have a minimum length of 2 characters');
+    expect(response.error).toBeTruthy();
   });
 });
