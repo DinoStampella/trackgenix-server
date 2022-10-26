@@ -13,7 +13,7 @@ const employeeId = '63531244ec6456efd12685ef';
 const notExistId = '03034564ec6456efd12675ef';
 const invalidId = 'aps45';
 let newId;
-const fixEmployee = employeesSeed.map((employee) => ({
+const formattedEmployeeSeed = employeesSeed.map((employee) => ({
   ...employee,
   // eslint-disable-next-line no-underscore-dangle
   _id: employee._id.toString(),
@@ -30,12 +30,13 @@ const mockedEmployee = {
   location: 'Laselva',
 };
 
-describe('GETById /employees/:id', () => {
+describe('GET /employees/:id', () => {
   test('should GET an employee by Id', async () => {
     const response = await request(app).get(`/employees/${employeeId}`).send();
 
     expect(response.status).toBe(200);
-    expect(response.body.data).toEqual(fixEmployee[0]);
+    expect(response.body.message).toBe(`Found employee with id ${employeeId}`);
+    expect(response.body.data).toEqual(formattedEmployeeSeed[0]);
     expect(response.body.error).toBeFalsy();
   });
   test('should not GET, invalid Id', async () => {
@@ -43,6 +44,7 @@ describe('GETById /employees/:id', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
+    expect(response.body.data).toEqual(undefined);
     expect(response.body.error).toBeTruthy();
   });
   test('should not GET, non-existent Id', async () => {
@@ -64,7 +66,6 @@ describe('POST /employees', () => {
 
     expect(response.status).toBe(201);
     expect(response.body.message).toBe('Employee created successfully');
-    expect(response.body.data.firstName).toEqual(mockedEmployee.firstName);
     expect(response.body.error).toBeFalsy();
   });
   test('shouldn\'t create employee', async () => {
@@ -73,6 +74,7 @@ describe('POST /employees', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message[0].message).toBe('password required');
+    expect(response.error).toBeTruthy();
   });
 });
 
