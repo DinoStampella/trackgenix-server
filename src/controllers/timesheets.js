@@ -12,32 +12,6 @@ const isValidObjectId = (id) => {
   return false;
 };
 
-const deleteTimesheet = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${id}`,
-        error: true,
-      });
-    }
-    const deletedTimesheet = await Timesheets.findByIdAndDelete(id);
-    if (!deletedTimesheet) {
-      return res.status(404).json({
-        message: `Couldn't find timesheet with id ${id}`,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
 const getAllTimesheets = async (req, res) => {
   try {
     const timesheets = await Timesheets.find().populate('employee').populate('project').populate('task');
@@ -60,7 +34,6 @@ const getAllTimesheets = async (req, res) => {
     });
   }
 };
-
 const getTimesheetById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -90,7 +63,6 @@ const getTimesheetById = async (req, res) => {
     });
   }
 };
-
 const createTimesheet = async (req, res) => {
   try {
     const timesheets = await Timesheets.create(req.body);
@@ -108,7 +80,6 @@ const createTimesheet = async (req, res) => {
     });
   }
 };
-
 const updateTimesheets = async (req, res) => {
   try {
     const { id } = req.params;
@@ -143,11 +114,36 @@ const updateTimesheets = async (req, res) => {
     });
   }
 };
+const deleteTimesheet = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const deletedTimesheet = await Timesheets.findByIdAndDelete(id);
+    if (!deletedTimesheet) {
+      return res.status(404).json({
+        message: `Couldn't find timesheet with id ${id}`,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
 
 export default {
-  deleteTimesheet,
-  updateTimesheets,
   getAllTimesheets,
   getTimesheetById,
   createTimesheet,
+  deleteTimesheet,
+  updateTimesheets,
 };
