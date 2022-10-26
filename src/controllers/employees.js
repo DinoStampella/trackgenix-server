@@ -13,7 +13,7 @@ const isValidObjectId = (id) => {
 const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employee.find();
-    if (!employees) {
+    if (!employees.length) {
       return res.status(404).json({
         message: 'Employees not found',
         error: true,
