@@ -35,6 +35,7 @@ describe('GET /time-sheets/:id', () => {
 
     expect(response.status).toBe(404);
     expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(`Couldn't find timesheet with id ${nonExistentId}`);
   });
 
   test('Should return 400 status when a invalid id is received ', async () => {
@@ -42,6 +43,7 @@ describe('GET /time-sheets/:id', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.error).toBe(true);
+    expect(response.body.message).toBe(`Invalid id: ${invalidId}`);
   });
 });
 
@@ -53,12 +55,15 @@ describe('POST /time-sheets', () => {
     idTimesheet = response.body.data._id;
 
     expect(response.status).toBe(201);
+    expect(response.body.error).toBeFalsy();
+    expect(response.body.message).toBe('Timesheet created successfully');
   });
 
   test('Should not create a time-sheet if there is no data received', async () => {
     const response = await request(app).post('/time-sheets').send();
 
     expect(response.status).toBe(400);
+    expect(response.body.error).toBe(true);
   });
 
   test('Should not create a time-sheet if date is empty', async () => {
@@ -66,6 +71,8 @@ describe('POST /time-sheets', () => {
     const response = await request(app).post('/time-sheets').send(mockedTimesheets);
 
     expect(response.status).toBe(400);
+    expect(response.body.error).toBe(true);
+
     mockedTimesheets.date = '2022-10-22T00:00:00.000+00:00';
   });
 
@@ -74,6 +81,7 @@ describe('POST /time-sheets', () => {
     const response = await request(app).post('/time-sheets').send(mockedTimesheets);
 
     expect(response.status).toBe(400);
+    expect(response.body.error).toBe(true);
     mockedTimesheets.task = '63531a7c73636855c2aa7f9a';
   });
 
@@ -82,6 +90,7 @@ describe('POST /time-sheets', () => {
     const response = await request(app).post('/time-sheets').send(mockedTimesheets);
 
     expect(response.status).toBe(400);
+    expect(response.body.error).toBe(true);
     mockedTimesheets.project = '63531a7c73636855c2aa7f9a';
   });
 
@@ -104,7 +113,7 @@ describe('GET /time-sheets', () => {
     expect(response.body.data.length).toBeGreaterThan(0);
   });
 
-  test('Should return 404 status when there are no thime-sheets ', async () => {
+  test('Should return 404 status when there are no time-sheets ', async () => {
     await request(app).delete(`/time-sheets/${timeSheetIdSeed}`).send();
     await request(app).delete(`/time-sheets/${idTimesheet}`).send();
 
