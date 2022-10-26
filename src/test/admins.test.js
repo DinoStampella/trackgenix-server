@@ -24,6 +24,7 @@ describe('GET /admin/:id', () => {
   test('everything correct: return status code 200', async () => {
     const res = await request(app).get(`/admins/${adminId}`);
     expect(res.status).toBe(200);
+    expect(res.body.message).toBe(`Found admin with id ${adminId}`);
     expect(res.body.error).toBeFalsy();
   });
   test('invalid id: return status code 400', async () => {
@@ -46,6 +47,7 @@ describe('POST /admin/:id', () => {
     // eslint-disable-next-line no-underscore-dangle
     newId = res.body.data._id;
     expect(res.status).toBe(201);
+    expect(res.body.message).toBe('Admin created successfully');
     expect(res.body.error).toBeFalsy();
   });
   test('validations: return status code 400', async () => {
@@ -61,6 +63,7 @@ describe('GET /admin/', () => { // leave GET at the end when merging (second tes
   test('everything correct: return status code 200', async () => {
     const res = await request(app).get('/admins/');
     expect(res.status).toBe(200);
+    expect(res.body.message).toBe('Admins found');
     expect(res.body.error).toBeFalsy();
   });
   test('no admins: return status code 404', async () => {
