@@ -41,14 +41,8 @@ npm run lint:fix
 ### Members
 |Photo | Name  | Mail | Github
 | :-----: | :-----: | :-----: | :-----: |
-<<<<<<< HEAD
-<img src="https://avatars.githubusercontent.com/u/20587232?v=4" height="50" width="50">| Esteban Frare | esteban.frare@radiumrocket.com | [@estefrare](https://github.com/estefrare)
-<img src="https://avatars.githubusercontent.com/u/90566262?v=4" height="50" width="50">| Nicolas Blasco | nicolas.blasco@radiumrocket.com | [@nicolasblasco](https://github.com/silveriac)
-<img src="https://avatars.githubusercontent.com/u/50084031?v=4" height="50" width="50">| Alfonso Dalix | alfonso.dalix@radiumrocket.com | [@Alfondalix](https://github.com/silveriac)
-=======
 <img src="https://avatars.githubusercontent.com/u/50084031?v=4" height="50" width="50">| Alfonso Dalix | alfonso.dalix@radiumrocket.com | [@Alfondalix](https://github.com/silveriac)
 <img src="https://avatars.githubusercontent.com/u/90566262?v=4" height="50" width="50">| Nicolas Blasco | nicolas.blasco@radiumrocket.com | [@nicolasblasco](https://github.com/silveriac)
->>>>>>> 6612663de341b1c4bef0eec08bafd2b126fa0892
 <img src="https://avatars.githubusercontent.com/u/54073006?v=4" height="50" width="50">| Luciana Prates | lucianaprates10@gmail.com | [@LucianaPrat](https://github.com/LucianaPrat)
 <img src="https://avatars.githubusercontent.com/u/85782460?v=4" height="50" width="50">| Eric Silva | erixilva42@gmail.com | [@silveriac](https://github.com/silveriac)
 <img src="https://avatars.githubusercontent.com/u/111021258?v=4" height="50" width="50">| Maicol Freire | maicolfreire001@gmail.com | [@MaicolFreire001](https://github.com/silveriac)
