@@ -34,7 +34,6 @@ const getAllTimesheets = async (req, res) => {
     });
   }
 };
-
 const getTimesheetById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -64,7 +63,6 @@ const getTimesheetById = async (req, res) => {
     });
   }
 };
-
 const createTimesheet = async (req, res) => {
   try {
     const { task } = req.body;
@@ -91,7 +89,6 @@ const createTimesheet = async (req, res) => {
     });
   }
 };
-
 const updateTimesheets = async (req, res) => {
   try {
     const { id } = req.params;
@@ -126,7 +123,6 @@ const updateTimesheets = async (req, res) => {
     });
   }
 };
-
 const deleteTimesheet = async (req, res) => {
   try {
     const { id } = req.params;

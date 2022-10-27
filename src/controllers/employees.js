@@ -13,7 +13,7 @@ const isValidObjectId = (id) => {
 const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employee.find();
-    if (!employees) {
+    if (!employees.length) {
       return res.status(404).json({
         message: 'Employees not found',
         error: true,
@@ -34,14 +34,14 @@ const getAllEmployees = async (req, res) => {
 };
 
 const getEmployeeById = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const employee = await Employee.findById(id);
     if (!employee) {
       return res.status(404).json({
@@ -72,33 +72,6 @@ const createEmployee = async (req, res) => {
       data: newEmployee,
       error: false,
     });
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
-const deleteEmployee = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${id}`,
-        error: true,
-      });
-    }
-    const deletedEmployee = await Employee.findByIdAndDelete(id);
-    if (!deletedEmployee) {
-      return res.status(404).json({
-        message: `Couldn't find employee with id ${id}`,
-        data: undefined,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
@@ -143,6 +116,37 @@ const updateEmployee = async (req, res) => {
   }
 };
 
+const deleteEmployee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const deletedEmployee = await Employee.findByIdAndDelete(id);
+    if (!deletedEmployee) {
+      return res.status(404).json({
+        message: `Couldn't find employee with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
 export default {
-  getAllEmployees, getEmployeeById, createEmployee, deleteEmployee, updateEmployee,
+  getAllEmployees,
+  getEmployeeById,
+  createEmployee,
+  updateEmployee,
+  deleteEmployee,
 };

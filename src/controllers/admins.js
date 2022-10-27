@@ -36,13 +36,13 @@ const getAllAdmins = async (req, res) => {
 const getAdminById = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!isValidObjectId(req.params.id)) {
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
-        message: `Invalid id: ${req.params.id}`,
+        message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    const admin = await Admins.findById(req.params.id);
+    const admin = await Admins.findById(id);
     if (!admin) {
       return res.status(404).json({
         message: `Couldn't find admin with id ${id}`,
@@ -71,33 +71,6 @@ const createAdmin = async (req, res) => {
       data: admin,
       error: false,
     });
-  } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
-      error: true,
-    });
-  }
-};
-
-const deleteAdmin = async (req, res) => {
-  try {
-    const { id } = req.params;
-    if (!isValidObjectId(id)) {
-      return res.status(400).json({
-        message: `Invalid id: ${id}`,
-        error: true,
-      });
-    }
-    const deletedAdmin = await Admins.findByIdAndDelete(id);
-    if (deletedAdmin == null) {
-      return res.status(404).json({
-        message: `Couldn't find admin with id ${id}`,
-        data: undefined,
-        error: true,
-      });
-    }
-    return res.sendStatus(204);
   } catch (error) {
     return res.status(500).json({
       message: `Unexpected error ${error}`,
@@ -142,10 +115,37 @@ const updateAdmin = async (req, res) => {
   }
 };
 
+const deleteAdmin = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
+    const deletedAdmin = await Admins.findByIdAndDelete(id);
+    if (deletedAdmin == null) {
+      return res.status(404).json({
+        message: `Couldn't find admin with id ${id}`,
+        data: undefined,
+        error: true,
+      });
+    }
+    return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({
+      message: `Unexpected error ${error}`,
+      data: undefined,
+      error: true,
+    });
+  }
+};
+
 export default {
   getAllAdmins,
   getAdminById,
   createAdmin,
-  deleteAdmin,
   updateAdmin,
+  deleteAdmin,
 };

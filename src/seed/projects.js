@@ -11,7 +11,7 @@ export default [{
   teamMembers: [
     {
       id: mongoose.Types.ObjectId('63531244ec6456efd12685ef'),
-      rol: 'DEV',
+      role: 'DEV',
       rate: 100,
     },
   ],
