@@ -144,6 +144,6 @@ export default {
   getAllTimesheets,
   getTimesheetById,
   createTimesheet,
-  deleteTimesheet,
   updateTimesheets,
+  deleteTimesheet,
 };
