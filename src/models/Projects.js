@@ -43,22 +43,4 @@ const projectsSchema = new Schema(
   { timestamps: true },
 );
 
-export default mongoose.model('Projects', projectsSchema);
-
-// const projectSchema = new Schema(
-//   {
-//     name: { type: String, required: true },
-//     employees: [
-//       {
-//         _id: false,
-//         employee: { type: Schema.Types.ObjectId, ref: 'employee' },
-//         role: {
-//           type: String,
-//           enum: ['DEV', 'QA', 'TL', 'PM'],
-//         },
-//         rate: Number,
-//       },
-//     ],
-//   },
-//   { timestamps: true },
-// );
+export default mongoose.model('Project', projectsSchema);

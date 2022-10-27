@@ -1,10 +1,11 @@
 import joi from 'joi';
 
-const validationsTimesheets = (req, res, next) => {
+const validateTimesheet = (req, res, next) => {
   const validations = joi.object({
     date: joi.date().iso().required().messages({
       'date.base': 'date is format in invalid',
       'date.format': 'invalid date format',
+      'any.required': 'date is required',
     }),
     description: joi.string().required().min(3).max(150)
       .messages({
@@ -34,12 +35,11 @@ const validationsTimesheets = (req, res, next) => {
   if (validate.error) {
     return res.status(400).json({
       message: validate.error.details,
+      error: true,
       data: undefined,
     });
   }
   return next();
 };
 
-export default {
-  validationsTimesheets,
-};
+export default validateTimesheet;

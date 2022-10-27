@@ -1,14 +1,16 @@
 import express from 'express';
-import adminControllers from '../controllers/admins';
-import userValidations from '../validations/user';
+import {
+  getAllAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin,
+} from '../controllers/admins';
+import validateUser from '../validations/user';
 
 const router = express.Router();
 
 router
-  .get('/', adminControllers.getAllAdmins)
-  .get('/:id', adminControllers.getAdminById)
-  .post('/', userValidations.validateCreation, adminControllers.createAdmin)
-  .put('/:id', userValidations.validateCreation, adminControllers.updateAdmin)
-  .delete('/:id', adminControllers.deleteAdmin);
+  .get('/', getAllAdmins)
+  .get('/:id', getAdminById)
+  .post('/', validateUser, createAdmin)
+  .put('/:id', validateUser, updateAdmin)
+  .delete('/:id', deleteAdmin);
 
 export default router;

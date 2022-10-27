@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const validateCreation = (req, res, next) => {
+const validateTask = (req, res, next) => {
   const taskValidation = Joi.object({
     description: Joi.string().valid('Frontend', 'Backend', 'Testing').required()
       .messages({
@@ -11,6 +11,7 @@ const validateCreation = (req, res, next) => {
   });
 
   const validate = taskValidation.validate(req.body, { abortEarly: false });
+
   if (validate.error) {
     return res.status(400).json({
       message: validate.error.details,
@@ -21,6 +22,4 @@ const validateCreation = (req, res, next) => {
   return next();
 };
 
-export default {
-  validateCreation,
-};
+export default validateTask;

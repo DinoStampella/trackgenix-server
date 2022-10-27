@@ -1,16 +1,7 @@
 import Projects from '../models/Projects';
+import isValidObjectId from '../utils/validateObjectId';
 
-const { ObjectId } = require('mongoose').Types;
-
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
-
-const getAllProjects = async (req, res) => {
+export const getAllProjects = async (req, res) => {
   try {
     const projects = await Projects.find(req.query).populate('teamMembers.employee');
     if (!projects.length) {
@@ -34,7 +25,7 @@ const getAllProjects = async (req, res) => {
   }
 };
 
-const getProjectById = async (req, res) => {
+export const getProjectById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
@@ -64,7 +55,7 @@ const getProjectById = async (req, res) => {
   }
 };
 
-const createProject = async (req, res) => {
+export const createProject = async (req, res) => {
   try {
     const newProject = await Projects.create(req.body);
     return res.status(201).json({
@@ -81,7 +72,7 @@ const createProject = async (req, res) => {
   }
 };
 
-const updateProject = async (req, res) => {
+export const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -116,7 +107,7 @@ const updateProject = async (req, res) => {
   }
 };
 
-const deleteProject = async (req, res) => {
+export const deleteProject = async (req, res) => {
   try {
     const { id } = req.params;
     if (isValidObjectId(id)) {
@@ -143,12 +134,4 @@ const deleteProject = async (req, res) => {
       error: true,
     });
   }
-};
-
-export default {
-  getAllProjects,
-  getProjectById,
-  createProject,
-  updateProject,
-  deleteProject,
 };

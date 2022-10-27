@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const validateCreation = (req, res, next) => {
+const validateUser = (req, res, next) => {
   const userValidation = Joi.object({
     firstName: Joi.string().regex(/^[a-zA-Z]+$/).min(2).max(30)
       .required()
@@ -56,7 +56,9 @@ const validateCreation = (req, res, next) => {
         'string.max': 'location should have a maximum length of 50 characters',
       }),
   });
+
   const validate = userValidation.validate(req.body, { abortEarly: false });
+
   if (validate.error) {
     return res.status(400).json({
       message: validate.error.details,
@@ -64,9 +66,8 @@ const validateCreation = (req, res, next) => {
       error: true,
     });
   }
+
   return next();
 };
 
-export default {
-  validateCreation,
-};
+export default validateUser;

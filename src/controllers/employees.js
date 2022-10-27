@@ -1,16 +1,7 @@
 import Employee from '../models/Employees';
+import isValidObjectId from '../utils/validateObjectId';
 
-const { ObjectId } = require('mongoose').Types;
-
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
-
-const getAllEmployees = async (req, res) => {
+export const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employee.find();
     if (!employees.length) {
@@ -33,7 +24,7 @@ const getAllEmployees = async (req, res) => {
   }
 };
 
-const getEmployeeById = async (req, res) => {
+export const getEmployeeById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -64,7 +55,7 @@ const getEmployeeById = async (req, res) => {
   }
 };
 
-const createEmployee = async (req, res) => {
+export const createEmployee = async (req, res) => {
   try {
     const newEmployee = await Employee.create(req.body);
     return res.status(201).json({
@@ -81,7 +72,7 @@ const createEmployee = async (req, res) => {
   }
 };
 
-const updateEmployee = async (req, res) => {
+export const updateEmployee = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -116,7 +107,7 @@ const updateEmployee = async (req, res) => {
   }
 };
 
-const deleteEmployee = async (req, res) => {
+export const deleteEmployee = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -141,12 +132,4 @@ const deleteEmployee = async (req, res) => {
       error: true,
     });
   }
-};
-
-export default {
-  getAllEmployees,
-  getEmployeeById,
-  createEmployee,
-  updateEmployee,
-  deleteEmployee,
 };
