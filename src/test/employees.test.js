@@ -11,7 +11,7 @@ jest.setTimeout(60000);
 
 const employeeId = '63531244ec6456efd12685ef';
 const notExistId = '03034564ec6456efd12675ef';
-const invalidId = 'aps45';
+const invalidId = '666';
 let newId;
 const formattedEmployeeSeed = employeesSeed.map((employee) => ({
   ...employee,

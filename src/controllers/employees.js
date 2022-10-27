@@ -34,14 +34,14 @@ const getAllEmployees = async (req, res) => {
 };
 
 const getEmployeeById = async (req, res) => {
-  if (!isValidObjectId(req.params.id)) {
-    return res.status(400).json({
-      message: `Invalid id: ${req.params.id}`,
-      error: true,
-    });
-  }
   try {
     const { id } = req.params;
+    if (!isValidObjectId(id)) {
+      return res.status(400).json({
+        message: `Invalid id: ${id}`,
+        error: true,
+      });
+    }
     const employee = await Employee.findById(id);
     if (!employee) {
       return res.status(404).json({

@@ -11,14 +11,4 @@ export default [
     phone: '1168554785',
     location: 'Buenos Aires',
   },
-  {
-    _id: mongoose.Types.ObjectId('635854d8ed4dd16f62e97b92'),
-    firstName: 'Pantera',
-    lastName: 'Rosa',
-    email: 'panterabaila13013@gmail.com',
-    password: 'altopassword',
-    dni: '20458778',
-    phone: '1168554734',
-    location: 'Miame',
-  },
 ];
