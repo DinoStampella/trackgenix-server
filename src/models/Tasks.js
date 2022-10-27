@@ -1,7 +1,14 @@
 import mongoose from 'mongoose';
 
-const taskSchema = new mongoose.Schema({
-  description: { type: String, enum: ['Frontend', 'Backend', 'Testing'], requiere: true },
-});
+const taskSchema = new mongoose.Schema(
+  {
+    description: {
+      type: String,
+      enum: ['Frontend', 'Backend', 'Testing'],
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
 
-export default mongoose.model('Tasks', taskSchema);
+export default mongoose.model('Task', taskSchema);

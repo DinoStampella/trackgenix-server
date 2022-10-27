@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const validateCreation = (req, res, next) => {
+const validateProject = (req, res, next) => {
   const teamMembersValidation = Joi.object({
     employee: Joi.string().required()
       .messages({
@@ -78,6 +78,4 @@ const validateCreation = (req, res, next) => {
   return next();
 };
 
-export default {
-  validateCreation,
-};
+export default validateProject;

@@ -1,16 +1,7 @@
 import Admins from '../models/Admins';
+import isValidObjectId from '../utils/validateObjectId';
 
-const { ObjectId } = require('mongoose').Types;
-
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
-
-const getAllAdmins = async (req, res) => {
+export const getAllAdmins = async (req, res) => {
   try {
     const admins = await Admins.find();
     if (!admins.length) {
@@ -33,7 +24,7 @@ const getAllAdmins = async (req, res) => {
   }
 };
 
-const getAdminById = async (req, res) => {
+export const getAdminById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -63,7 +54,7 @@ const getAdminById = async (req, res) => {
   }
 };
 
-const createAdmin = async (req, res) => {
+export const createAdmin = async (req, res) => {
   try {
     const admin = await Admins.create(req.body);
     return res.status(201).json({
@@ -80,7 +71,7 @@ const createAdmin = async (req, res) => {
   }
 };
 
-const updateAdmin = async (req, res) => {
+export const updateAdmin = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -115,7 +106,7 @@ const updateAdmin = async (req, res) => {
   }
 };
 
-const deleteAdmin = async (req, res) => {
+export const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -140,12 +131,4 @@ const deleteAdmin = async (req, res) => {
       error: true,
     });
   }
-};
-
-export default {
-  getAllAdmins,
-  getAdminById,
-  createAdmin,
-  updateAdmin,
-  deleteAdmin,
 };

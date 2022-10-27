@@ -9,5 +9,4 @@ export default [{
   dni: '30457895',
   phone: '1168542485',
   location: 'Montana',
-},
-];
+}];

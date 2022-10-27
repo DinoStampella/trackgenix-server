@@ -1,18 +1,7 @@
 import superAdmins from '../models/Super-admins';
+import isValidObjectId from '../utils/validateObjectId';
 
-const { ObjectId } = require('mongoose').Types;
-
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if (String(new ObjectId(id)) === id) {
-      return true;
-    }
-    return false;
-  }
-  return false;
-};
-
-const getAllSuperAdmins = async (req, res) => {
+export const getAllSuperAdmins = async (req, res) => {
   try {
     const superAdmin = await superAdmins.find();
     if (!superAdmin.length) {
@@ -35,7 +24,7 @@ const getAllSuperAdmins = async (req, res) => {
   }
 };
 
-const getSuperAdminsById = async (req, res) => {
+export const getSuperAdminsById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -65,7 +54,7 @@ const getSuperAdminsById = async (req, res) => {
   }
 };
 
-const createSuperAdmins = async (req, res) => {
+export const createSuperAdmins = async (req, res) => {
   try {
     // eslint-disable-next-line new-cap
     const newSuperAdmin = new superAdmins(req.body);
@@ -84,7 +73,7 @@ const createSuperAdmins = async (req, res) => {
   }
 };
 
-const updateSuperAdmins = async (req, res) => {
+export const updateSuperAdmins = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
@@ -119,7 +108,7 @@ const updateSuperAdmins = async (req, res) => {
   }
 };
 
-const deletedSuperAdmins = async (req, res) => {
+export const deletedSuperAdmins = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
@@ -143,12 +132,4 @@ const deletedSuperAdmins = async (req, res) => {
       error: true,
     });
   }
-};
-
-export default {
-  getAllSuperAdmins,
-  getSuperAdminsById,
-  createSuperAdmins,
-  updateSuperAdmins,
-  deletedSuperAdmins,
 };

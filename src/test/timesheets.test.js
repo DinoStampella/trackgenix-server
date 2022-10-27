@@ -88,7 +88,7 @@ describe('UPDATE /timesheet', () => {
     const response = await request(app).put(`/time-sheets/${timeSheetId}`).send(wrongMockedTimeSheet);
     expect(response.status).toBe(400);
     expect(response.body.data).not.toBeDefined();
-    expect(response.body.error).not.toBeTruthy();
+    expect(response.body.error).toBeTruthy();
     expect(response.body.message[0].message).toBe('"task" is required');
     expect(response.body.message[1].message).toBe('maximum 12 hours');
   });

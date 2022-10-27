@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-const validationsTimesheets = (req, res, next) => {
+const validateTimesheet = (req, res, next) => {
   const validations = joi.object({
     date: joi.date().iso().required().messages({
       'date.base': 'date is format in invalid',
@@ -42,6 +42,4 @@ const validationsTimesheets = (req, res, next) => {
   return next();
 };
 
-export default {
-  validationsTimesheets,
-};
+export default validateTimesheet;

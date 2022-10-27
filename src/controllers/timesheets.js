@@ -1,18 +1,7 @@
 import Timesheets from '../models/Timesheets';
+import isValidObjectId from '../utils/validateObjectId';
 
-const { ObjectId } = require('mongoose').Types;
-
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if (String(new ObjectId(id)) === id) {
-      return true;
-    }
-    return false;
-  }
-  return false;
-};
-
-const getAllTimesheets = async (req, res) => {
+export const getAllTimesheets = async (req, res) => {
   try {
     const timesheets = await Timesheets.find().populate('employee').populate('project').populate('task');
     if (timesheets.length === 0) {
@@ -34,7 +23,8 @@ const getAllTimesheets = async (req, res) => {
     });
   }
 };
-const getTimesheetById = async (req, res) => {
+
+export const getTimesheetById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -63,7 +53,8 @@ const getTimesheetById = async (req, res) => {
     });
   }
 };
-const createTimesheet = async (req, res) => {
+
+export const createTimesheet = async (req, res) => {
   try {
     const { task } = req.body;
     const { project } = req.body;
@@ -89,7 +80,8 @@ const createTimesheet = async (req, res) => {
     });
   }
 };
-const updateTimesheets = async (req, res) => {
+
+export const updateTimesheets = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
@@ -123,7 +115,8 @@ const updateTimesheets = async (req, res) => {
     });
   }
 };
-const deleteTimesheet = async (req, res) => {
+
+export const deleteTimesheet = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -147,12 +140,4 @@ const deleteTimesheet = async (req, res) => {
       error: true,
     });
   }
-};
-
-export default {
-  getAllTimesheets,
-  getTimesheetById,
-  updateTimesheets,
-  createTimesheet,
-  deleteTimesheet,
 };

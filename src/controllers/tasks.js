@@ -1,16 +1,7 @@
 import Tasks from '../models/Tasks';
+import isValidObjectId from '../utils/validateObjectId';
 
-const { ObjectId } = require('mongoose').Types;
-
-const isValidObjectId = (id) => {
-  if (ObjectId.isValid(id)) {
-    if ((String)(new ObjectId(id)) === id) { return true; }
-    return false;
-  }
-  return false;
-};
-
-const getAllTasks = async (req, res) => {
+export const getAllTasks = async (req, res) => {
   try {
     const tasks = await Tasks.find();
     if (!tasks.length) {
@@ -33,7 +24,7 @@ const getAllTasks = async (req, res) => {
   }
 };
 
-const getTaskById = async (req, res) => {
+export const getTaskById = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -63,7 +54,7 @@ const getTaskById = async (req, res) => {
   }
 };
 
-const createTask = async (req, res) => {
+export const createTask = async (req, res) => {
   try {
     const newTask = await Tasks.create(req.body);
     return res.status(201).json({
@@ -80,7 +71,7 @@ const createTask = async (req, res) => {
   }
 };
 
-const updateTask = async (req, res) => {
+export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -115,7 +106,7 @@ const updateTask = async (req, res) => {
   }
 };
 
-const deleteTask = async (req, res) => {
+export const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
@@ -139,12 +130,4 @@ const deleteTask = async (req, res) => {
       error: true,
     });
   }
-};
-
-export default {
-  getAllTasks,
-  getTaskById,
-  createTask,
-  updateTask,
-  deleteTask,
 };
