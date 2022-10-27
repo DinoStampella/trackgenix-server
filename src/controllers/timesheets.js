@@ -65,6 +65,15 @@ const getTimesheetById = async (req, res) => {
 };
 const createTimesheet = async (req, res) => {
   try {
+    const { task } = req.body;
+    const { project } = req.body;
+    const { employee } = req.body;
+    if (!isValidObjectId(task) || !isValidObjectId(project) || !isValidObjectId(employee)) {
+      return res.status(400).json({
+        message: 'Task, project or employee is invalid',
+        error: true,
+      });
+    }
     const timesheets = await Timesheets.create(req.body);
 
     return res.status(201).json({
@@ -143,7 +152,7 @@ const deleteTimesheet = async (req, res) => {
 export default {
   getAllTimesheets,
   getTimesheetById,
-  createTimesheet,
   updateTimesheets,
+  createTimesheet,
   deleteTimesheet,
 };
