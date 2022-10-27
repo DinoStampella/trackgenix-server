@@ -34,18 +34,16 @@ const getAllTimesheets = async (req, res) => {
     });
   }
 };
-
 const getTimesheetById = async (req, res) => {
   try {
-    const { id } = req.params.id;
-    const timesheetId = id;
-    if (!isValidObjectId(timesheetId)) {
+    const { id } = req.params;
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
         message: `Invalid id: ${id}`,
         error: true,
       });
     }
-    const timesheets = await Timesheets.findById(timesheetId).populate('employee').populate('project').populate('task');
+    const timesheets = await Timesheets.findById(id).populate('employee').populate('project').populate('task');
     if (!timesheets) {
       return res.status(404).json({
         message: `Couldn't find timesheet with id ${id}`,
@@ -65,7 +63,6 @@ const getTimesheetById = async (req, res) => {
     });
   }
 };
-
 const createTimesheet = async (req, res) => {
   try {
     const timesheets = await Timesheets.create(req.body);
@@ -83,7 +80,6 @@ const createTimesheet = async (req, res) => {
     });
   }
 };
-
 const updateTimesheets = async (req, res) => {
   try {
     const { id } = req.params;
@@ -118,7 +114,6 @@ const updateTimesheets = async (req, res) => {
     });
   }
 };
-
 const deleteTimesheet = async (req, res) => {
   try {
     const { id } = req.params;

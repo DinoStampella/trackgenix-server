@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const timesheetsSchema = new Schema({
   date: { type: Date, required: true },
-  description: { type: String, enum: ['Frontend', 'Backend', 'Testing'], required: true },
+  description: { type: String, required: true },
   employee: { type: Schema.Types.ObjectId, ref: 'Employee', required: true },
   project: { type: Schema.Types.ObjectId, ref: 'Projects', required: true },
   task: { type: Schema.Types.ObjectId, ref: 'Tasks', required: true },
