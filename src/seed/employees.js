@@ -10,14 +10,4 @@ export default [{
   phone: '1168542485',
   location: 'Montana',
 },
-{
-  _id: mongoose.Types.ObjectId('63573014db9ebdd9d24e7b93'),
-  firstName: 'Ernesto',
-  lastName: 'Papacho',
-  email: 'hills@gmail.com',
-  password: 'Abhd7844',
-  dni: '30457495',
-  phone: '1168542478',
-  location: 'California',
-},
 ];

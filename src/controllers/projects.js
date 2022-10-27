@@ -85,7 +85,7 @@ const updateProject = async (req, res) => {
   try {
     const { id } = req.params;
     if (!isValidObjectId(id)) {
-      return res.status(404).json({
+      return res.status(400).json({
         message: `Invalid id ${id}.`,
         error: true,
       });
