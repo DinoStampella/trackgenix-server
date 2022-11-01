@@ -90,7 +90,7 @@ describe('UPDATE /timesheet', () => {
     expect(response.body.data).not.toBeDefined();
     expect(response.body.error).toBeTruthy();
     expect(response.body.message[0].message).toBe('"task" is required');
-    expect(response.body.message[1].message).toBe('maximum 12 hours');
+    expect(response.body.message[1].message).toBe('Maximum 12 hours');
   });
 
   test('Test on a update with an non existing employee', async () => {
