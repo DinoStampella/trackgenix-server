@@ -24,7 +24,7 @@ const validateProject = (req, res, next) => {
   });
 
   const projectsValidations = Joi.object({
-    name: Joi.string().min(3).max(30).regex(/^[a-zA-Z]+$/)
+    name: Joi.string().min(3).max(30).regex(/^[a-zA-Z0-9]+$/)
       .required()
       .messages({
         'string.empty': 'Name required',
