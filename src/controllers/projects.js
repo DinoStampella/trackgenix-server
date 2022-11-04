@@ -113,10 +113,7 @@ export const deleteProject = async (req, res) => {
     if (isValidObjectId(id)) {
       const result = await Projects.findByIdAndDelete(id);
       if (result !== null) {
-        return res.status(204).json({
-          data: result,
-          error: false,
-        });
+        return res.sendStatus(204);
       }
       return res.status(404).json({
         message: `there is not project with this id ${id}.`,
