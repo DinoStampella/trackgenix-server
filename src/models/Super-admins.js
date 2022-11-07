@@ -21,11 +21,11 @@ const superAdminsSchema = new Schema(
       required: true,
     },
     dni: {
-      type: Number,
+      type: String,
       required: true,
     },
     phone: {
-      type: Number,
+      type: String,
     },
     location: {
       type: String,
