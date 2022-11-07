@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 const validateUser = (req, res, next) => {
   const userValidation = Joi.object({
-    firstName: Joi.string().regex(/^[a-zA-Z]+$/).min(2).max(30)
+    firstName: Joi.string().regex(/^([a-zA-Z]+( [a-zA-Z]+)*)$/).min(2).max(30)
       .required()
       .messages({
         'string.empty': 'first name required',
@@ -11,7 +11,7 @@ const validateUser = (req, res, next) => {
         'string.max': 'first name should have a maximum length of 30 characters',
         'any.required': 'first name required',
       }),
-    lastName: Joi.string().regex(/^[a-zA-Z]+$/).min(2).max(30)
+    lastName: Joi.string().regex(/^([a-zA-Z]+( [a-zA-Z]+)*)$/).min(2).max(30)
       .required()
       .messages({
         'string.empty': 'last name required',
