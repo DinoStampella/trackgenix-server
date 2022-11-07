@@ -74,8 +74,8 @@ describe('POST /super-admins', () => {
     expect(response.body.data.firstName).toBe(mockedSuperAdmin.firstName);
     expect(response.body.data.email).toBe(mockedSuperAdmin.email);
     expect(response.body.data.password).toBe(mockedSuperAdmin.password);
-    expect(response.body.data.dni).toBe(+mockedSuperAdmin.dni);
-    expect(response.body.data.phone).toBe(+mockedSuperAdmin.phone);
+    expect(response.body.data.dni).toBe(mockedSuperAdmin.dni);
+    expect(response.body.data.phone).toBe(mockedSuperAdmin.phone);
   });
   test('should not create an super admin', async () => {
     const response = await request(app).post('/super-admins').send({});
