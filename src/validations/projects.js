@@ -4,8 +4,8 @@ const validateProject = (req, res, next) => {
   const teamMembersValidation = Joi.object({
     employee: Joi.string().required()
       .messages({
-        'string.empty': 'Id required',
-        'any.required': 'Id required',
+        'string.empty': 'Team members must be a valid employee',
+        'any.required': 'Team members must be a valid employee',
       }),
     role: Joi.string().required().valid('DEV', 'QA', 'TL', 'PM')
       .messages({
@@ -24,11 +24,11 @@ const validateProject = (req, res, next) => {
   });
 
   const projectsValidations = Joi.object({
-    name: Joi.string().min(3).max(30).regex(/^[a-zA-Z0-9]+$/)
+    name: Joi.string().min(3).max(30).regex(/^[\w\s]+$/)
       .required()
       .messages({
         'string.empty': 'Name required',
-        'string.pattern.base': 'Name should be letters only',
+        'string.pattern.base': 'Name should be letters, numbers or spaces only',
         'string.min': 'Name should have a minimum length of 3 characters',
         'string.max': 'Name should have a maximum length of 30 characters',
         'any.required': 'Name required',
@@ -40,15 +40,14 @@ const validateProject = (req, res, next) => {
         'string.max': 'Description should have a maximum length of 150 characters',
         'any.required': 'Description required',
       }),
-    startDate: Joi.date().greater('now').required()
+    startDate: Joi.date().required()
       .messages({
         'string.empty': 'StartDate required',
-        'date.pattern.base': 'StartDate must be after today',
         'any.required': 'StartDate required',
       }),
-    endDate: Joi.date().greater('now')
+    endDate: Joi.date()
       .messages({
-        'date.pattern.base': 'EndDate must be after today',
+        'date.pattern.base': 'EndDate must be a valid date',
       }),
     active: Joi.boolean().required()
       .messages({
