@@ -19,13 +19,13 @@ const newTaskSeed = Taskseed.map((task) => ({
   _id: task._id.toString(),
 }));
 const mockedTask = {
-  description: 'Backend',
+  type: 'Backend',
 };
 const mockedTaskModified = {
-  description: 'Testing',
+  type: 'Testing',
 };
 const mockedTaskInvalid = {
-  description: 'Apple',
+  type: 'Apple',
 };
 
 describe('Delete/task', () => {
@@ -51,7 +51,7 @@ describe('Put/employees', () => {
   test('should return status code 200', async () => {
     const response = await request(app).put(`/tasks/${secondTaskId}`).send(mockedTaskModified);
     expect(response.status).toBe(200);
-    expect(response.body.data.description).toBe('Testing');
+    expect(response.body.data.type).toBe('Testing');
     expect(response.body.error).toBeFalsy();
     expect(response.body.message).toBe(`Modified task with id ${secondTaskId}`);
   });
@@ -70,7 +70,7 @@ describe('Put/employees', () => {
   test('should return status code 400 validate error', async () => {
     const response = await request(app).put(`/tasks/${secondTaskId}`).send(mockedTaskInvalid);
     expect(response.status).toBe(400);
-    expect(response.body.message[0].message).toBe('Description should be Frontend, Backend or Testing');
+    expect(response.body.message[0].message).toBe('Type should be Frontend, Backend or Testing');
     expect(response.error).toBeTruthy();
   });
 });
@@ -124,11 +124,11 @@ describe('GET Endpoints', () => {
 });
 describe('POST Endpoints', () => {
   test('Should fail to create a task because invalid body', async () => {
-    const response = await request(app).post('/tasks/').send({ description: 'Something' });
+    const response = await request(app).post('/tasks/').send({ type: 'Something' });
 
     expect(response.status).toBe(400);
     expect(response.body.data).toBe(undefined);
-    expect(response.body.message[0].message).toBe('Description should be Frontend, Backend or Testing');
+    expect(response.body.message[0].message).toBe('Type should be Frontend, Backend or Testing');
     expect(response.body.error).toBeTruthy();
   });
   test('Should fail to create a task because empty body', async () => {
@@ -136,7 +136,7 @@ describe('POST Endpoints', () => {
 
     expect(response.status).toBe(400);
     expect(response.body.data).toBe(undefined);
-    expect(response.body.message[0].message).toBe('A description is required');
+    expect(response.body.message[0].message).toBe('A type is required');
     expect(response.body.error).toBeTruthy();
   });
   test('Should create a task successfully', async () => {
@@ -144,7 +144,7 @@ describe('POST Endpoints', () => {
 
     expect(response.status).toBe(201);
     expect(response.body.error).toBeFalsy();
-    expect(response.body.data.description).toEqual(mockedTask.description);
+    expect(response.body.data.type).toEqual(mockedTask.type);
     expect(response.body.message).toBe('Task created successfully');
   });
 });
