@@ -2,11 +2,11 @@ import Joi from 'joi';
 
 const validateTask = (req, res, next) => {
   const taskValidation = Joi.object({
-    description: Joi.string().valid('Frontend', 'Backend', 'Testing').required()
+    type: Joi.string().valid('Frontend', 'Backend', 'Testing').required()
       .messages({
-        'string.empty': 'A description is required',
-        'any.only': 'Description should be Frontend, Backend or Testing',
-        'any.required': 'A description is required',
+        'string.empty': 'A type is required',
+        'any.only': 'Type should be Frontend, Backend or Testing',
+        'any.required': 'A type is required',
       }),
   });
 
