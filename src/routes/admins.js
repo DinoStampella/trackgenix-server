@@ -3,14 +3,15 @@ import {
   getAllAdmins, getAdminById, createAdmin, updateAdmin, deleteAdmin,
 } from '../controllers/admins';
 import validateUser from '../validations/user';
+import checkAuth from '../middelwares/authMiddelware';
 
 const router = express.Router();
 
 router
-  .get('/', getAllAdmins)
-  .get('/:id', getAdminById)
-  .post('/', validateUser, createAdmin)
-  .put('/:id', validateUser, updateAdmin)
-  .delete('/:id', deleteAdmin);
+  .get('/', checkAuth(['SUPER_ADMIN', 'ADMIN']), getAllAdmins)
+  .get('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN']), getAdminById)
+  .post('/', checkAuth(['SUPER_ADMIN']), validateUser, createAdmin)
+  .put('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN']), validateUser, updateAdmin)
+  .delete('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN']), deleteAdmin);
 
 export default router;
