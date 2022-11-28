@@ -81,6 +81,11 @@ export const createAdmin = async (req, res) => {
 
 export const updateAdmin = async (req, res) => {
   try {
+    await firebase.auth().updateUser(req.body.uid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
@@ -116,6 +121,7 @@ export const updateAdmin = async (req, res) => {
 
 export const deleteAdmin = async (req, res) => {
   try {
+    await firebase.auth().deleteUser(req.body.uid);
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({

@@ -84,8 +84,13 @@ export const createSuperAdmins = async (req, res) => {
 
 export const updateSuperAdmins = async (req, res) => {
   try {
+    await firebase.auth().updateUser(req.body.uid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     const { id } = req.params;
-    if (!isValidObjectId(req.params.id)) {
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
         message: `Invalid id: ${req.params.id}`,
         error: true,
@@ -119,6 +124,7 @@ export const updateSuperAdmins = async (req, res) => {
 
 export const deletedSuperAdmins = async (req, res) => {
   try {
+    await firebase.auth().deleteUser(req.body.uid);
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).json({
