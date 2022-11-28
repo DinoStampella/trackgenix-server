@@ -1,5 +1,6 @@
 import superAdmins from '../models/Super-admins';
 import isValidObjectId from '../utils/validateObjectId';
+import firebase from '../helpers/firebase';
 
 export const getAllSuperAdmins = async (req, res) => {
   try {
@@ -56,8 +57,16 @@ export const getSuperAdminsById = async (req, res) => {
 
 export const createSuperAdmins = async (req, res) => {
   try {
-    // eslint-disable-next-line new-cap
-    const newSuperAdmin = new superAdmins(req.body);
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'SUPER_ADMIN' });
+
+    const newSuperAdmin = await superAdmins.create(
+      { ...req.body, firebaseUid: newFirebaseUser.uid },
+    );
+
     const newSuperAdminSaved = await newSuperAdmin.save();
     return res.status(201).json({
       message: 'Super admins created successfully',

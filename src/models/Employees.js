@@ -26,6 +26,7 @@ const employeeSchema = new Schema(
     location: {
       type: String,
     },
+    firebaseUid: { type: String, required: true },
   },
   { timestamps: true },
 );

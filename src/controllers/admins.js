@@ -1,5 +1,6 @@
 import Admins from '../models/Admins';
 import isValidObjectId from '../utils/validateObjectId';
+import firebase from '../helpers/firebase';
 
 export const getAllAdmins = async (req, res) => {
   try {
@@ -56,7 +57,14 @@ export const getAdminById = async (req, res) => {
 
 export const createAdmin = async (req, res) => {
   try {
-    const admin = await Admins.create(req.body);
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'ADMIN' });
+
+    const admin = await Admins.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+
     return res.status(201).json({
       message: 'Admin created successfully',
       data: admin,

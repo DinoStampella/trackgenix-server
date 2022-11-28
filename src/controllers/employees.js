@@ -1,5 +1,6 @@
 import Employee from '../models/Employees';
 import isValidObjectId from '../utils/validateObjectId';
+import firebase from '../helpers/firebase';
 
 export const getAllEmployees = async (req, res) => {
   try {
@@ -57,7 +58,14 @@ export const getEmployeeById = async (req, res) => {
 
 export const createEmployee = async (req, res) => {
   try {
-    const newEmployee = await Employee.create(req.body);
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'EMPLOYEE' });
+
+    const newEmployee = await Employee.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+
     return res.status(201).json({
       message: 'Employee created successfully',
       data: newEmployee,
