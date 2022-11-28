@@ -61,7 +61,7 @@ export const createSuperAdmins = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'SUPER_ADMIN' });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'super-admin' });
 
     const newSuperAdmin = await SuperAdmins.create(
       { ...req.body, firebaseUid: newFirebaseUser.uid },

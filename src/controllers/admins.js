@@ -78,7 +78,7 @@ export const createAdmin = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'ADMIN' });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'admin' });
     const newAdmin = await Admins.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
 
     const admin = await newAdmin.save();

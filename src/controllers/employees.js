@@ -79,7 +79,7 @@ export const createEmployee = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     });
-    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'EMPLOYEE' });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'employee' });
 
     const newEmployee = await Employee.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
 
