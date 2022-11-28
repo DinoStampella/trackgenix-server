@@ -1,9 +1,10 @@
-import superAdmins from '../models/Super-admins';
+import SuperAdmins from '../models/Super-admins';
 import isValidObjectId from '../utils/validateObjectId';
+import firebase from '../helpers/firebase';
 
 export const getAllSuperAdmins = async (req, res) => {
   try {
-    const superAdmin = await superAdmins.find();
+    const superAdmin = await SuperAdmins.find();
     if (!superAdmin.length) {
       return res.status(404).json({
         message: 'Super admins not found',
@@ -33,7 +34,7 @@ export const getSuperAdminsById = async (req, res) => {
         error: true,
       });
     }
-    const superAdminFound = await superAdmins.findById(id);
+    const superAdminFound = await SuperAdmins.findById(id);
     if (!superAdminFound) {
       return res.status(404).json({
         message: `Couldn't find super admin with id ${id}`,
@@ -54,20 +55,55 @@ export const getSuperAdminsById = async (req, res) => {
   }
 };
 
+// export const createSuperAdmins = async (req, res) => {
+//   try {
+//     // eslint-disable-next-line new-cap
+//     const newSuperAdmin = new superAdmins(req.body);
+//     const newSuperAdminSaved = await newSuperAdmin.save();
+//     return res.status(201).json({
+//       message: 'Super admins created successfully',
+//       data: newSuperAdminSaved,
+//       error: false,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       message: `Unexpected error ${error}`,
+//       data: undefined,
+//       error: true,
+//     });
+//   }
+// };
+
 export const createSuperAdmins = async (req, res) => {
   try {
-    // eslint-disable-next-line new-cap
-    const newSuperAdmin = new superAdmins(req.body);
-    const newSuperAdminSaved = await newSuperAdmin.save();
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'SUPER_ADMIN' });
+
+    const newSuperAdmin = new SuperAdmins({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+      dni: req.body.dni,
+      phone: req.body.phone,
+      location: req.body.location,
+      firebaseId: newFirebaseUser.uid,
+    });
+
+    const superAdmin = await newSuperAdmin.save();
+
     return res.status(201).json({
       message: 'Super admins created successfully',
-      data: newSuperAdminSaved,
+      data: superAdmin,
       error: false,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
+    return res.status(error.status || 500).json({
+      message: error.message || error,
       error: true,
     });
   }
@@ -82,7 +118,7 @@ export const updateSuperAdmins = async (req, res) => {
         error: true,
       });
     }
-    const updatedSuperAdmin = await superAdmins.findByIdAndUpdate(
+    const updatedSuperAdmin = await SuperAdmins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
       { new: true },
@@ -117,7 +153,7 @@ export const deletedSuperAdmins = async (req, res) => {
         error: true,
       });
     }
-    const deletedSuperAdmin = await superAdmins.findByIdAndDelete(id);
+    const deletedSuperAdmin = await SuperAdmins.findByIdAndDelete(id);
     if (!deletedSuperAdmin) {
       return res.status(404).json({
         message: `Couldn't find super admin with id ${id}`,
