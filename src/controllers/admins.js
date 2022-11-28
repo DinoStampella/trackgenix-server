@@ -55,6 +55,23 @@ export const getAdminById = async (req, res) => {
   }
 };
 
+// export const createAdmin = async (req, res) => {
+//   try {
+//     const admin = await Admins.create(req.body);
+//     return res.status(201).json({
+//       message: 'Admin created successfully',
+//       data: admin,
+//       error: false,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       message: `Unexpected error ${error}`,
+//       data: undefined,
+//       error: true,
+//     });
+//   }
+// };
+
 export const createAdmin = async (req, res) => {
   try {
     const newFirebaseUser = await firebase.auth().createUser({
@@ -62,8 +79,9 @@ export const createAdmin = async (req, res) => {
       password: req.body.password,
     });
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'ADMIN' });
+    const newAdmin = await Admins.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
 
-    const admin = await Admins.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+    const admin = await newAdmin.save();
 
     return res.status(201).json({
       message: 'Admin created successfully',
@@ -71,9 +89,8 @@ export const createAdmin = async (req, res) => {
       error: false,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
+    return res.status(error.status || 500).json({
+      message: error.message || error,
       error: true,
     });
   }

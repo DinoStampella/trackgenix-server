@@ -56,6 +56,23 @@ export const getEmployeeById = async (req, res) => {
   }
 };
 
+// export const createEmployee = async (req, res) => {
+//   try {
+//     const newEmployee = await Employee.create(req.body);
+//     return res.status(201).json({
+//       message: 'Employee created successfully',
+//       data: newEmployee,
+//       error: false,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       message: `Unexpected error ${error}`,
+//       data: undefined,
+//       error: true,
+//     });
+//   }
+// };
+
 export const createEmployee = async (req, res) => {
   try {
     const newFirebaseUser = await firebase.auth().createUser({
@@ -66,15 +83,16 @@ export const createEmployee = async (req, res) => {
 
     const newEmployee = await Employee.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
 
+    const employee = await newEmployee.save();
+
     return res.status(201).json({
       message: 'Employee created successfully',
-      data: newEmployee,
+      data: employee,
       error: false,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
+    return res.status(error.status || 500).json({
+      message: error.message || error,
       error: true,
     });
   }
