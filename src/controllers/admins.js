@@ -1,5 +1,6 @@
 import Admins from '../models/Admins';
 import isValidObjectId from '../utils/validateObjectId';
+import firebase from '../helpers/firebase';
 
 export const getAllAdmins = async (req, res) => {
   try {
@@ -54,18 +55,42 @@ export const getAdminById = async (req, res) => {
   }
 };
 
+// export const createAdmin = async (req, res) => {
+//   try {
+//     const admin = await Admins.create(req.body);
+//     return res.status(201).json({
+//       message: 'Admin created successfully',
+//       data: admin,
+//       error: false,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       message: `Unexpected error ${error}`,
+//       data: undefined,
+//       error: true,
+//     });
+//   }
+// };
+
 export const createAdmin = async (req, res) => {
   try {
-    const admin = await Admins.create(req.body);
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'admin' });
+    const newAdmin = await Admins.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+
+    const admin = await newAdmin.save();
+
     return res.status(201).json({
       message: 'Admin created successfully',
       data: admin,
       error: false,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
+    return res.status(error.status || 500).json({
+      message: error.message || error,
       error: true,
     });
   }
@@ -73,6 +98,11 @@ export const createAdmin = async (req, res) => {
 
 export const updateAdmin = async (req, res) => {
   try {
+    await firebase.auth().updateUser(req.body.uid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
@@ -108,6 +138,7 @@ export const updateAdmin = async (req, res) => {
 
 export const deleteAdmin = async (req, res) => {
   try {
+    await firebase.auth().deleteUser(req.body.uid);
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({

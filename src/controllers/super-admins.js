@@ -1,9 +1,10 @@
-import superAdmins from '../models/Super-admins';
+import SuperAdmins from '../models/Super-admins';
 import isValidObjectId from '../utils/validateObjectId';
+import firebase from '../helpers/firebase';
 
 export const getAllSuperAdmins = async (req, res) => {
   try {
-    const superAdmin = await superAdmins.find();
+    const superAdmin = await SuperAdmins.find();
     if (!superAdmin.length) {
       return res.status(404).json({
         message: 'Super admins not found',
@@ -33,7 +34,7 @@ export const getSuperAdminsById = async (req, res) => {
         error: true,
       });
     }
-    const superAdminFound = await superAdmins.findById(id);
+    const superAdminFound = await SuperAdmins.findById(id);
     if (!superAdminFound) {
       return res.status(404).json({
         message: `Couldn't find super admin with id ${id}`,
@@ -56,18 +57,26 @@ export const getSuperAdminsById = async (req, res) => {
 
 export const createSuperAdmins = async (req, res) => {
   try {
-    // eslint-disable-next-line new-cap
-    const newSuperAdmin = new superAdmins(req.body);
-    const newSuperAdminSaved = await newSuperAdmin.save();
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'super-admin' });
+
+    const newSuperAdmin = await SuperAdmins.create(
+      { ...req.body, firebaseUid: newFirebaseUser.uid },
+    );
+
+    const superAdmin = await newSuperAdmin.save();
+
     return res.status(201).json({
       message: 'Super admins created successfully',
-      data: newSuperAdminSaved,
+      data: superAdmin,
       error: false,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
+    return res.status(error.status || 500).json({
+      message: error.message || error,
       error: true,
     });
   }
@@ -75,14 +84,19 @@ export const createSuperAdmins = async (req, res) => {
 
 export const updateSuperAdmins = async (req, res) => {
   try {
+    await firebase.auth().updateUser(req.body.uid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     const { id } = req.params;
-    if (!isValidObjectId(req.params.id)) {
+    if (!isValidObjectId(id)) {
       return res.status(400).json({
         message: `Invalid id: ${req.params.id}`,
         error: true,
       });
     }
-    const updatedSuperAdmin = await superAdmins.findByIdAndUpdate(
+    const updatedSuperAdmin = await SuperAdmins.findByIdAndUpdate(
       { _id: id },
       { ...req.body },
       { new: true },
@@ -110,6 +124,7 @@ export const updateSuperAdmins = async (req, res) => {
 
 export const deletedSuperAdmins = async (req, res) => {
   try {
+    await firebase.auth().deleteUser(req.body.uid);
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).json({
@@ -117,7 +132,7 @@ export const deletedSuperAdmins = async (req, res) => {
         error: true,
       });
     }
-    const deletedSuperAdmin = await superAdmins.findByIdAndDelete(id);
+    const deletedSuperAdmin = await SuperAdmins.findByIdAndDelete(id);
     if (!deletedSuperAdmin) {
       return res.status(404).json({
         message: `Couldn't find super admin with id ${id}`,

@@ -16,10 +16,6 @@ const adminSchema = new Schema(
       type: String,
       required: true,
     },
-    password: {
-      type: String,
-      required: true,
-    },
     dni: {
       type: String,
       required: true,
@@ -30,6 +26,7 @@ const adminSchema = new Schema(
     location: {
       type: String,
     },
+    firebaseUid: { type: String, required: true },
   },
   { timestamps: true },
 );

@@ -1,5 +1,6 @@
 import Employee from '../models/Employees';
 import isValidObjectId from '../utils/validateObjectId';
+import firebase from '../helpers/firebase';
 
 export const getAllEmployees = async (req, res) => {
   try {
@@ -57,16 +58,24 @@ export const getEmployeeById = async (req, res) => {
 
 export const createEmployee = async (req, res) => {
   try {
-    const newEmployee = await Employee.create(req.body);
+    const newFirebaseUser = await firebase.auth().createUser({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'employee' });
+
+    const newEmployee = await Employee.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+
+    const employee = await newEmployee.save();
+
     return res.status(201).json({
       message: 'Employee created successfully',
-      data: newEmployee,
+      data: employee,
       error: false,
     });
   } catch (error) {
-    return res.status(500).json({
-      message: `Unexpected error ${error}`,
-      data: undefined,
+    return res.status(error.status || 500).json({
+      message: error.message || error,
       error: true,
     });
   }
@@ -74,6 +83,11 @@ export const createEmployee = async (req, res) => {
 
 export const updateEmployee = async (req, res) => {
   try {
+    await firebase.auth().updateUser(req.body.uid, {
+      email: req.body.email,
+      password: req.body.password,
+    });
+
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
@@ -109,6 +123,7 @@ export const updateEmployee = async (req, res) => {
 
 export const deleteEmployee = async (req, res) => {
   try {
+    await firebase.auth().deleteUser(req.body.uid);
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
