@@ -10,7 +10,12 @@ const router = express.Router();
 router
   .get('/', checkAuth(['SUPER_ADMIN']), getAllSuperAdmins)
   .get('/:id', checkAuth(['SUPER_ADMIN']), getSuperAdminsById)
-  .post('/', checkAuth(['SUPER_ADMIN']), validateUser, createSuperAdmins)
+  .post(
+    '/',
+    //  checkAuth(['SUPER_ADMIN']),
+    validateUser,
+    createSuperAdmins,
+  )
   .put('/:id', checkAuth(['SUPER_ADMIN']), validateUser, updateSuperAdmins)
   .delete('/:id', checkAuth(['SUPER_ADMIN']), deletedSuperAdmins);
 
