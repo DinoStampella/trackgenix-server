@@ -8,15 +8,10 @@ import checkAuth from '../middelwares/authMiddelware';
 const router = express.Router();
 
 router
-  .get('/', checkAuth(['SUPER_ADMIN']), getAllSuperAdmins)
-  .get('/:id', checkAuth(['SUPER_ADMIN']), getSuperAdminsById)
-  .post(
-    '/',
-    //  checkAuth(['SUPER_ADMIN']),
-    validateUser,
-    createSuperAdmins,
-  )
-  .put('/:id', checkAuth(['SUPER_ADMIN']), validateUser, updateSuperAdmins)
-  .delete('/:id', checkAuth(['SUPER_ADMIN']), deletedSuperAdmins);
+  .get('/', checkAuth(['super-admin']), getAllSuperAdmins)
+  .get('/:id', checkAuth(['super-admin']), getSuperAdminsById)
+  .post('/', validateUser, createSuperAdmins)
+  .put('/:id', checkAuth(['super-admin']), validateUser, updateSuperAdmins)
+  .delete('/:id', checkAuth(['super-admin']), deletedSuperAdmins);
 
 export default router;

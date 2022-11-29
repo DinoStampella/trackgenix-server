@@ -8,10 +8,10 @@ import checkAuth from '../middelwares/authMiddelware';
 const router = express.Router();
 
 router
-  .get('/', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), getAllTimesheets)
-  .get('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), getTimesheetById)
-  .post('/', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), validateTimesheet, createTimesheet)
-  .put('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), validateTimesheet, updateTimesheets)
-  .delete('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), deleteTimesheet);
+  .get('/', checkAuth(['super-admin', 'admin', 'employee']), getAllTimesheets)
+  .get('/:id', checkAuth(['super-admin', 'admin', 'employee']), getTimesheetById)
+  .post('/', checkAuth(['super-admin', 'admin', 'employee']), validateTimesheet, createTimesheet)
+  .put('/:id', checkAuth(['super-admin', 'admin', 'employee']), validateTimesheet, updateTimesheets)
+  .delete('/:id', checkAuth(['super-admin', 'admin', 'employee']), deleteTimesheet);
 
 export default router;

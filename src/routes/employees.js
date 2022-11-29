@@ -8,10 +8,10 @@ import checkAuth from '../middelwares/authMiddelware';
 const router = express.Router();
 
 router
-  .get('/', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), getAllEmployees)
-  .get('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), getEmployeeById)
-  .post('/', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), validateUser, createEmployee)
-  .put('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), validateUser, updateEmployee)
-  .delete('/:id', checkAuth(['SUPER_ADMIN', 'ADMIN', 'EMPLOYEE']), deleteEmployee);
+  .get('/', checkAuth(['super-admin', 'admin', 'employee']), getAllEmployees)
+  .get('/:id', checkAuth(['super-admin', 'admin', 'employee']), getEmployeeById)
+  .post('/', validateUser, createEmployee)
+  .put('/:id', checkAuth(['super-admin', 'admin', 'employee']), validateUser, updateEmployee)
+  .delete('/:id', checkAuth(['super-admin', 'admin', 'employee']), deleteEmployee);
 
 export default router;
