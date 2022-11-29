@@ -55,10 +55,10 @@ const validateUser = (req, res, next) => {
         'string.min': 'location should have a minimum length of 3 characters',
         'string.max': 'location should have a maximum length of 50 characters',
       }),
-    firebaseUid: Joi.string().required().messages({
-      'any.required': 'Failed to load user correctly. Verify user ID sent',
-      'string.empty': 'Failed to load user correctly. Verify user ID sent',
-    }),
+    // firebaseUid: Joi.string().required().messages({
+    //   'any.required': 'Failed to load user correctly. Verify user ID sent',
+    //   'string.empty': 'Failed to load user correctly. Verify user ID sent',
+    // }),
   });
 
   const validate = userValidation.validate(req.body, { abortEarly: false });
