@@ -82,10 +82,7 @@ export const createAdmin = async (req, res) => {
 
 export const updateAdmin = async (req, res) => {
   try {
-    const { token } = req.headers;
-    const user = await firebase.auth().verifyIdToken(token);
-    const firebaseUid = user.uid;
-    await firebase.auth().updateUser(firebaseUid, {
+    await firebase.auth().updateUser(req.body.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });

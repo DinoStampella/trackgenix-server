@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const validateUser = (req, res, next) => {
+const validateUser = async (req, res, next) => {
   const userValidation = Joi.object({
     firstName: Joi.string().regex(/^([a-zA-Z]+( [a-zA-Z]+)*)$/).min(2).max(30)
       .required()
@@ -27,13 +27,13 @@ const validateUser = (req, res, next) => {
         'any.required': 'email required',
       }),
     password: Joi.string().alphanum().min(8).max(50)
-      .required()
+      // .required()
       .messages({
-        'string.empty': 'password required',
+        // 'string.empty': 'password required',
         'string.alphanum': 'password must be letters and numbers only',
         'string.min': 'password should have a minimum length of 8 characters',
         'string.max': 'password should have a maximum length of 50 characters',
-        'any.required': 'password required',
+        // 'any.required': 'password required',
       }),
     dni: Joi.string().regex(/^\d+$/).min(7).max(11)
       .required()
@@ -55,10 +55,10 @@ const validateUser = (req, res, next) => {
         'string.min': 'location should have a minimum length of 3 characters',
         'string.max': 'location should have a maximum length of 50 characters',
       }),
-    // firebaseUid: Joi.string().required().messages({
-    //   'any.required': 'Failed to load user correctly. Verify user ID sent',
-    //   'string.empty': 'Failed to load user correctly. Verify user ID sent',
-    // }),
+    firebaseUid: Joi.string().messages({
+      'any.required': 'Failed to load user correctly. Verify user ID sent.',
+      'string.empty': 'Failed to load user correctly. Verify user ID sent.',
+    }),
   });
 
   const validate = userValidation.validate(req.body, { abortEarly: false });
