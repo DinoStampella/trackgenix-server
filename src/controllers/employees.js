@@ -84,7 +84,10 @@ export const createEmployee = async (req, res) => {
 
 export const updateEmployee = async (req, res) => {
   try {
-    await firebase.auth().updateUser(req.body.uid, {
+    const { token } = req.headers;
+    const user = await firebase.auth().verifyIdToken(token);
+    const firebaseUid = user.uid;
+    await firebase.auth().updateUser(firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });
@@ -124,7 +127,11 @@ export const updateEmployee = async (req, res) => {
 
 export const deleteEmployee = async (req, res) => {
   try {
-    await firebase.auth().deleteUser(req.body.uid);
+    const { token } = req.headers;
+    const user = await firebase.auth().verifyIdToken(token);
+    const firebaseUid = user.uid;
+    await firebase.auth().deleteUser(firebaseUid);
+
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
