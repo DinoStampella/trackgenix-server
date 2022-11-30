@@ -55,23 +55,6 @@ export const getAdminById = async (req, res) => {
   }
 };
 
-// export const createAdmin = async (req, res) => {
-//   try {
-//     const admin = await Admins.create(req.body);
-//     return res.status(201).json({
-//       message: 'Admin created successfully',
-//       data: admin,
-//       error: false,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       message: `Unexpected error ${error}`,
-//       data: undefined,
-//       error: true,
-//     });
-//   }
-// };
-
 export const createAdmin = async (req, res) => {
   try {
     const newFirebaseUser = await firebase.auth().createUser({

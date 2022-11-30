@@ -8,7 +8,7 @@ export const getAllProjects = async (req, res) => {
       return res.status(404).json({
         message: 'Projects not found',
         data: undefined,
-        error: true,
+        error: false,
       });
     }
     return res.status(200).json({

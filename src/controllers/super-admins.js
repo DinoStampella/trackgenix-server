@@ -8,7 +8,8 @@ export const getAllSuperAdmins = async (req, res) => {
     if (!superAdmin.length) {
       return res.status(404).json({
         message: 'Super admins not found',
-        error: true,
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({

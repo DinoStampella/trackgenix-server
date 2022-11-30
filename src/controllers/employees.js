@@ -8,7 +8,8 @@ export const getAllEmployees = async (req, res) => {
     if (!employees.length) {
       return res.status(404).json({
         message: 'Employees not found',
-        error: true,
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({

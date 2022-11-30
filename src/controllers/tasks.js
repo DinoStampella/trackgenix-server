@@ -7,7 +7,8 @@ export const getAllTasks = async (req, res) => {
     if (!tasks.length) {
       return res.status(404).json({
         message: 'Tasks not found',
-        error: true,
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({

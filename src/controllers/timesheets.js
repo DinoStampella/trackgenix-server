@@ -7,7 +7,8 @@ export const getAllTimesheets = async (req, res) => {
     if (timesheets.length === 0) {
       return res.status(404).json({
         message: 'Timesheets not found',
-        error: true,
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({
