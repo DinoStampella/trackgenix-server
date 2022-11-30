@@ -6,8 +6,8 @@ export const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employee.find();
     if (!employees.length) {
-      return res.status(404).json({
-        message: 'Employees not found',
+      return res.status(200).json({
+        message: 'Employees is empty',
         data: undefined,
         error: false,
       });

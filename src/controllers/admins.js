@@ -6,9 +6,10 @@ export const getAllAdmins = async (req, res) => {
   try {
     const admins = await Admins.find();
     if (!admins.length) {
-      return res.status(404).json({
-        message: 'Admins not found',
-        error: true,
+      return res.status(200).json({
+        message: 'Admins is empty',
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({

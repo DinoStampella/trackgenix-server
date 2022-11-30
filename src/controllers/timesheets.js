@@ -5,8 +5,8 @@ export const getAllTimesheets = async (req, res) => {
   try {
     const timesheets = await Timesheets.find().populate('employee').populate('project').populate('task');
     if (timesheets.length === 0) {
-      return res.status(404).json({
-        message: 'Timesheets not found',
+      return res.status(200).json({
+        message: 'Timesheets is empty',
         data: undefined,
         error: false,
       });

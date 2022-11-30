@@ -6,8 +6,8 @@ export const getAllSuperAdmins = async (req, res) => {
   try {
     const superAdmin = await SuperAdmins.find();
     if (!superAdmin.length) {
-      return res.status(404).json({
-        message: 'Super admins not found',
+      return res.status(200).json({
+        message: 'Super admins is empty',
         data: undefined,
         error: false,
       });
