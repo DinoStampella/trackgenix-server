@@ -63,7 +63,9 @@ export const createAdmin = async (req, res) => {
       password: req.body.password,
     });
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'admin' });
-    const newAdmin = await Admins.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+    const body = { ...req.body };
+    delete body.password;
+    const newAdmin = await Admins.create({ ...body, firebaseUid: newFirebaseUser.uid });
 
     const admin = await newAdmin.save();
 
@@ -94,9 +96,11 @@ export const updateAdmin = async (req, res) => {
         error: true,
       });
     }
+    const body = { ...req.body };
+    delete body.password;
     const updatedAdmin = await Admins.findByIdAndUpdate(
       { _id: id },
-      { ...req.body },
+      { ...body },
       { new: true },
     );
     if (updatedAdmin == null) {

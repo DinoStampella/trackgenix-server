@@ -27,13 +27,11 @@ const validateUser = async (req, res, next) => {
         'any.required': 'email required',
       }),
     password: Joi.string().alphanum().min(8).max(50)
-      // .required()
       .messages({
-        // 'string.empty': 'password required',
         'string.alphanum': 'password must be letters and numbers only',
         'string.min': 'password should have a minimum length of 8 characters',
         'string.max': 'password should have a maximum length of 50 characters',
-        // 'any.required': 'password required',
+        'any.required': 'password required',
       }),
     dni: Joi.string().regex(/^\d+$/).min(7).max(11)
       .required()

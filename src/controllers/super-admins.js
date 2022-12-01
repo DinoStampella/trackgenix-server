@@ -63,9 +63,10 @@ export const createSuperAdmins = async (req, res) => {
       password: req.body.password,
     });
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'super-admin' });
-
+    const body = { ...req.body };
+    delete body.password;
     const newSuperAdmin = await SuperAdmins.create(
-      { ...req.body, firebaseUid: newFirebaseUser.uid },
+      { ...body, firebaseUid: newFirebaseUser.uid },
     );
 
     const superAdmin = await newSuperAdmin.save();
@@ -97,9 +98,11 @@ export const updateSuperAdmins = async (req, res) => {
         error: true,
       });
     }
+    const body = { ...req.body };
+    delete body.password;
     const updatedSuperAdmin = await SuperAdmins.findByIdAndUpdate(
       { _id: id },
-      { ...req.body },
+      { ...body },
       { new: true },
     );
     if (updatedSuperAdmin == null) {

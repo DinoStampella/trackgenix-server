@@ -64,8 +64,9 @@ export const createEmployee = async (req, res) => {
       password: req.body.password,
     });
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'employee' });
-
-    const newEmployee = await Employee.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+    const body = { ...req.body };
+    delete body.password;
+    const newEmployee = await Employee.create({ ...body, firebaseUid: newFirebaseUser.uid });
 
     const employee = await newEmployee.save();
 
@@ -96,9 +97,11 @@ export const updateEmployee = async (req, res) => {
         error: true,
       });
     }
+    const body = { ...req.body };
+    delete body.password;
     const updatedEmployee = await Employee.findByIdAndUpdate(
       { _id: id },
-      { ...req.body },
+      { ...body },
       { new: true },
     );
     if (!updatedEmployee) {
