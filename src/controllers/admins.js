@@ -6,9 +6,10 @@ export const getAllAdmins = async (req, res) => {
   try {
     const admins = await Admins.find();
     if (!admins.length) {
-      return res.status(404).json({
-        message: 'Admins not found',
-        error: true,
+      return res.status(200).json({
+        message: 'Admins is empty',
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({
@@ -55,23 +56,6 @@ export const getAdminById = async (req, res) => {
   }
 };
 
-// export const createAdmin = async (req, res) => {
-//   try {
-//     const admin = await Admins.create(req.body);
-//     return res.status(201).json({
-//       message: 'Admin created successfully',
-//       data: admin,
-//       error: false,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({
-//       message: `Unexpected error ${error}`,
-//       data: undefined,
-//       error: true,
-//     });
-//   }
-// };
-
 export const createAdmin = async (req, res) => {
   try {
     const newFirebaseUser = await firebase.auth().createUser({
@@ -79,7 +63,9 @@ export const createAdmin = async (req, res) => {
       password: req.body.password,
     });
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'admin' });
-    const newAdmin = await Admins.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+    const body = { ...req.body };
+    delete body.password;
+    const newAdmin = await Admins.create({ ...body, firebaseUid: newFirebaseUser.uid });
 
     const admin = await newAdmin.save();
 
@@ -98,7 +84,7 @@ export const createAdmin = async (req, res) => {
 
 export const updateAdmin = async (req, res) => {
   try {
-    await firebase.auth().updateUser(req.body.uid, {
+    await firebase.auth().updateUser(req.body.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });
@@ -110,9 +96,11 @@ export const updateAdmin = async (req, res) => {
         error: true,
       });
     }
+    const body = { ...req.body };
+    delete body.password;
     const updatedAdmin = await Admins.findByIdAndUpdate(
       { _id: id },
-      { ...req.body },
+      { ...body },
       { new: true },
     );
     if (updatedAdmin == null) {
@@ -138,7 +126,11 @@ export const updateAdmin = async (req, res) => {
 
 export const deleteAdmin = async (req, res) => {
   try {
-    await firebase.auth().deleteUser(req.body.uid);
+    const { token } = req.headers;
+    const user = await firebase.auth().verifyIdToken(token);
+    const firebaseUid = user.uid;
+    await firebase.auth().deleteUser(firebaseUid);
+
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({

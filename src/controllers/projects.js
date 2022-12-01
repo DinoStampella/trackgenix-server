@@ -5,10 +5,10 @@ export const getAllProjects = async (req, res) => {
   try {
     const projects = await Projects.find(req.query).populate('teamMembers.employee');
     if (!projects.length) {
-      return res.status(404).json({
-        message: 'Projects not found',
+      return res.status(200).json({
+        message: 'Projects is empty',
         data: undefined,
-        error: true,
+        error: false,
       });
     }
     return res.status(200).json({

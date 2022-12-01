@@ -6,9 +6,10 @@ export const getAllSuperAdmins = async (req, res) => {
   try {
     const superAdmin = await SuperAdmins.find();
     if (!superAdmin.length) {
-      return res.status(404).json({
-        message: 'Super admins not found',
-        error: true,
+      return res.status(200).json({
+        message: 'Super admins is empty',
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({
@@ -62,9 +63,10 @@ export const createSuperAdmins = async (req, res) => {
       password: req.body.password,
     });
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'super-admin' });
-
+    const body = { ...req.body };
+    delete body.password;
     const newSuperAdmin = await SuperAdmins.create(
-      { ...req.body, firebaseUid: newFirebaseUser.uid },
+      { ...body, firebaseUid: newFirebaseUser.uid },
     );
 
     const superAdmin = await newSuperAdmin.save();
@@ -84,7 +86,7 @@ export const createSuperAdmins = async (req, res) => {
 
 export const updateSuperAdmins = async (req, res) => {
   try {
-    await firebase.auth().updateUser(req.body.uid, {
+    await firebase.auth().updateUser(req.body.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });
@@ -96,9 +98,11 @@ export const updateSuperAdmins = async (req, res) => {
         error: true,
       });
     }
+    const body = { ...req.body };
+    delete body.password;
     const updatedSuperAdmin = await SuperAdmins.findByIdAndUpdate(
       { _id: id },
-      { ...req.body },
+      { ...body },
       { new: true },
     );
     if (updatedSuperAdmin == null) {
@@ -124,7 +128,8 @@ export const updateSuperAdmins = async (req, res) => {
 
 export const deletedSuperAdmins = async (req, res) => {
   try {
-    await firebase.auth().deleteUser(req.body.uid);
+    await firebase.auth().deleteUser(req.firebaseUid);
+
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
       return res.status(400).json({

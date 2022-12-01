@@ -5,9 +5,10 @@ export const getAllTasks = async (req, res) => {
   try {
     const tasks = await Tasks.find();
     if (!tasks.length) {
-      return res.status(404).json({
-        message: 'Tasks not found',
-        error: true,
+      return res.status(200).json({
+        message: 'Tasks is empty',
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({

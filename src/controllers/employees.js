@@ -6,9 +6,10 @@ export const getAllEmployees = async (req, res) => {
   try {
     const employees = await Employee.find();
     if (!employees.length) {
-      return res.status(404).json({
-        message: 'Employees not found',
-        error: true,
+      return res.status(200).json({
+        message: 'Employees is empty',
+        data: undefined,
+        error: false,
       });
     }
     return res.status(200).json({
@@ -63,8 +64,9 @@ export const createEmployee = async (req, res) => {
       password: req.body.password,
     });
     await firebase.auth().setCustomUserClaims(newFirebaseUser.uid, { role: 'employee' });
-
-    const newEmployee = await Employee.create({ ...req.body, firebaseUid: newFirebaseUser.uid });
+    const body = { ...req.body };
+    delete body.password;
+    const newEmployee = await Employee.create({ ...body, firebaseUid: newFirebaseUser.uid });
 
     const employee = await newEmployee.save();
 
@@ -83,7 +85,7 @@ export const createEmployee = async (req, res) => {
 
 export const updateEmployee = async (req, res) => {
   try {
-    await firebase.auth().updateUser(req.body.uid, {
+    await firebase.auth().updateUser(req.body.firebaseUid, {
       email: req.body.email,
       password: req.body.password,
     });
@@ -95,9 +97,11 @@ export const updateEmployee = async (req, res) => {
         error: true,
       });
     }
+    const body = { ...req.body };
+    delete body.password;
     const updatedEmployee = await Employee.findByIdAndUpdate(
       { _id: id },
-      { ...req.body },
+      { ...body },
       { new: true },
     );
     if (!updatedEmployee) {
@@ -123,7 +127,11 @@ export const updateEmployee = async (req, res) => {
 
 export const deleteEmployee = async (req, res) => {
   try {
-    await firebase.auth().deleteUser(req.body.uid);
+    const { token } = req.headers;
+    const user = await firebase.auth().verifyIdToken(token);
+    const firebaseUid = user.uid;
+    await firebase.auth().deleteUser(firebaseUid);
+
     const { id } = req.params;
     if (!isValidObjectId(id)) {
       return res.status(400).json({
