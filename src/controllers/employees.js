@@ -127,10 +127,8 @@ export const updateEmployee = async (req, res) => {
 
 export const deleteEmployee = async (req, res) => {
   try {
-    const { token } = req.headers;
-    const user = await firebase.auth().verifyIdToken(token);
-    const firebaseUid = user.uid;
-    await firebase.auth().deleteUser(firebaseUid);
+    const { uid } = await req.headers;
+    await firebase.auth().deleteUser(uid);
 
     const { id } = req.params;
     if (!isValidObjectId(id)) {
