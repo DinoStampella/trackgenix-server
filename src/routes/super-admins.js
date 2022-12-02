@@ -10,7 +10,7 @@ const router = express.Router();
 router
   .get('/', checkAuth(['super-admin']), getAllSuperAdmins)
   .get('/:id', checkAuth(['super-admin']), getSuperAdminsById)
-  .post('/', validateUser, createSuperAdmins)
+  .post('/', checkAuth(['super-admin']), validateUser, createSuperAdmins)
   .put('/:id', checkAuth(['super-admin']), validateUser, updateSuperAdmins)
   .delete('/:id', checkAuth(['super-admin']), deletedSuperAdmins);
 
