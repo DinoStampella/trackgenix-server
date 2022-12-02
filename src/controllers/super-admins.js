@@ -128,8 +128,8 @@ export const updateSuperAdmins = async (req, res) => {
 
 export const deletedSuperAdmins = async (req, res) => {
   try {
-    const { firebaseUid } = req.headers;
-    await firebase.auth().deleteUser(firebaseUid);
+    const { uid } = await req.headers;
+    await firebase.auth().deleteUser(uid);
 
     const { id } = req.params;
     if (!isValidObjectId(req.params.id)) {
