@@ -16,7 +16,7 @@ const checkAuth = (roles) => async (req, res, next) => {
 
     return next();
   } catch (error) {
-    return res.status(401).json({ message: error.toString() });
+    return res.status(401).json({ message: error.toString(), data: undefined, error: true });
   }
 };
 
