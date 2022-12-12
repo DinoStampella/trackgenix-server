@@ -68,7 +68,7 @@ const validateProject = (req, res, next) => {
           'string.empty': 'Employee Product Manager must be a valid employee',
           'any.required': 'Employee Product Manager must be a valid employee',
         }),
-      role: Joi.string().valid('PM')
+      role: Joi.string().valid('PM').required()
         .messages({
           'string.empty': 'role required',
           'any.only': 'role can only be PM',
@@ -82,6 +82,8 @@ const validateProject = (req, res, next) => {
           'number.max': 'Rate should have a maximum of 1000',
           'any.required': 'Rate required',
         }),
+    }).required().messages({
+      'any.required': 'Project must have an employee PM',
     }),
     teamMembers: Joi.array().items(teamMembersValidation),
   });
