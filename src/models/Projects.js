@@ -28,6 +28,18 @@ const projectsSchema = new Schema(
       type: String,
       required: true,
     },
+    employeePM: {
+      employee: {
+        type: Schema.Types.ObjectId,
+        ref: 'Employee',
+        required: true,
+      },
+      role: {
+        type: String,
+        enum: ['PM'],
+      },
+      rate: Number,
+    },
     teamMembers: [
       {
         _id: false,

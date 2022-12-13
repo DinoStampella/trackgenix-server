@@ -3,7 +3,9 @@ import isValidObjectId from '../utils/validateObjectId';
 
 export const getAllProjects = async (req, res) => {
   try {
-    const projects = await Projects.find(req.query).populate('teamMembers.employee');
+    const projects = await Projects.find(req.query)
+      .populate('teamMembers.employee')
+      .populate('employeePM.employee');
     if (!projects.length) {
       return res.status(200).json({
         message: 'Projects is empty',
@@ -34,7 +36,9 @@ export const getProjectById = async (req, res) => {
         error: true,
       });
     }
-    const project = await Projects.findById(id).populate('teamMembers.employee');
+    const project = await Projects.findById(id)
+      .populate('teamMembers.employee')
+      .populate('employeePM.employee');
     if (!project) {
       return res.status(404).json({
         message: `Couldn't find project with id ${id}`,

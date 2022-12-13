@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3f6155b6-f478-41c2-a6e7-934b3beda0cd",
+		"_postman_id": "c69e0672-aa44-4e39-894a-9e64c231a560",
 		"name": "Trackgenix",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23767643"
+		"_exporter_id": "23716914"
 	},
 	"item": [
 		{
@@ -367,10 +367,16 @@
 					"name": "Post Projects Create",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"1\",\r\n    \"description\": \"\",\r\n    \"startDate\": \"07-19-2022\",\r\n    \"endDate\": \"10-16-2021\",\r\n    \"active\": false,\r\n    \"clientName\": \"Magic\",\r\n    \"teamMembers\": [\r\n      {\r\n        \"name\": \"Pedro\",\r\n        \"rol\": \"DEV\",\r\n        \"rate\": \"755\"\r\n      },\r\n      {\r\n        \"name\": \"Ana\",\r\n        \"rol\": \"DEV\",\r\n        \"rate\": \"755\"\r\n      }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"name\": \"Project with PM\",\r\n    \"description\": \"Testing project models to add employeePM params on schema\",\r\n    \"startDate\": \"07-19-2022\",\r\n    \"endDate\": \"10-16-2021\",\r\n    \"active\": false,\r\n    \"clientName\": \"Magic\",\r\n    \"teamMembers\": [\r\n      {\r\n        \"employee\": \"638d5a32a02d43b09565a420\",\r\n        \"role\": \"DEV\",\r\n        \"rate\": 255\r\n      }\r\n    ],\r\n    \"employeePM\": {\r\n        \"employee\": \"6387e745945cf04b60a7a0eb\",\r\n        \"role\": \"PM\",\r\n        \"rate\": 500\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -378,11 +384,11 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/projects/",
+							"raw": "localhost:4000/projects/",
 							"host": [
 								"localhost"
 							],
-							"port": "3000",
+							"port": "4000",
 							"path": [
 								"projects",
 								""
