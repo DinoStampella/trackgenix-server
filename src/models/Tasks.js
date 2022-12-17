@@ -4,7 +4,6 @@ const taskSchema = new mongoose.Schema(
   {
     type: {
       type: String,
-      enum: ['Frontend', 'Backend', 'Testing'],
       required: true,
     },
   },
